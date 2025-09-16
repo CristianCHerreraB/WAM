@@ -1,0 +1,51 @@
+/* boton.css */
+
+/* Botón primario */
+.btn-natacion-primario {
+  background-color: #00bcd4;
+  color: white;
+  border: none;
+  border-radius: 12px;      /* Bordes redondeados */
+  padding: 0.6rem 1rem;     /* Tamaño cómodo */
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;              /* Ancho completo */
+  box-sizing: border-box;   /* Para que padding no aumente ancho */
+  height: 45px;             /* Altura fija para uniformidad */
+}
+
+.btn-natacion-primario:hover,
+.btn-natacion-primario:focus {
+  background-color: #0097a7;
+  color: white;
+  outline: none;
+  box-shadow: 0 0 8px #0097a7;
+}
+
+/* Botón secundario */
+.btn-natacion-secundario {
+  background-color: #009688;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  box-sizing: border-box;
+  height: 45px;
+}
+
+.btn-natacion-secundario:hover,
+.btn-natacion-secundario:focus {
+  background-color: #00796b;
+  color: white;
+  outline: none;
+  box-shadow: 0 0 8px #00796b;
+}

@@ -1,0 +1,55 @@
+/* general.css */
+
+/* Fondo global */
+body {
+  background-color: #e0f7fa; /* Turquesa muy suave */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+/* Tarjetas */
+.card {
+  border-radius: 15px;
+  border: none;
+}
+
+/* Inputs */
+.form-control {
+  border-radius: 10px;
+  padding: 0.6rem 1rem;
+  border: 1px solid #b2ebf2;
+}
+
+.form-control:focus {
+  border-color: #00bcd4;
+  box-shadow: 0 0 6px rgba(0, 188, 212, 0.6);
+}
+
+/* Estilos modales */
+.modal-content {
+  border-radius: 12px;
+}
+
+.custom-header {
+  background-color: #00bcd4;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.custom-footer {
+  background-color: #e0f7fa;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.btn-custom-primary {
+  background-color: #00bcd4;
+  color: #fff;
+  border-radius: 8px;
+  border: none;
+  padding: 0.6rem 1rem;
+}
+
+.btn-custom-primary:hover {
+  background-color: #0097a7;
+}
