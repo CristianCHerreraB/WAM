@@ -12,7 +12,7 @@ Route::get('/signIn', function () {
 })->name('signIn');
 
 // Página principal
-Route::get('/', [PageController::class, 'dashboard'])->name('dashboard');
+Route::get('/dashboard', [PageController::class, 'dashboard'])->name('dashboard');
 
 // Rutas para las diferentes páginas
 Route::get('/dashboard', [PageController::class, 'dashboard'])->name('dashboard');
@@ -24,4 +24,4 @@ Route::get('/idiomas', [PageController::class, 'idiomas'])->name('idiomas');
 Route::get('/marketplace', [PageController::class, 'marketplace'])->name('marketplace');
 Route::get('/password', [PageController::class, 'password'])->name('password');
 Route::get('/otras-apps', [PageController::class, 'otrasApps'])->name('otras-apps');
-Route::get('/ayuda', [PageController::class, 'ayuda'])->name('ayuda');
+Route::get('/ayuda', [PageController::class, 'ayuda'])->name('ayuda'); 
