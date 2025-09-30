@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClavadoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 
@@ -25,3 +26,10 @@ Route::get('/marketplace', [PageController::class, 'marketplace'])->name('market
 Route::get('/password', [PageController::class, 'password'])->name('password');
 Route::get('/otras-apps', [PageController::class, 'otrasApps'])->name('otras-apps');
 Route::get('/ayuda', [PageController::class, 'ayuda'])->name('ayuda'); 
+
+
+// Página principal Torneos en curso
+Route::get('/all_torneos', [ClavadoController::class, 'index'])->name('index');
+Route::get('/torneos', [PageController::class, 'torneosEnCurso'])->name('torneosEnCurso');
+Route::get('/qualify', [PageController::class, 'qualifyAthlete'])->name('qualifyAthlete');
+Route::get('/torneos/result', [PageController::class, 'torneosResult'])->name('torneosResult');
