@@ -2,158 +2,556 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Login - Plataforma Deportiva</title>
-    <!-- Bootstrap 5.3.8 -->
-    @vite(['resources/css/boton.css', 'resources/css/modal.css', 'resources/css/general.css'])
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WORLD AQUATICS - Login</title>
 
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome para íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <style>
+        /* -------- Estilos Globales -------- */
+        :root {
+            --primary-color: #5bc0de;
+            --secondary-color: #007bff;
+            --accent-color: #17a2b8;
+            --text-color: #333;
+            --light-bg: #f0f8ff;
+            --white: #ffffff;
+            --dark-blue: #0056b3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* -------- Carrusel de Anuncios -------- */
+        .carousel-container {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .carousel-img {
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .carousel-caption {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        /* -------- Contenido Principal -------- */
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .content-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            width: 100%;
+            gap: 60px;
+        }
+
+        /* -------- Logo -------- */
+        .logo-section {
+            flex: 1;
+            text-align: center;
+        }
+
+        .logo-img {
+            max-width: 70%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-title {
+            color: var(--secondary-color);
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .logo-subtitle {
+            color: var(--text-color);
+            font-size: 1.2rem;
+            line-height: 1.5;
+            margin-top: 10px;
+        }
+
+        /* -------- Formulario de Login -------- */
+        .login-section {
+            flex: 1;
+            max-width: 450px;
+        }
+
+        .login-box {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-top: 5px solid var(--primary-color);
+        }
+
+        .login-title {
+            color: var(--secondary-color);
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        /* -------- Inputs -------- */
+        .input-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .input-group-text {
+            background-color: var(--light-bg);
+            border: 1px solid #ced4da;
+            border-right: none;
+        }
+
+        .form-control {
+            border-left: none;
+            padding-left: 0;
+        }
+
+        .form-control:focus {
+            box-shadow: none;
+            border-color: var(--primary-color);
+        }
+
+        /* -------- Botones -------- */
+        .btn-primary-custom {
+            background-color: var(--primary-color);
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-primary-custom:hover {
+            background-color: var(--accent-color);
+            box-shadow: 0 4px 12px rgba(91, 192, 222, 0.4);
+        }
+
+        .btn-secondary-custom {
+            background-color: var(--white);
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-secondary-custom:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        /* -------- Enlaces -------- */
+        .forgot-password {
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .forgot-password a {
+            color: var(--dark-blue);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .forgot-password a:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        /* -------- Divisor -------- */
+        .divider {
+            height: 1px;
+            background: #ddd;
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .divider::before {
+            content: "o";
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--white);
+            padding: 0 10px;
+            color: #777;
+        }
+
+        /* -------- Modal -------- */
+        .modal-header {
+            background-color: var(--light-bg);
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .modal-title {
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+
+        /* -------- Footer -------- */
+        .footer {
+            background-color: #000;
+            color: #fff;
+            padding: 30px 0;
+            margin-top: auto;
+        }
+
+        .footer h5 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .footer p {
+            margin: 0 0 10px;
+            line-height: 1.6;
+        }
+
+        .footer-logo-img {
+            max-width: 120px;
+            height: auto;
+        }
+
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 5px;
+            font-size: 14px;
+        }
+
+        .footer a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+        .copyright {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #bbb;
+        }
+
+        /*------*/
+        .btn-natacion-primario {
+            background-color: #00bcd4;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            /* Bordes redondeados */
+            padding: 0.6rem 1rem;
+            /* Tamaño cómodo */
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+            text-align: center;
+            cursor: pointer;
+            width: 100%;
+            /* Ancho completo */
+            box-sizing: border-box;
+            /* Para que padding no aumente ancho */
+            height: 45px;
+            /* Altura fija para uniformidad */
+        }
+
+        /* -------- Responsive -------- */
+        @media (max-width: 992px) {
+            .content-wrapper {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .logo-section {
+                order: 1;
+            }
+
+            .login-section {
+                order: 2;
+                max-width: 100%;
+            }
+
+            .logo-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .login-box {
+                padding: 30px 20px;
+            }
+
+            .carousel-container {
+                height: 150px;
+            }
+
+            .carousel-img {
+                height: 150px;
+            }
+        }
+    </style>
 </head>
 
-<body class="bg-light">
-
-    <div class="container d-flex justify-content-center align-items-center vh-100">
-        <div class="row w-100">
-
-            <!-- Columna izquierda con logo + texto -->
-            <div class="col-md-6 text-center text-md-start mb-4 mb-md-0">
-                <div class="text-center mb-3">
-                    <img src="{{ asset('images/LogoWorldAquatics.jpeg') }}" alt="Logo" class="img-fluid" style="max-width: 180px; height: auto;" />
+<body>
+    <!-- Carrusel de Anuncios -->
+    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <!-- Imagen 1: Entrenamiento de natación -->
+            <div class="carousel-item active">
+                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="d-block w-100 carousel-img" alt="Entrenamiento de natación">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Mejora tu técnica</h5>
+                    <p>Programas de entrenamiento personalizados para todos los niveles</p>
                 </div>
-                <h4 class="fw-bold text-primary">Plataforma - Plataforma - Plataforma</h4>
-                <p class="text-muted">Comentario - Comentario - Comentario - Comentario</p>
             </div>
 
-            <!-- Columna derecha con formulario -->
-            <div class="col-md-6 d-flex justify-content-center">
-                <div class="card shadow-sm p-4 w-100" style="max-width: 400px;">
-                    <form action="inicio.html" method="get">
-                        <div class="mb-3">
-                            <input type="email" class="form-control"
-                                placeholder="Correo electrónico o número de teléfono" required />
-                        </div>
-                        <div class="mb-3">
-                            <input type="password" class="form-control" placeholder="Contraseña" required />
+            <!-- Imagen 2: Competición -->
+            <div class="carousel-item">
+                <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="d-block w-100 carousel-img" alt="Competición de natación">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Próximos eventos</h5>
+                    <p>Participa en nuestras competiciones internacionales</p>
+                </div>
+            </div>
+
+            <!-- Imagen 3: Equipamiento -->
+            <div class="carousel-item">
+                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="d-block w-100 carousel-img" alt="Equipamiento de natación">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Tienda oficial</h5>
+                    <p>Encuentra el mejor equipamiento para tu práctica</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controles del carrusel -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Siguiente</span>
+        </button>
+    </div>
+
+    <!-- Contenido Principal -->
+    <div class="main-content">
+        <div class="content-wrapper">
+            <!-- Logo y descripción -->
+            <div class="logo-section">
+                <!-- Logo de la plataforma -->
+                <div class="mb-4">
+                    <img src="{{ asset('images/LogoWorldAquatics.jpeg') }}" alt="Logo World Aquatics" class="logo-img">
+                </div>
+
+            </div>
+
+            <!-- Formulario de Login -->
+            <div class="login-section">
+                <div class="login-box">
+                    <h2 class="login-title">Iniciar Sesión</h2>
+                    <form id="loginForm">
+                        <!-- Campo de correo electrónico -->
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                            <input type="email" id="email" class="form-control" placeholder="Correo electrónico" required>
                         </div>
 
-                        <!-- Botón de login -->
+                        <!-- Campo de contraseña -->
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                            <input type="password" id="password" class="form-control" placeholder="Contraseña" required>
+                        </div>
+
+                        <!-- Botón de inicio de sesión -->
                         <div class="d-grid mb-3">
-                            <button type="submit" class="btn-natacion-primario btn-natacion-w-100">Iniciar
-                                sesión</button>
+                            <a type="submit" class="btn-natacion-primario btn-natacion-w-100">Iniciar
+                                sesión</a>
+                        </div>
+                        <!-- Enlace "Olvidaste tu contraseña" -->
+                        <div class="forgot-password">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">¿Olvidaste tu contraseña?</a>
                         </div>
 
-                        <!-- Link para recuperar contraseña -->
-                        <div class="text-center mb-3">
-                            <a href="#" class="small" data-bs-toggle="modal" data-bs-target="#modalRecuperar">¿Olvidaste
-                                tu contraseña?</a>
-                        </div>
+                        <!-- Divisor -->
+                        <div class="divider"></div>
 
-                        <hr />
-
-                        <!-- Botón de registro abre modal -->
-                        <div class="d-grid">
-                            <a href="{{ route('signIn') }}" class="btn-natacion-secundario">Crear una cuenta</a>                  
-
-                        </div>
+                        <!-- Botón de registro -->
+                        <a href="{{ route('signIn') }}"  class="btn btn-secondary-custom" id="createAccount">Crear una cuenta</a>
                     </form>
                 </div>
             </div>
-
         </div>
     </div>
 
-    <!-- Modal Bienvenida -->
-    <div class="modal fade" id="modalBienvenida" tabindex="-1" aria-labelledby="modalBienvenidaLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content rounded-3 shadow-lg">
-                <!-- Encabezado -->
-                <div class="modal-header custom-header text-white">
-                    <h5 class="modal-title" id="modalBienvenidaLabel">¡Bienvenido!</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                        aria-label="Cerrar"></button>
-                </div>
-                <!-- Cuerpo -->
-                <div class="modal-body">
-                    <p>
-                        Bienvenido
-                    </p>
-                </div>
-                <!-- Footer -->
-                <div class="modal-footer custom-footer">
-                    <button type="button" class="btn btn-custom-primary" data-bs-dismiss="modal">Continuar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- Modal Recuperar Contraseña -->
-    <div class="modal fade" id="modalRecuperar" tabindex="-1" aria-labelledby="modalRecuperarLabel" aria-hidden="true">
+    <!-- Modal para recuperar contraseña -->
+    <!-- Modal para recuperar contraseña -->
+    <div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-labelledby="resetPasswordModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalRecuperarLabel">Recuperar Contraseña</h5>
-                    <button type="submit" class="btn-natacion-primario btn-natacion-w-100">Registrarse</button>
+                    <h5 class="modal-title" id="resetPasswordModalLabel">Recuperar Contraseña</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="recoverForm">
                         <div class="mb-3">
                             <label for="recoverEmail" class="form-label">Correo electrónico</label>
-                            <input type="email" class="form-control" id="recoverEmail" placeholder="ejemplo@correo.com"
-                                required />
+                            <input type="email" class="form-control" id="recoverEmail" placeholder="ejemplo@correo.com" required>
                         </div>
-                        <button type="submit" class="btn-natacion-secundario btn-natacion-w-100">Enviar enlace</button>
+                        <button type="submit" class="btn btn-primary-custom">Enviar enlace</button>
                     </form>
+                </div>
+                <!-- Contenedor de información -->
+                <div class="modal-footer justify-content-center">
+                    <div class="alert alert-info w-100 text-center mb-0" role="alert">
+                        <i class="fas fa-info-circle"></i> Ingresa tu correo y revisa tu bandeja de entrada para el enlace de recuperación.
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal Registro -->
-    <div class="modal fade" id="modalRegistro" tabindex="-1" aria-labelledby="modalRegistroLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalRegistroLabel">Crear una cuenta</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row align-items-center">
+                <!-- Columna izquierda: Información de contacto -->
+                <div class="col-md-6">
+                    <h5>Mexico</h5>
+                    <p>
+                        Olimpo de deportistas<br>
+                        Olimpo de deportistas<br>
+                        Olimpo de deportistas
+                    </p>
+                    <p>
+                        Tel: +52 21 310 47 10<br>
+                        Fax: +52 21 312 66 10<br>
+                        Linea de soporte: +52 21 310 47 10<br>
+                        Correo de soporte: +52 21 310 47 10 <br>
+                    </p>
                 </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="mb-3">
-                            <label for="regEmail" class="form-label">Correo electrónico</label>
-                            <input type="email" class="form-control" id="regEmail" placeholder="ejemplo@correo.com"
-                                required />
-                        </div>
-                        <div class="mb-3">
-                            <label for="regPassword" class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" id="regPassword" placeholder="********"
-                                required />
-                        </div>
-                        <div class="mb-3">
-                            <label for="regConfirmPassword" class="form-label">Confirmar Contraseña</label>
-                            <input type="password" class="form-control" id="regConfirmPassword" placeholder="********"
-                                required />
-                        </div>
-                        <button type="submit" class="btn btn-primary-custom w-100">Registrarse</button>
-                    </form>
+
+                <!-- Columna derecha: Logo y derechos de autor -->
+                <div class="col-md-6 text-md-end text-center">
+                    <div class="footer-logo mb-3">
+                        <img src="{{ asset('images/LogoWorldAquatics.jpeg') }}" alt="Logo World Aquatics" class="footer-logo-img">
+                    </div>
+                    <div class="copyright">
+                        Copyright 2018 - 2025 World Aquatics. All rights reserved.
+                        <a href="#">Legal</a> | <a href="#">Privacy</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </footer>
 
-    <!-- Bootstrap JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+    <!-- Script personalizado -->
     <script>
-        // Mostrar modal bienvenida automáticamente al cargar la página
-        window.onload = () => {
-            const bienvenidaModal = new bootstrap.Modal(document.getElementById("modalBienvenida"));
-            bienvenidaModal.show();
-        };
+        // Validación del formulario de login
+        document.addEventListener('DOMContentLoaded', function() {
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const loginButton = document.getElementById('loginButton');
+            const loginForm = document.getElementById('loginForm');
+            const recoverForm = document.getElementById('recoverForm');
+
+            // Función para validar campos
+            function validateForm() {
+                const email = emailInput.value.trim();
+                const password = passwordInput.value.trim();
+
+                // Validación básica de email
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                const isEmailValid = emailRegex.test(email);
+
+                // Validación de contraseña (mínimo 6 caracteres)
+                const isPasswordValid = password.length >= 6;
+
+                // Habilitar/deshabilitar botón
+                loginButton.disabled = !(isEmailValid && isPasswordValid);
+            }
+
+            // Event listeners para validación en tiempo real
+            emailInput.addEventListener('input', validateForm);
+            passwordInput.addEventListener('input', validateForm);
+
+            // Manejo del envío del formulario de login
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Simulación de inicio de sesión exitoso
+                alert('Inicio de sesión exitoso. Redirigiendo al dashboard...');
+
+                // Aquí normalmente redirigirías al usuario
+                // window.location.href = 'dashboard.html';
+            });
+
+            // Manejo del formulario de recuperación
+            recoverForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const recoverEmail = document.getElementById('recoverEmail').value;
+
+                if (recoverEmail) {
+                    alert('Se ha enviado un enlace de recuperación a: ' + recoverEmail);
+
+                    // Cerrar el modal
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('resetPasswordModal'));
+                    modal.hide();
+                } else {
+                    alert('Por favor ingrese su correo electrónico');
+                }
+            });
+
+            // Botón crear cuenta
+            document.getElementById('createAccount').addEventListener('click', function() {
+                alert('Redirigiendo al formulario de registro...');
+                // Aquí normalmente redirigirías al formulario de registro
+                // window.location.href = 'register.html';
+            });
+        });
     </script>
 </body>
 

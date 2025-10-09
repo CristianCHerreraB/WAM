@@ -55,4 +55,8 @@ class PageController extends Controller
     {
         return view('user.content.dashboard');
     }
+    public function admin()
+    {
+        return view('userManagment');
+    }
 }
