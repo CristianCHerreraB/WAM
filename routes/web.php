@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClavadoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\Admin\UserController;
@@ -29,13 +30,3 @@ Route::get('/marketplace', [PageController::class, 'marketplace'])->name('market
 Route::get('/password', [PageController::class, 'password'])->name('password');
 Route::get('/otras-apps', [PageController::class, 'otrasApps'])->name('otras-apps');
 Route::get('/ayuda', [PageController::class, 'ayuda'])->name('ayuda'); 
-Route::get('/admin', [PageController::class, 'admin'])->name('admin'); 
-
-
-// Rutas de administración de usuarios por rol
-Route::prefix('administrador')->name('administrador')->group(function () {
-    Route::get('/usuarios/{role?}', [UserController::class, 'index'])->name('usuarios.index');
-    Route::post('/usuarios', [UserController::class, 'store'])->name('usuarios.store');
-    Route::put('/usuarios/{id}', [UserController::class, 'update'])->name('usuarios.update');
-    Route::delete('/usuarios/{id}', [UserController::class, 'destroy'])->name('usuarios.destroy');
-});
