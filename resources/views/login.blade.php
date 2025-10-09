@@ -415,7 +415,7 @@
                         <div class="divider"></div>
 
                         <!-- Botón de registro -->
-                        <a href="{{ route('signIn') }}"  class="btn btn-secondary-custom" id="createAccount">Crear una cuenta</a>
+                        <a href="{{ route('signIn') }}" class="btn btn-secondary-custom" id="createAccount">Crear una cuenta</a>
                     </form>
                 </div>
             </div>
@@ -545,12 +545,6 @@
                 }
             });
 
-            // Botón crear cuenta
-            document.getElementById('createAccount').addEventListener('click', function() {
-                alert('Redirigiendo al formulario de registro...');
-                // Aquí normalmente redirigirías al formulario de registro
-                // window.location.href = 'register.html';
-            });
         });
     </script>
 </body>
