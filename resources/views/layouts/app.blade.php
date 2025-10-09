@@ -292,6 +292,14 @@
         display: block;
       }
     }
+        .placeholder {
+      display: inline-block;
+      min-height: 1em;
+      vertical-align: middle;
+      cursor: wait;
+      background-color: #000810 !important;
+      opacity: .5;
+    }
   </style>
 </head>
 
@@ -399,7 +407,7 @@
 
   <!-- Main Content -->
   <div class="main-content" id="mainContent">
-    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel" >
       <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
         <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -460,7 +468,9 @@
         sidebarOverlay.classList.remove('active');
       });
     });
+    
   </script>
+  
 </body>
 
 </html>

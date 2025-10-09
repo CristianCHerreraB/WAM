@@ -68,4 +68,8 @@ class PageController extends Controller
     public function torneosResult(){
      return view('user.content.maincontent.all_torneos_result');   
     }
+
+     public function addDives(){
+     return view('user.content.maincontent.add_dives');   
+    }
 }

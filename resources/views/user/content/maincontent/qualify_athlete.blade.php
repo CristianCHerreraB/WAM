@@ -4,112 +4,199 @@
 
 @section('content')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.6.6/css/flag-icons.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <div class="content-card mb-4">
   <div class="card-header bg-success d-flex justify-content-between align-items-center">
-    <div>
-      <img src="https://flagcdn.com/w40/us.png" alt="USA"> USA - Michael Johnson - Ronda #1
+    <div class="row">
+      <div class="col col-md-2"><img id="bandera" src="" width="32" height="20" alt="MX"> </div>
+      <div class="col col-md-10">
+        <h5 id="hInfo"></h5>
+      </div>
+      <div class="col col-md-12 card-text placeholder-glow" id="loadnextgame_2">
+        <span class="placeholder col-4"></span>
+        <span class="placeholder col-4"></span>
+        <span class="placeholder col-4"></span>
+      </div>
     </div>
   </div>
   <div class="card-body">
-    <div class="row">
-      <!-- Competencias -->
-      <div class="col-md-12">
-        <form action="/submit" method="post" id="form-ejecucion">
-          <table class="table">
-            <thead>
-              <tr>
-                <th colspan="6">
-                  Seleccione un puntaje de ejecución
-                  <strong class="float-end">Total seleccionado: <span id="total">0</span></strong>
-                </th>
-              </tr>
-            </thead>
-            <tbody class="table-group-divider">
-              <tr>
-                <td><input type="radio" name="ejecucion_1" value="1"> 1</td>
-                <td><input type="radio" name="ejecucion_2" value="1.5"> 1.5</td>
-                <td><input type="radio" name="ejecucion_3" value="2"> 2</td>
-                <td><input type="radio" name="ejecucion_4" value="2.5"> 2.5</td>
-                <td><input type="radio" name="ejecucion_5" value="3"> 3</td>
-                <td><input type="radio" name="ejecucion_6" value="3.5"> 3.5</td>
-              </tr>
-              <tr>
-                <td><input type="radio" name="ejecucion_7" value="4"> 4</td>
-                <td><input type="radio" name="ejecucion_8" value="4.5"> 4.5</td>
-                <td><input type="radio" name="ejecucion_9" value="5"> 5</td>
-                <td><input type="radio" name="ejecucion_10" value="5.5"> 5.5</td>
-                <td><input type="radio" name="ejecucion_11" value="6"> 6</td>
-                <td><input type="radio" name="ejecucion_12" value="6.5"> 6.5</td>
-              </tr>
-              <tr>
-                <td><input type="radio" name="ejecucion_13" value="7"> 7</td>
-                <td><input type="radio" name="ejecucion_14" value="7.5"> 7.5</td>
-                <td><input type="radio" name="ejecucion_15" value="8"> 8</td>
-                <td><input type="radio" name="ejecucion_16" value="8.5"> 8.5</td>
-                <td><input type="radio" name="ejecucion_17" value="9"> 9</td>
-                <td><input type="radio" name="ejecucion_18" value="9.5"> 9.5</td>
-              </tr>
-              <tr>
-                <td><input type="radio" name="ejecucion_19" value="10"> 10</td>
-              </tr>
-            </tbody>
-          </table>
-          <button type="submit" class="btn btn-primary">Enviar</button>
-        </form>
+    <div id="loadnextgame">
+      <div class="row justify-content-center">
+        <div class="spinner-border" role="status" style="height: 100px; width: 100px;">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="row justify-content-center">
+          <H4 style="text-align: center;">El juego está por comenzar, por favor espera.</H4>
+        </div>
       </div>
     </div>
-    <br>
-    <div class="row">
-      <!-- Competencias -->
-      <div class="col-md-12">
-        <form action="/submit" method="post" id="form-sinc">
-          <table class="table">
-            <thead>
-              <tr>
-                <th colspan="6">
-                  Seleccione un puntaje de sincronización
-                  <strong class="float-end">Total seleccionado: <span id="total_sinc">0</span></strong>
-                </th>
-              </tr>
-            </thead>
-            <tbody class="table-group-divider">
-              <tr>
-                <td><input type="radio" name="sinc_1" value="1"> 1</td>
-                <td><input type="radio" name="sinc_2" value="1.5"> 1.5</td>
-                <td><input type="radio" name="sinc_3" value="2"> 2</td>
-                <td><input type="radio" name="sinc_4" value="2.5"> 2.5</td>
-                <td><input type="radio" name="sinc_5" value="3"> 3</td>
-                <td><input type="radio" name="sinc_6" value="3.5"> 3.5</td>
-              </tr>
-              <tr>
-                <td><input type="radio" name="sinc_7" value="4"> 4</td>
-                <td><input type="radio" name="sinc_8" value="4.5"> 4.5</td>
-                <td><input type="radio" name="sinc_9" value="5"> 5</td>
-                <td><input type="radio" name="sinc_10" value="5.5"> 5.5</td>
-                <td><input type="radio" name="sinc_11" value="6"> 6</td>
-                <td><input type="radio" name="sinc_12" value="6.5"> 6.5</td>
-              </tr>
-              <tr>
-                <td><input type="radio" name="sinc_13" value="7"> 7</td>
-                <td><input type="radio" name="sinc_14" value="7.5"> 7.5</td>
-                <td><input type="radio" name="sinc_15" value="8"> 8</td>
-                <td><input type="radio" name="sinc_16" value="8.5"> 8.5</td>
-                <td><input type="radio" name="sinc_17" value="9"> 9</td>
-                <td><input type="radio" name="sinc_18" value="9.5"> 9.5</td>
-              </tr>
-              <tr>
-                <td><input type="radio" name="sinc_19" value="10"> 10</td>
-              </tr>
-            </tbody>
-          </table>
-          <button type="submit" class="btn btn-primary">Enviar</button>
-        </form>
+    <div id="form_responce">
+      <div class="row">
+        <!-- Competencias -->
+        <div class="col-md-12">
+          <form action="/save_check" method="post" id="form-ejecucion">
+             @csrf
+             <input type="text"  value="" id="id_clavado" hidden>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th colspan="6">
+                    Seleccione un puntaje de ejecución
+                    <!-- <strong class="float-end">Total seleccionado: <span id="total">0</span></strong>-->
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="table-group-divider">
+                <tr>
+                  <td><input type="radio" name="ejecucion" value="1"> 0</td>
+                  <td><input type="radio" name="ejecucion" value="1.5"> 0.5</td>
+                  <td><input type="radio" name="ejecucion" value="1"> 1</td>
+                  <td><input type="radio" name="ejecucion" value="1.5"> 1.5</td>
+                </tr>
+                <tr>
+                  <td><input type="radio" name="ejecucion" value="2"> 2</td>
+                  <td><input type="radio" name="ejecucion" value="2.5"> 2.5</td>
+                  <td><input type="radio" name="ejecucion" value="3"> 3</td>
+                  <td><input type="radio" name="ejecucion" value="3.5"> 3.5</td>
+                </tr>
+                <tr>
+                  <td><input type="radio" name="ejecucion" value="4"> 4</td>
+                  <td><input type="radio" name="ejecucion" value="4.5"> 4.5</td>
+                  <td><input type="radio" name="ejecucion" value="5"> 5</td>
+                  <td><input type="radio" name="ejecucion" value="5.5"> 5.5</td>
+                </tr>
+                <tr>
+                  <td><input type="radio" name="ejecucion" value="6"> 6</td>
+                  <td><input type="radio" name="ejecucion" value="6.5"> 6.5</td>
+                  <td><input type="radio" name="ejecucion" value="7"> 7</td>
+                  <td><input type="radio" name="ejecucion" value="7.5"> 7.5</td>
+                </tr>
+                <tr>
+                  <td><input type="radio" name="ejecucion" value="8"> 8</td>
+                  <td><input type="radio" name="ejecucion" value="8.5"> 8.5</td>
+                  <td><input type="radio" name="ejecucion" value="9"> 9</td>
+                  <td><input type="radio" name="ejecucion" value="9.5"> 9.5</td>
+                </tr>
+                <tr>
+                  <td><input type="radio" name="ejecucion" value="10"> 10</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="d-flex justify-content-end">
+              <button type="submit" class="btn btn-primary">Calificar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <!-- Competencias -->
+        <div class="col-md-12">
+          <form action="/submit" method="post" id="form-sinc">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th colspan="6">
+                    Seleccione un puntaje de sincronización
+                    <!-- <strong class="float-end">Total seleccionado: <span id="total_sinc">0</span></strong>-->
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="table-group-divider">
+                <tr>
+                  <td><input type="radio" name="sinc" value="1"> 1</td>
+                  <td><input type="radio" name="sinc" value="1.5"> 1.5</td>
+                  <td><input type="radio" name="sinc" value="2"> 2</td>
+                  <td><input type="radio" name="sinc" value="2.5"> 2.5</td>
+                </tr>
+                <tr>
+                  <td><input type="radio" name="sinc" value="3"> 3</td>
+                  <td><input type="radio" name="sinc" value="3.5"> 3.5</td>
+                  <td><input type="radio" name="sinc" value="4"> 4</td>
+                  <td><input type="radio" name="sinc" value="4.5"> 4.5</td>
+                </tr>
+                <tr>
+                  <td><input type="radio" name="sinc" value="5"> 5</td>
+                  <td><input type="radio" name="sinc" value="5.5"> 5.5</td>
+                  <td><input type="radio" name="sinc" value="6"> 6</td>
+                  <td><input type="radio" name="sinc" value="6.5"> 6.5</td>
+                </tr>
+                <tr>
+                  <td><input type="radio" name="sinc" value="7"> 7</td>
+                  <td><input type="radio" name="sinc" value="7.5"> 7.5</td>
+                  <td><input type="radio" name="sinc" value="8"> 8</td>
+                  <td><input type="radio" name="sinc" value="8.5"> 8.5</td>
+                </tr>
+                <tr>
+                  <td><input type="radio" name="sinc" value="9"> 9</td>
+                  <td><input type="radio" name="sinc" value="9.5"> 9.5</td>
+                  <td><input type="radio" name="sinc" value="10"> 10</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="d-flex justify-content-end">
+              <button type="submit" class="btn btn-primary">Calificar</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
 <script>
+  $(document).ready(function() {
+    $('#form_responce').hide();
+    $('#bandera').hide();
+    $('#hInfo').hide();
+
+    function isStop() {
+      $.ajax({
+        url: '/dive_in_live',
+        method: 'GET',
+        success: function(data) {
+         // console.log('Respuesta:', data.resultado);
+          const uri = `/flags/4x3/${data.resultado.pais_region}.svg`;
+          const h_text =
+            (data.resultado.nombre ? data.resultado.nombre : "") + " " +
+            (data.resultado.apellido_p ? data.resultado.apellido_p : "") + " " +
+            (data.resultado.apellido_m ? data.resultado.apellido_m : "") + " - Ronda #" +
+            (data.resultado.num_clavado ? data.resultado.num_clavado : "");
+          const id_clavado = data.resultado.id_clavado;  
+
+          //alert(uri);
+          if (data.resultado.stop == 0) {
+            $('#bandera').hide();
+            $('#hInfo').hide();
+            $('#form_responce').hide();
+            $('#loadnextgame').show();
+            $('#loadnextgame_2').show();
+          } else {
+            $('#bandera').show();
+            $('#hInfo').show();
+            $('#hInfo').text(h_text);
+            $('#id_clavado').val(id_clavado);
+            $('#bandera').attr('src', uri);
+            $('#form_responce').show();
+            $('#loadnextgame').hide();
+            $('#loadnextgame_2').hide();
+          }
+        },
+        error: function() {
+          console.error('Error al cargar el contenido.');
+        }
+      });
+    }
+
+    isStop();
+
+    setInterval(isStop, 2000);
+  });
+
+
+
+  /*
   const form = document.getElementById('form-ejecucion');
   const totalDisplay = document.getElementById('total');
   const form_sinc = document.getElementById('form-sinc');
@@ -132,11 +219,11 @@
   });
 
 
-   form_sinc.addEventListener('change', () => {
+  form_sinc.addEventListener('change', () => {
     let total_sinc = 0;
     const groups = [
-      'sinc_1', 'sinc_2', 'sinc_3', 'sinc_4', 'sinc_5', 
-      'sinc_6', 'sinc_7', 'sinc_8', 'sinc_9', 'sinc_10', 
+      'sinc_1', 'sinc_2', 'sinc_3', 'sinc_4', 'sinc_5',
+      'sinc_6', 'sinc_7', 'sinc_8', 'sinc_9', 'sinc_10',
       'sinc_11', 'sinc_12', 'sinc_13', 'sinc_14', 'sinc_15',
       'sinc_16', 'sinc_17', 'sinc_18', 'sinc_19'
     ];
@@ -149,7 +236,7 @@
     });
 
     totalDisplay_sinc.textContent = total_sinc.toFixed(1);
-  });
+  });*/
 </script>
 <style>
   .competition-item {
@@ -222,5 +309,8 @@
       font-size: 1.3rem;
     }
   }
+  span.placeholder.col-4 {
+    width: 90px;
+}
 </style>
 @endsection
