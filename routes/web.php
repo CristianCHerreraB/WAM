@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\cal_participante;
 use App\Http\Controllers\ClavadoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
@@ -28,8 +29,14 @@ Route::get('/otras-apps', [PageController::class, 'otrasApps'])->name('otras-app
 Route::get('/ayuda', [PageController::class, 'ayuda'])->name('ayuda'); 
 
 
-// Página principal Torneos en curso
-Route::get('/all_torneos', [ClavadoController::class, 'index'])->name('index');
+// Página principal Torneos en curso 
+Route::get('/view_add_dives', [PageController::class, 'viewDives'])->name('addDives');
+Route::get('/save_dives', [ClavadoController::class, 'create'])->name('create');
+Route::get('/all_dives', [ClavadoController::class, 'index'])->name('index');
+Route::get('/dive_in_live', [ClavadoController::class, 'divesInLive'])->name('divesInLive');
+Route::get('/changeStop/{id}', [ClavadoController::class, 'changeStop'])->name('changeStop');
+Route::post('/save_check', [cal_participante::class, 'save_check'])->name('save_check');
+
 Route::get('/torneos', [PageController::class, 'torneosEnCurso'])->name('torneosEnCurso');
 Route::get('/qualify', [PageController::class, 'qualifyAthlete'])->name('qualifyAthlete');
 Route::get('/torneos/result', [PageController::class, 'torneosResult'])->name('torneosResult');
