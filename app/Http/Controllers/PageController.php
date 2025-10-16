@@ -69,7 +69,7 @@ class PageController extends Controller
      return view('user.content.maincontent.all_torneos_result');   
     }
 
-     public function addDives(){
+     public function viewDives(){
      return view('user.content.maincontent.add_dives');   
     }
 }
