@@ -1,5 +1,7 @@
 <?php
 
+
+use App\Http\Controllers\cal_participante;
 use App\Http\Controllers\ClavadoController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\Admin\UserController;
@@ -44,4 +46,17 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+Route::get('/view_add_dives', [PageController::class, 'viewDives'])->name('addDives');
+Route::get('/save_dives', [ClavadoController::class, 'create'])->name('create');
+Route::get('/all_dives', [ClavadoController::class, 'index'])->name('index');
+Route::get('/dive_in_live', [ClavadoController::class, 'divesInLive'])->name('divesInLive');
+Route::get('/changeStop/{id}', [ClavadoController::class, 'changeStop'])->name('changeStop');
+Route::post('/save_check', [cal_participante::class, 'save_check'])->name('save_check');
+
+Route::get('/torneos', [PageController::class, 'torneosEnCurso'])->name('torneosEnCurso');
+Route::get('/qualify', [PageController::class, 'qualifyAthlete'])->name('qualifyAthlete');
+Route::get('/torneos/result', [PageController::class, 'torneosResult'])->name('torneosResult');
+
+require __DIR__.'/auth.php';
 
