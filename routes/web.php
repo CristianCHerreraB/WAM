@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\ClavadoController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\Admin\UserController;
@@ -43,4 +44,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+

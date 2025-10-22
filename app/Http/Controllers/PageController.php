@@ -55,5 +55,3 @@ class PageController extends Controller
     {
         return view('user.content.dashboard');
     }
-    
-}

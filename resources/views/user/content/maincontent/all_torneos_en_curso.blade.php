@@ -4,6 +4,7 @@
 
 @section('content')
 
+
 <div class="content-card mb-4">
   <div class="card-header bg-success d-flex justify-content-between align-items-center">
     <div>
@@ -14,76 +15,55 @@
     <div class="row">
       <!-- Competencias -->
       <div class="col-md-12">
+        @if(!empty($clavados))
+        @foreach ($clavados as $item)
         <div class="competition-item">
           <div class="d-flex justify-content-between align-items-center mb-2">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="diving1">
-              <label class="form-check-label" for="diving1">Plataforma de 10 metros</label>
+              <input class="form-check-input" type="checkbox" id="diving{{ $item->id_clavado }}">
+              <label class="form-check-label" for="diving{{ $item->id_clavado }}">
+                Evento: {{$item->evento}} |
+              </label>
+              <label class="form-check-label" for="diving{{ $item->id_clavado }}">
+                Total de Rondas: {{$item->total_rondas}}
+              </label>
             </div>
-            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#results1">
-              <i class="fas fa-chevron-down"></i> Competir
+            <button class="btn btn-sm btn-outline-primary"
+              data-bs-toggle="collapse"
+              data-bs-target="#results{{ $item->id_clavado }}"
+              aria-expanded="false"
+              aria-controls="results{{ $item->id_clavado }}">
+              <i class="fas fa-chevron-down"></i> Ver
             </button>
           </div>
-          <div class="collapse" id="results1">
-            <div class="mt-3">
-              @include('partials.all_clavadistas', ['event' => 'Votimen tan Springboard'])
-            </div>
-          </div>
-        </div>
 
-        <div class="competition-item">
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="diving2">
-              <label class="form-check-label" for="diving2">Plataforma de 7.5 metros</label>
-            </div>
-            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#results2">
-              <i class="fas fa-chevron-down"></i> Competir
-            </button>
-          </div>
-          <div class="collapse" id="results2">
+          <div class="collapse" id="results{{ $item->id_clavado }}">
             <div class="mt-3">
-              @include('partials.all_clavadistas', ['event' => 'Votimen tan Springboard'])
+              @if (!empty($item->ejecuciones) && count($item->ejecuciones) > 0)
+              @include('partials.all_clavadistas', ['event' => $item])
+              @else
+              <div class="row">
+                <div class="col md-12 text-center">
+                  <h4>No existen rondas pendientes</h4>
+                  <h6>Puede crear un nuevo juego en la seccion <a href="/view_add_dives">Configurar Rondas y Clavados</a></h6>
+                </div>
+              </div>
+              @endif
             </div>
           </div>
         </div>
-
-        <div class="competition-item">
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="diving2">
-              <label class="form-check-label" for="diving2">Plataforma de 5 metros</label>
-            </div>
-            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#results3">
-              <i class="fas fa-chevron-down"></i> Competir
-            </button>
-          </div>
-          <div class="collapse" id="results3">
-            <div class="mt-3">
-              @include('partials.all_clavadistas', ['event' => 'Votimen tan Springboard'])
-            </div>
-          </div>
-        </div>
-
-        <div class="competition-item">
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="diving2">
-              <label class="form-check-label" for="diving2">Plataformas de 1 y 3 metros</label>
-            </div>
-            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#results4">
-              <i class="fas fa-chevron-down"></i> Competir
-            </button>
-          </div>
-          <div class="collapse" id="results4">
-            <div class="mt-3">
-              @include('partials.all_clavadistas', ['event' => 'Votimen tan Springboard'])
-            </div>
-          </div>
-        </div>
+        @endforeach
+        @endif
       </div>
-
     </div>
+    @if(!$clavados)
+    <div class="row">
+      <div class="col md-12 text-center">
+        <h4>No existen rondas pendientes</h4>
+        <h6>Puede crear un nuevo juego en la seccion <a href="/view_add_dives">Configurar Rondas y Clavados</a></h6>
+      </div>
+    </div>
+    @endif
   </div>
 </div>
 <div class="text-white p-3 shadow position-fixed bottom-0 end-0 m-4 d-flex align-items-center"
