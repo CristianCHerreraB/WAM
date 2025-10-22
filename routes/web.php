@@ -1,25 +1,22 @@
 <?php
 
+
+use App\Http\Controllers\cal_participante;
 use App\Http\Controllers\ClavadoController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\Admin\UserController;
 
-Route::get('/', function () {
-    return view('login');
-})->name('login');
-Route::get('/login', function () {
-    return view('login');
-})->name('login');
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
 
-Route::get('/signIn', function () {
-    return view('signIn');
-})->name('signIn');
+Route::get('/', function () {
+    return redirect()->route('login');
+});
+
+
+
 
 // Página principal
-Route::get('/dashboard', [PageController::class, 'dashboard'])->name('dashboard');
-
-// Rutas para las diferentes páginas
 Route::get('/dashboard', [PageController::class, 'dashboard'])->name('dashboard');
 Route::get('/descubre', [PageController::class, 'descubre'])->name('descubre');
 Route::get('/biblioteca', [PageController::class, 'biblioteca'])->name('biblioteca');
@@ -30,3 +27,24 @@ Route::get('/marketplace', [PageController::class, 'marketplace'])->name('market
 Route::get('/password', [PageController::class, 'password'])->name('password');
 Route::get('/otras-apps', [PageController::class, 'otrasApps'])->name('otras-apps');
 Route::get('/ayuda', [PageController::class, 'ayuda'])->name('ayuda'); 
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+
+Route::get('/view_add_dives', [PageController::class, 'viewDives'])->name('addDives');
+Route::get('/save_dives', [ClavadoController::class, 'create'])->name('create');
+Route::get('/all_dives', [ClavadoController::class, 'index'])->name('index');
+Route::get('/dive_in_live', [ClavadoController::class, 'divesInLive'])->name('divesInLive');
+Route::get('/changeStop/{id}', [ClavadoController::class, 'changeStop'])->name('changeStop');
+Route::post('/save_check', [cal_participante::class, 'save_check'])->name('save_check');
+
+Route::get('/torneos', [PageController::class, 'torneosEnCurso'])->name('torneosEnCurso');
+Route::get('/qualify', [PageController::class, 'qualifyAthlete'])->name('qualifyAthlete');
+Route::get('/torneos/result', [PageController::class, 'torneosResult'])->name('torneosResult');
+
+require __DIR__.'/auth.php';
+
