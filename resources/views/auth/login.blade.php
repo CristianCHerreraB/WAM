@@ -292,6 +292,24 @@
             /* Altura fija para uniformidad */
         }
 
+        /* -------- Mensajes de error -------- */
+        .input-error {
+            color: #e74c3c;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        /* -------- Recordarme -------- */
+        .remember-me {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .remember-me input {
+            margin-right: 8px;
+        }
+
         /* -------- Responsive -------- */
         @media (max-width: 992px) {
             .content-wrapper {
@@ -381,48 +399,75 @@
                 <div class="mb-4">
                     <img src="{{ asset('images/LogoWorldAquatics.jpeg') }}" alt="Logo World Aquatics" class="logo-img">
                 </div>
-
             </div>
 
             <!-- Formulario de Login -->
             <div class="login-section">
                 <div class="login-box">
                     <h2 class="login-title">Iniciar Sesión</h2>
-                    <form id="loginForm">
-                        <!-- Campo de correo electrónico -->
+
+                    <!-- Formulario de Laravel Breeze adaptado -->
+                    <form method="POST" action="{{ route('login') }}">
+                        @csrf
+
+                        
                         <div class="input-group mb-3">
                             <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                            <input type="email" id="email" class="form-control" placeholder="Correo electrónico" required>
-                        </div>
+                            <input id="correo" type="email" class="form-control" name="correo" :value="old('correo')" required autofocus autocomplete="email" placeholder="Correo electrónico">
 
-                        <!-- Campo de contraseña -->
+                        </div>
+                        
+                        @if ($errors->has('correo'))
+                        <div class="input-error">
+                            {{ $errors->first('correo') }}
+                        </div>
+                        @endif
+
+                        <!-- Password -->
                         <div class="input-group mb-3">
                             <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                            <input type="password" id="password" class="form-control" placeholder="Contraseña" required>
+                            <input id="password" class="form-control" type="password" name="password" required autocomplete="current-password" placeholder="Contraseña">
                         </div>
+                        @if ($errors->has('password'))
+                        <div class="input-error">
+                            {{ $errors->first('password') }}
+                        </div>
+                        @endif
+
+                        <!-- Remember Me 
+                        <div class="remember-me">
+                            <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
+                            <label for="remember_me" class="ms-2 text-sm text-gray-600">{{ __('Recordarme') }}</label>
+                        </div>-->
 
                         <!-- Botón de inicio de sesión -->
                         <div class="d-grid mb-3">
-                            <a type="submit" class="btn-natacion-primario btn-natacion-w-100">Iniciar
-                                sesión</a>
+                            <button type="submit" class="btn-natacion-primario">
+                                {{ __('Ingresar') }}
+                            </button>
                         </div>
+
                         <!-- Enlace "Olvidaste tu contraseña" -->
                         <div class="forgot-password">
                             <a href="#" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">¿Olvidaste tu contraseña?</a>
+
+                            <!--@if (Route::has('password.request'))
+                            <a href="{{ route('password.request') }}">
+                                {{ __('¿Olvidaste tu contraseña?') }}
+                            </!--a>
+                            @endif-->
                         </div>
 
                         <!-- Divisor -->
                         <div class="divider"></div>
 
                         <!-- Botón de registro -->
-                        <a href="{{ route('signIn') }}" class="btn btn-secondary-custom" id="createAccount">Crear una cuenta</a>
+                        <a href="{{ route('register') }}" class="btn btn-secondary-custom" id="createAccount">Crear una cuenta</a>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Modal para recuperar contraseña -->
     <!-- Modal para recuperar contraseña -->
     <div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-labelledby="resetPasswordModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -432,12 +477,23 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="recoverForm">
+                    <!-- Formulario de Laravel Breeze para recuperación de contraseña -->
+                    <form method="POST" action="{{ route('password.email') }}">
+                        @csrf
+
                         <div class="mb-3">
-                            <label for="recoverEmail" class="form-label">Correo electrónico</label>
-                            <input type="email" class="form-control" id="recoverEmail" placeholder="ejemplo@correo.com" required>
+                            <label for="email" class="form-label">Correo electrónico</label>
+                            <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required autofocus placeholder="ejemplo@correo.com">
+
+                            <!-- Mostrar errores de validación -->
+                            @if ($errors->has('email'))
+                            <div class="text-danger mt-2">
+                                {{ $errors->first('email') }}
+                            </div>
+                            @endif
                         </div>
-                        <button type="submit" class="btn btn-primary-custom">Enviar enlace</button>
+
+                        <button type="submit" class="btn btn-primary-custom w-100">Enviar enlace de recuperación</button>
                     </form>
                 </div>
                 <!-- Contenedor de información -->
@@ -449,8 +505,6 @@
             </div>
         </div>
     </div>
-
-
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -487,66 +541,6 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Script personalizado -->
-    <script>
-        // Validación del formulario de login
-        document.addEventListener('DOMContentLoaded', function() {
-            const emailInput = document.getElementById('email');
-            const passwordInput = document.getElementById('password');
-            const loginButton = document.getElementById('loginButton');
-            const loginForm = document.getElementById('loginForm');
-            const recoverForm = document.getElementById('recoverForm');
-
-            // Función para validar campos
-            function validateForm() {
-                const email = emailInput.value.trim();
-                const password = passwordInput.value.trim();
-
-                // Validación básica de email
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                const isEmailValid = emailRegex.test(email);
-
-                // Validación de contraseña (mínimo 6 caracteres)
-                const isPasswordValid = password.length >= 6;
-
-                // Habilitar/deshabilitar botón
-                loginButton.disabled = !(isEmailValid && isPasswordValid);
-            }
-
-            // Event listeners para validación en tiempo real
-            emailInput.addEventListener('input', validateForm);
-            passwordInput.addEventListener('input', validateForm);
-
-            // Manejo del envío del formulario de login
-            loginForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                // Simulación de inicio de sesión exitoso
-                alert('Inicio de sesión exitoso. Redirigiendo al dashboard...');
-
-                // Aquí normalmente redirigirías al usuario
-                // window.location.href = 'dashboard.html';
-            });
-
-            // Manejo del formulario de recuperación
-            recoverForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const recoverEmail = document.getElementById('recoverEmail').value;
-
-                if (recoverEmail) {
-                    alert('Se ha enviado un enlace de recuperación a: ' + recoverEmail);
-
-                    // Cerrar el modal
-                    const modal = bootstrap.Modal.getInstance(document.getElementById('resetPasswordModal'));
-                    modal.hide();
-                } else {
-                    alert('Por favor ingrese su correo electrónico');
-                }
-            });
-
-        });
-    </script>
 </body>
 
 </html>

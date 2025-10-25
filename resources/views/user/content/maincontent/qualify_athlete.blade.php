@@ -156,13 +156,13 @@
         url: '/dive_in_live',
         method: 'GET',
         success: function(data) {
-         // console.log('Respuesta:', data.resultado);
+          console.log('Respuesta:', data.resultado);
           const uri = `/flags/4x3/${data.resultado.pais_region}.svg`;
           const h_text =
             (data.resultado.nombre ? data.resultado.nombre : "") + " " +
             (data.resultado.apellido_p ? data.resultado.apellido_p : "") + " " +
             (data.resultado.apellido_m ? data.resultado.apellido_m : "") + " - Ronda #" +
-            (data.resultado.num_clavado ? data.resultado.num_clavado : "");
+            (data.resultado.num_ejecucion ? data.resultado.num_ejecucion : "");
           const id_clavado = data.resultado.id_clavado;  
 
           //alert(uri);

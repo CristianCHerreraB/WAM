@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\clavado;
 use App\Http\Controllers\Controller;
+use App\Models\clavadista;
+use App\Models\ejecucion;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 
 class ClavadoController extends Controller
@@ -15,13 +19,17 @@ class ClavadoController extends Controller
     public function divesInLive()
     {
         // $clavados = clavado::query()->where('active', 0)->first();
-        $clavados = DB::table('clavadista')
-            ->join('clavado', function ($join) {
-                $join->on('clavado.id_clavadista', '=', 'clavadista.id_clavadista')
-                    ->where('clavado.active', 0);
-            })
-            ->select('clavadista.nombre', 'clavadista.apellido_p', 'clavadista.apellido_m', 'clavadista.pais_region', 'clavado.id_clavado', 'clavado.active', 'clavado.num_clavado', 'clavado.stop')
+        $clavados =  DB::table('ejecucion')
+            ->select()
+            ->leftJoin('clavado', 'ejecucion.id_clavado', '=', 'clavado.id_clavado')
+            ->leftJoin('clavadista', 'ejecucion.id_clavadista', '=', 'clavadista.id_clavadista')
+            //->where('clavado.id_clavado', 4)
+            //->where('ejecucion.orden', 1)
+            ->where('clavado.active', 0)
+            ->where('ejecucion.stop',1)
+            ->select('ejecucion.*', 'clavado.*', 'clavadista.*')
             ->first();
+
 
         return response()->json([
             'status' => 'ok',
@@ -31,62 +39,125 @@ class ClavadoController extends Controller
 
     public function index()
     {
-        // $clavados = clavado::query()->where('active', 0)->first();
-        $clavados = DB::table('clavadista')
-            ->join('clavado', function ($join) {
-                $join->on('clavado.id_clavadista', '=', 'clavadista.id_clavadista')
-                    ->where('clavado.active', 0);
-            })
-            ->select('clavadista.nombre', 'clavadista.apellido_p', 'clavadista.apellido_m', 'clavadista.pais_region', 'clavado.id_clavado', 'clavado.active', 'clavado.num_clavado', 'clavado.stop')
-            ->first();
+        $clavados = Clavado::query()
+            ->select('id_clavado', 'evento', 'total_rondas', 'fecha', 'active')
+            ->where('active', 0)
+            ->get();
 
+        foreach ($clavados as $clavado) {
+            $ejecuciones = DB::table('ejecucion')
+                ->leftJoin('clavadista', 'ejecucion.id_clavadista', '=', 'clavadista.id_clavadista')
+                ->where('ejecucion.id_clavado', $clavado->id_clavado) 
+                ->where('ejecucion.active',0)
+                //->where('ejecucion.num_ejecucion',1)
+                //->orderBy('clavadista.orden')
+                ->orderBy('ejecucion.num_ejecucion')
+                ->select(
+                    'ejecucion.id_ejecucion',
+                    'ejecucion.num_ejecucion',
+                    'ejecucion.id_clavado',
+                    'ejecucion.id_clavadista',
+                    'ejecucion.id_cal_participante',
+                    'ejecucion.id_cal_juez',
+                    'ejecucion.descripcion',
+                    'ejecucion.dificultad',
+                    'ejecucion.active',
+                    'ejecucion.stop',
+                    'clavadista.orden',
+                    'clavadista.nombre',
+                    'clavadista.pais_region',
+                    'clavadista.active as clavadista_active'
+                )
+                ->get();
+
+            $clavado->ejecuciones = $ejecuciones; 
+        }
+
+       // return $clavados;die;
+        return view('user.content.maincontent.all_torneos_en_curso', compact('clavados'));
         return response()->json([
             'status' => 'ok',
-            'resultado' => $clavados
+            'resultado' =>  $ejecuciones
         ]);
     }
 
     public function changeStop($id)
     {
-        $clavados = clavado::query()->where('id_clavado', $id)->first();
-        if ($clavados->stop == 0) {
-            $clavados->stop = 1;
+        $ejecucion = ejecucion::query()->where('id_ejecucion', $id)->first();
+        if ($ejecucion->stop == 0) {
+            $ejecucion->stop = 1;
         } else {
-            $clavados->stop = 0;
+            $ejecucion->stop = 0;
+             $ejecucion->active = 1;
         }
-        $clavados->save();
+        $ejecucion->save();
 
-        return response()->json([
+        return redirect('/all_dives')
+         ->with('success', 'Registro agregado correctamente.');
+       /* return response()->json([
             'status' => 'ok',
-            'resultado' => $clavados
-        ]);
+            'resultado' => '{stop:' . $ejecucion->stop . '}',
+        ]);*/
     }
 
     /**
      * Show the form for creating a new resource.
      */
+
     public function create(Request $request)
     {
-        $validated = $request->validate([
-            'num_clavado' => 'required',
-            'evento' => 'nullable',
-            'fecha' => 'required',
-            //'created' => 'required',
-            //'created_by' => 'required',
-            'nombre_clavado' => 'required',
-            'descripcion' => 'nullable',
-            'dificultad' => 'required',
-            'sincronizacion' => 'required'
 
+        $clavado = clavado::create([
+            'evento' => $request->evento,
+            'total_rondas' => $request->total_rondas,
+            'fecha' => $this->normalizeDate($request->fecha),
+            'sincronizacion' => $request->sincronizacion,
+            'created' => Carbon::now()->format('Y-m-d'),
+            //'created_by'=> agregar usuarioid
         ]);
 
-        $dive = clavado::create($validated);
+        foreach ($request->orden as $key => $value) {
+            $clavadista = clavadista::create([
+                'orden' => $request->orden[$key],
+                'nombre' => $request->nombre[$key],
+                'pais_region' => $request->pais_region[$key],
+                'created' => Carbon::now()->format('Y-m-d'),
+                //'created_by' => '',
+            ]);
 
+            $count = 1;
+            foreach ($request->dive[$key] as $index => $descripcion) {
+                $dificultad = $request->dificultad[$key][$index] ?? null;
+                ejecucion::create([
+                    'num_ejecucion' => $count,
+                    'id_clavado' => $clavado->id_clavado,
+                    'id_clavadista' => $clavadista->id_clavadista,
+                    'descripcion' => $descripcion,
+                    'dificultad' => $dificultad,
+                ]);
+                $count++;
+            }
+        }
 
-        return redirect('all_dive/' . $dive->clasificacion)
+        return redirect('view_add_dives/')
             ->with('success', 'Registro agregado correctamente.');
     }
 
+    private function normalizeDate($value): ?string
+    {
+        if (empty($value)) return null;
+
+        if (is_numeric($value)) {
+            try {
+                return Date::excelToDateTimeObject($value)->format('Y-m-d');
+            } catch (\Exception $e) {
+                return null;
+            }
+        }
+
+        $timestamp = strtotime($value);
+        return $timestamp !== false ? date('Y-m-d', $timestamp) : null;
+    }
     /**
      * Store a newly created resource in storage.
      */

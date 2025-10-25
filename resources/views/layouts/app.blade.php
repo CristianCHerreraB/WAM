@@ -292,7 +292,8 @@
         display: block;
       }
     }
-        .placeholder {
+
+    .placeholder {
       display: inline-block;
       min-height: 1em;
       vertical-align: middle;
@@ -322,11 +323,7 @@
               <i class="fas fa-home me-1"></i> Inicio
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('admin') ? 'active' : '' }}" href="{{ route('admin') }}">
-              <i class="fas fa-users me-1"></i> Administrar Usuarios
-            </a>
-          </li>        
+
         </ul>
 
         <button class="btn btn-outline-light ms-2 d-none d-lg-block" id="refreshButton">
@@ -356,11 +353,11 @@
           <i class="fas fa-compass"></i> Descubre
         </a>
       </div>
-      <div class="nav-item">
+      <!--div class="nav-item">
         <a class="nav-link {{ request()->routeIs('biblioteca') ? 'active' : '' }}" href="{{ route('biblioteca') }}">
           <i class="fas fa-book"></i> Biblioteca
         </a>
-      </div>
+      </!--div-->
       <div class="nav-item">
         <a class="nav-link {{ request()->routeIs('informes') ? 'active' : '' }}" href="{{ route('informes') }}">
           <i class="fas fa-chart-bar"></i> Informes
@@ -371,6 +368,7 @@
           <i class="fas fa-users"></i> Grupos
         </a>
       </div>
+      <!--
       <div class="nav-item">
         <a class="nav-link {{ request()->routeIs('idiomas') ? 'active' : '' }}" href="{{ route('idiomas') }}">
           <i class="fas fa-language"></i> Aprendizaje de idiomas
@@ -386,6 +384,7 @@
           <i class="fas fa-key"></i> Password
         </a>
       </div>
+  -->
     </nav>
 
     <div class="sidebar-section">
@@ -401,13 +400,21 @@
             <i class="fas fa-question-circle"></i> Ayuda
           </a>
         </div>
+        <div class="nav-item">
+          <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            Cerrar sesión
+          </a>
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+          </form>
+        </div>
       </nav>
     </div>
   </div>
 
   <!-- Main Content -->
   <div class="main-content" id="mainContent">
-    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel" >
+    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
       <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
         <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -468,9 +475,8 @@
         sidebarOverlay.classList.remove('active');
       });
     });
-    
   </script>
-  
+
 </body>
 
 </html>
