@@ -353,11 +353,11 @@
           <i class="fas fa-compass"></i> Descubre
         </a>
       </div>
-      <div class="nav-item">
+      <!--div class="nav-item">
         <a class="nav-link {{ request()->routeIs('biblioteca') ? 'active' : '' }}" href="{{ route('biblioteca') }}">
           <i class="fas fa-book"></i> Biblioteca
         </a>
-      </div>
+      </!--div-->
       <div class="nav-item">
         <a class="nav-link {{ request()->routeIs('informes') ? 'active' : '' }}" href="{{ route('informes') }}">
           <i class="fas fa-chart-bar"></i> Informes
@@ -368,6 +368,7 @@
           <i class="fas fa-users"></i> Grupos
         </a>
       </div>
+      <!--
       <div class="nav-item">
         <a class="nav-link {{ request()->routeIs('idiomas') ? 'active' : '' }}" href="{{ route('idiomas') }}">
           <i class="fas fa-language"></i> Aprendizaje de idiomas
@@ -383,6 +384,7 @@
           <i class="fas fa-key"></i> Password
         </a>
       </div>
+  -->
     </nav>
 
     <div class="sidebar-section">
