@@ -1,16 +1,3 @@
-@php
-    // Datos de ejemplo para la tabla
-    $participants = [
-        ['rank' => 1, 'country' => 'USA', 'athlete' => 'Michael Johnson', 'age' => 28, 'points' => 95.7, 'pts_behind' => 0],
-        ['rank' => 2, 'country' => 'GER', 'athlete' => 'Thomas Müller', 'age' => 26, 'points' => 94.2, 'pts_behind' => 1.5],
-        ['rank' => 3, 'country' => 'JPN', 'athlete' => 'Yuki Tanaka', 'age' => 24, 'points' => 92.8, 'pts_behind' => 2.9],
-        ['rank' => 4, 'country' => 'AUS', 'athlete' => 'James Wilson', 'age' => 27, 'points' => 91.5, 'pts_behind' => 4.2],
-        ['rank' => 5, 'country' => 'BRA', 'athlete' => 'Carlos Silva', 'age' => 29, 'points' => 90.1, 'pts_behind' => 5.6],
-        ['rank' => 6, 'country' => 'FRA', 'athlete' => 'Pierre Dubois', 'age' => 25, 'points' => 89.3, 'pts_behind' => 6.4],
-        ['rank' => 7, 'country' => 'CAN', 'athlete' => 'Ryan Cooper', 'age' => 23, 'points' => 88.7, 'pts_behind' => 7.0],
-        ['rank' => 8, 'country' => 'GBR', 'athlete' => 'David Williams', 'age' => 30, 'points' => 87.9, 'pts_behind' => 7.8],
-    ];
-@endphp
 
 <div class="results-table-container">
     <h6 class="mb-3">{{ $event }} - Resultados</h6>

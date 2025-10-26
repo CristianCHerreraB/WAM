@@ -30,12 +30,14 @@ Route::get('/ayuda', [PageController::class, 'ayuda'])->name('ayuda');
 
 
 // Página principal Torneos en curso 
+Route::get('/add_responce_judge', [PageController::class, 'viewResponceJusge'])->name('viewResponceJusge');
 Route::get('/view_add_dives', [PageController::class, 'viewDives'])->name('addDives');
 Route::get('/save_dives', [ClavadoController::class, 'create'])->name('create');
 Route::get('/all_dives', [ClavadoController::class, 'index'])->name('index');
 Route::get('/dive_in_live', [ClavadoController::class, 'divesInLive'])->name('divesInLive');
 Route::get('/changeStop/{id}', [ClavadoController::class, 'changeStop'])->name('changeStop');
 Route::post('/save_check', [cal_participante::class, 'save_check'])->name('save_check');
+Route::post('/save_results', [cal_participante::class, 'save_results'])->name('save_results');
 
 Route::get('/torneos', [PageController::class, 'torneosEnCurso'])->name('torneosEnCurso');
 Route::get('/qualify', [PageController::class, 'qualifyAthlete'])->name('qualifyAthlete');

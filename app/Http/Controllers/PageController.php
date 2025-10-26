@@ -72,4 +72,8 @@ class PageController extends Controller
      public function viewDives(){
      return view('user.content.maincontent.add_dives');   
     }
+
+      public function viewResponceJusge(){
+     return view('user.content.maincontent.add_result_judge');   
+    }
 }

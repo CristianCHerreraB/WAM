@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\clavado;
 use App\Http\Controllers\Controller;
+use App\Models\CalParticipante;
 use App\Models\clavadista;
 use App\Models\ejecucion;
 use Carbon\Carbon;
@@ -18,6 +19,7 @@ class ClavadoController extends Controller
      */
     public function divesInLive()
     {
+        $exists = false;
         // $clavados = clavado::query()->where('active', 0)->first();
         $clavados =  DB::table('ejecucion')
             ->select()
@@ -26,9 +28,24 @@ class ClavadoController extends Controller
             //->where('clavado.id_clavado', 4)
             //->where('ejecucion.orden', 1)
             ->where('clavado.active', 0)
-            ->where('ejecucion.stop',1)
+            ->where('ejecucion.stop', 1)
             ->select('ejecucion.*', 'clavado.*', 'clavadista.*')
             ->first();
+        //return $clavados;
+        if ( $clavados && $clavados->id_ejecucion != null) {
+            $exists = CalParticipante::query()
+                ->select('id_cal_participante', 'id_usuario', 'id_ejecucion')
+                ->where('id_ejecucion', $clavados->id_ejecucion)
+                ->where('id_usuario', 2)
+                ->first();
+        }
+        // return !empty($exists);
+        if ($exists != false) {
+            return response()->json([
+                'status' => 'ok',
+                'resultado' => false
+            ]);
+        }
 
 
         return response()->json([
@@ -42,16 +59,17 @@ class ClavadoController extends Controller
         $clavados = Clavado::query()
             ->select('id_clavado', 'evento', 'total_rondas', 'fecha', 'active')
             ->where('active', 0)
+            ->orderBy('id_clavado','desc')
             ->get();
 
         foreach ($clavados as $clavado) {
             $ejecuciones = DB::table('ejecucion')
                 ->leftJoin('clavadista', 'ejecucion.id_clavadista', '=', 'clavadista.id_clavadista')
-                ->where('ejecucion.id_clavado', $clavado->id_clavado) 
-                ->where('ejecucion.active',0)
+                ->where('ejecucion.id_clavado', $clavado->id_clavado)
+                ->where('ejecucion.active', 0)
                 //->where('ejecucion.num_ejecucion',1)
                 //->orderBy('clavadista.orden')
-                ->orderBy('ejecucion.num_ejecucion')
+                ->orderBy('ejecucion.num_ejecucion','ASC')
                 ->select(
                     'ejecucion.id_ejecucion',
                     'ejecucion.num_ejecucion',
@@ -70,10 +88,10 @@ class ClavadoController extends Controller
                 )
                 ->get();
 
-            $clavado->ejecuciones = $ejecuciones; 
+            $clavado->ejecuciones = $ejecuciones;
         }
-
-       // return $clavados;die;
+    
+        // return $clavados;die;
         return view('user.content.maincontent.all_torneos_en_curso', compact('clavados'));
         return response()->json([
             'status' => 'ok',
@@ -87,14 +105,14 @@ class ClavadoController extends Controller
         if ($ejecucion->stop == 0) {
             $ejecucion->stop = 1;
         } else {
-            $ejecucion->stop = 0;
-             $ejecucion->active = 1;
+            $ejecucion->stop = 2;
+            $ejecucion->active = 1;
         }
         $ejecucion->save();
 
         return redirect('/all_dives')
-         ->with('success', 'Registro agregado correctamente.');
-       /* return response()->json([
+            ->with('success', 'Registro agregado correctamente.');
+        /* return response()->json([
             'status' => 'ok',
             'resultado' => '{stop:' . $ejecucion->stop . '}',
         ]);*/
@@ -139,7 +157,7 @@ class ClavadoController extends Controller
             }
         }
 
-        return redirect('view_add_dives/')
+        return redirect('/all_dives')
             ->with('success', 'Registro agregado correctamente.');
     }
 
