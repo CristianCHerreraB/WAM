@@ -149,13 +149,6 @@
       z-index: 1015;
       display: none;
     }
-    /*
-    #carouselExampleDark img {
-      max-height: 200px;
-      /* ajusta el valor según necesites (por defecto suelen ser ~600px) 
-      object-fit: cover;
-      /* mantiene la proporción y centra la imagen 
-    }*/
 
     .sidebar-overlay.active {
       display: block;
@@ -351,33 +344,28 @@
 
     <nav class="sidebar-nav">
       <div class="nav-item">
-        <a class="nav-link " href="{{ route('dashboard') }}">
+        <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
           <i class="fas fa-home"></i> Inicio
         </a>
       </div>
       <div class="nav-item">
-        <a class="nav-link " href="{{ route('tutorial') }}">
-          <i class="fas fa-book"></i> Tutorial
+        <a class="nav-link {{ request()->routeIs('descubre') ? 'active' : '' }}" href="{{ route('descubre') }}">
+          <i class="fas fa-compass"></i> Descubre
+        </a>
+      </div>
+      <!--div class="nav-item">
+        <a class="nav-link {{ request()->routeIs('biblioteca') ? 'active' : '' }}" href="{{ route('biblioteca') }}">
+          <i class="fas fa-book"></i> Biblioteca
+        </a>
+      </!--div-->
+      <div class="nav-item">
+        <a class="nav-link {{ request()->routeIs('informes') ? 'active' : '' }}" href="{{ route('informes') }}">
+          <i class="fas fa-chart-bar"></i> Informes
         </a>
       </div>
       <div class="nav-item">
-        <a class="nav-link " href="{{ route('competencia') }}">
-          <i class="fas fa-chart-bar"></i> Competencia
-        </a>
-      </div>
-      <div class="nav-item">
-        <a class="nav-link " href="{{ route('reglas') }}">
-          <i class="fas fa-book"></i> Reglas
-        </a>
-      </div>
-      <div class="nav-item">
-        <a class="nav-link " href="{{ route('calendario') }}">
-          <i class="fas fa-users"></i> Calendario
-        </a>
-      </div>
-      <div class="nav-item">
-        <a class="nav-link " href="{{ route('patrocinadores') }}">
-          <i class="fas fa-users"></i> Patrocinadores
+        <a class="nav-link {{ request()->routeIs('grupos') ? 'active' : '' }}" href="{{ route('grupos') }}">
+          <i class="fas fa-users"></i> Grupos
         </a>
       </div>
       <!--

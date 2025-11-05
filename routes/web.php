@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\cal_participante;
 use App\Http\Controllers\ClavadoController;
+use App\Http\Controllers\PageTWOController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\Admin\UserController;
 
@@ -18,7 +19,7 @@ Route::get('/', function () {
 
 // Página principal
 Route::get('/dashboard', [PageController::class, 'dashboard'])->name('dashboard');
-Route::get('/descubre', [PageController::class, 'descubre'])->name('descubre');
+Route::get('/tutorial', [PageController::class, 'tutorial'])->name('tutorial');
 Route::get('/biblioteca', [PageController::class, 'biblioteca'])->name('biblioteca');
 Route::get('/informes', [PageController::class, 'informes'])->name('informes');
 Route::get('/grupos', [PageController::class, 'grupos'])->name('grupos');
@@ -27,6 +28,13 @@ Route::get('/marketplace', [PageController::class, 'marketplace'])->name('market
 Route::get('/password', [PageController::class, 'password'])->name('password');
 Route::get('/otras-apps', [PageController::class, 'otrasApps'])->name('otras-apps');
 Route::get('/ayuda', [PageController::class, 'ayuda'])->name('ayuda'); 
+
+Route::get('/tutorial', [PageTWOController::class, 'tutorial'])->name('tutorial');
+Route::get('/competencia', [PageTWOController::class, 'competencia'])->name('competencia');
+Route::get('/reglas', [PageTWOController::class, 'reglas'])->name('reglas');
+Route::get('/calendario', [PageTWOController::class, 'calendario'])->name('calendario');
+Route::get('/patrocinadores', [PageTWOController::class, 'patrocinadores'])->name('patrocinadores');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
