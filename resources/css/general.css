@@ -1,55 +1,324 @@
-/* general.css */
-
-/* Fondo global */
-body {
-  background-color: #e0f7fa; /* Turquesa muy suave */
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #333;
+/* -------- Estilos Globales -------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* Tarjetas */
-.card {
-  border-radius: 15px;
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* -------- Carrusel de Publicidad -------- */
+.ad-carousel {
+  background: linear-gradient(135deg, #004080 0%, #0066cc 100%);
+  padding: 10px 0;
+}
+
+.carousel-container {
+  max-width: 728px;
+  height: 90px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  height: 100%;
+}
+
+.carousel-slide {
+  min-width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ad-slide {
+  width: 100%;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  padding: 0 10px;
+}
+
+.carousel-btn {
+  background: rgba(0, 51, 102, 0.7);
   border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 10px 15px;
+  border-radius: 50%;
+  transition: background 0.3s;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-btn:hover {
+  background: rgba(0, 51, 102, 1);
+}
+
+/* -------- Main Content -------- */
+.main-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1000px;
+  width: 100%;
+  gap: 60px;
+}
+
+.logo-section {
+  flex: 1;
+  text-align: center;
+}
+
+.logo {
+  color: #00bcd4;
+  font-size: 42px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.logo-subtitle {
+  color: #666;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.login-section {
+  flex: 1;
+  max-width: 400px;
+}
+
+.login-box {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Inputs */
-.form-control {
-  border-radius: 10px;
-  padding: 0.6rem 1rem;
-  border: 1px solid #b2ebf2;
+.form-group {
+  margin-bottom: 20px;
 }
 
-.form-control:focus {
-  border-color: #00bcd4;
-  box-shadow: 0 0 6px rgba(0, 188, 212, 0.6);
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+  font-weight: 500;
+  font-size: 14px;
 }
 
-/* Estilos modales */
-.modal-content {
-  border-radius: 12px;
-}
-
-.custom-header {
+/* Botones personalizados */
+.btn-natacion-primario {
   background-color: #00bcd4;
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
-}
-
-.custom-footer {
-  background-color: #e0f7fa;
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px;
-}
-
-.btn-custom-primary {
-  background-color: #00bcd4;
-  color: #fff;
-  border-radius: 8px;
+  color: white;
   border: none;
+  border-radius: 12px;
   padding: 0.6rem 1rem;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  height: 45px;
+  font-weight: 500;
 }
 
-.btn-custom-primary:hover {
+.btn-natacion-primario:hover {
   background-color: #0097a7;
+  box-shadow: 0 0 8px #0097a7;
+}
+
+.btn-natacion-secundario {
+  background-color: #009688;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  height: 45px;
+  font-weight: 500;
+}
+
+.btn-natacion-secundario:hover {
+  background-color: #00796b;
+  box-shadow: 0 0 8px #00796b;
+}
+
+.btn-natacion-w-100 {
+  width: 100%;
+}
+
+/* -------- Forgot Password -------- */
+.forgot-password {
+  text-align: center;
+  margin: 15px 0;
+}
+
+.forgot-password a {
+  color: #00bcd4;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+/* Divider */
+.divider {
+  height: 1px;
+  background: #ddd;
+  margin: 25px 0;
+}
+
+/* Footer */
+/* Footer */
+.footer {
+    background-color: #000; 
+    color: #fff;
+    padding: 40px 20px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    border-top: 4px solid #00bcd4; /* Línea azul en la parte superior */
+    margin-top: auto; /* Para que se mantenga al fondo */
+}
+
+.footer-left h5 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.footer-left p {
+    margin: 0 0 10px;
+    line-height: 1.6;
+    color: #fff;
+}
+
+.footer-right {
+    text-align: right;
+}
+
+.footer-logo-img {
+    max-width: 90px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.footer a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 5px;
+    font-size: 14px;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+    color: #00bcd4;
+}
+
+.copyright {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #bbb;
+}
+
+
+
+
+/* -------- Responsive -------- */
+@media (max-width: 768px) {
+  .content-wrapper {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .logo-section {
+    order: 2;
+  }
+
+  .login-section {
+    order: 1;
+    max-width: 100%;
+  }
+
+  .login-box {
+    padding: 30px 20px;
+  }
+
+  .carousel-container {
+    height: 60px;
+  }
+}
+/* Logo responsive */
+.logo-img {
+    max-width: 350px;  /* Tamaño máximo en PC */
+    width: 100%;       /* Escala automático */
+    height: auto;
+}
+
+@media (max-width: 768px) {
+    .logo-img {
+        max-width: 220px; /* Un poco más pequeño en móvil */
+    }
+}
+
+/* Responsive para el footer */
+@media (max-width: 768px) {
+    .footer {
+        padding: 30px 15px;
+        text-align: center;
+    }
+    
+    .footer-right {
+        text-align: center;
+        margin-top: 20px;
+    }
+    
+    .footer-logo-img {
+        max-width: 70px;
+    }
+}
+/* Asegurar que el footer esté siempre al fondo */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1;
 }
