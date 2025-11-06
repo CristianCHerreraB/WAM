@@ -27,16 +27,16 @@ class ClavadoController extends Controller
             ->leftJoin('clavadista', 'ejecucion.id_clavadista', '=', 'clavadista.id_clavadista')
             //->where('clavado.id_clavado', 4)
             //->where('ejecucion.orden', 1)
-            ->where('clavado.active', 0)
+            ->where('ejecucion.active', 0)
             ->where('ejecucion.stop', 1)
             ->select('ejecucion.*', 'clavado.*', 'clavadista.*')
             ->first();
-        //return $clavados;
-        if ( $clavados && $clavados->id_ejecucion != null) {
+        //return $clavados;die;
+        if ($clavados && $clavados->id_ejecucion != null) {
             $exists = CalParticipante::query()
                 ->select('id_cal_participante', 'id_usuario', 'id_ejecucion')
                 ->where('id_ejecucion', $clavados->id_ejecucion)
-                ->where('id_usuario', 2)
+                //->where('id_usuario', 2)
                 ->first();
         }
         // return !empty($exists);
@@ -58,8 +58,9 @@ class ClavadoController extends Controller
     {
         $clavados = Clavado::query()
             ->select('id_clavado', 'evento', 'total_rondas', 'fecha', 'active')
-            ->where('active', 0)
-            ->orderBy('id_clavado','desc')
+            //->where('active', 0) //Muestra el listado de jusgos activos o inactivos, muestra todos si no se agrega esta linea 
+            //->where('created_by',/*id usuario*/)//mostrar torneos por usuario admin
+            ->orderBy('id_clavado', 'desc')
             ->get();
 
         foreach ($clavados as $clavado) {
@@ -67,9 +68,7 @@ class ClavadoController extends Controller
                 ->leftJoin('clavadista', 'ejecucion.id_clavadista', '=', 'clavadista.id_clavadista')
                 ->where('ejecucion.id_clavado', $clavado->id_clavado)
                 ->where('ejecucion.active', 0)
-                //->where('ejecucion.num_ejecucion',1)
-                //->orderBy('clavadista.orden')
-                ->orderBy('ejecucion.num_ejecucion','ASC')
+                ->orderBy('ejecucion.num_ejecucion', 'ASC')
                 ->select(
                     'ejecucion.id_ejecucion',
                     'ejecucion.num_ejecucion',
@@ -90,16 +89,13 @@ class ClavadoController extends Controller
 
             $clavado->ejecuciones = $ejecuciones;
         }
-    
+
         // return $clavados;die;
         return view('user.content.maincontent.all_torneos_en_curso', compact('clavados'));
-        return response()->json([
-            'status' => 'ok',
-            'resultado' =>  $ejecuciones
-        ]);
+
     }
 
-    public function changeStop($id)
+    public function changeStop($id, $status)
     {
         $ejecucion = ejecucion::query()->where('id_ejecucion', $id)->first();
         if ($ejecucion->stop == 0) {
@@ -108,6 +104,15 @@ class ClavadoController extends Controller
             $ejecucion->stop = 2;
             $ejecucion->active = 1;
         }
+        //return $status;die;
+        if ($status == true) {
+            $clavado = Clavado::find($ejecucion->id_clavado);
+            if ($clavado) {
+                $clavado->active = 1;
+                $clavado->save();
+            }
+        }
+
         $ejecucion->save();
 
         return redirect('/all_dives')
@@ -214,5 +219,42 @@ class ClavadoController extends Controller
     public function destroy(clavado $clavado)
     {
         //
+    }
+
+    public function addResult()
+    {
+        $clavados = Clavado::where('active', 1)
+            ->orderBy('id_clavado', 'desc')
+            ->first();
+     
+
+        $ejecuciones = DB::table('ejecucion')
+            ->leftJoin('clavadista', 'ejecucion.id_clavadista', '=', 'clavadista.id_clavadista')
+            ->leftJoin('cal_juez', 'cal_juez.id_ejecucion', '=', 'ejecucion.id_ejecucion')
+            ->where('ejecucion.id_clavado', $clavados->id_clavado)
+            //->where('ejecucion.stop', 1)
+            //->where('ejecucion.active', 1)
+            ->orderBy('ejecucion.num_ejecucion', 'ASC')
+            ->select(
+                'ejecucion.id_ejecucion',
+                'ejecucion.num_ejecucion',
+                'ejecucion.id_clavado',
+                'ejecucion.id_clavadista',
+                'ejecucion.id_cal_participante',
+                'ejecucion.id_cal_juez',
+                'ejecucion.descripcion',
+                'ejecucion.dificultad',
+                'ejecucion.active',
+                'ejecucion.stop',
+                'clavadista.orden',
+                'clavadista.nombre',
+                'clavadista.pais_region',
+                'clavadista.active as clavadista_active',
+                'cal_juez.id_ejecucion as id_ejecucion_juez'
+            )
+            ->get();
+        //return $ejecuciones; die;
+        //return $clavados;die;
+        return view('user.content.maincontent.add_result_judge', compact('clavados', 'ejecuciones'));
     }
 }

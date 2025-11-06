@@ -2,8 +2,9 @@
     <h5>Atletas que participan</h5>
     @php
     $ronda = $item['ejecuciones'][0]->num_ejecucion;
+    $decrement = $item['ejecuciones']->count();
     @endphp
-    <h5>Ronda en curso: {{$ronda}} de {{$item->total_rondas}} </h5>
+
     <!-- Versión desktop -->
     <div class="d-none d-md-block">
         <div class="table-responsive">
@@ -28,11 +29,15 @@
                         <td>{{ $ejecucion->dificultad }}</td>
                         @if($fila == 0)
                         @if($ejecucion->stop==0)
-                        <td><a href="/changeStop/{{$ejecucion->id_ejecucion}}" class="btn btn-primary">Start</a></td>
+                        <td><a href="/changeStop/{{$ejecucion->id_ejecucion}}/status={{false}}" class="btn btn-primary">Start</a></td>
                         <!--<td><a href="#" id="start" class="btn btn-primary">Start</a></td>-->
                         @endif
                         @if($ejecucion->stop==1)
-                        <td><a href="/changeStop/{{$ejecucion->id_ejecucion}}" class="btn btn-primary">Stop </a></td>
+                            @if($decrement==1)
+                            <td><a href="/changeStop/{{$ejecucion->id_ejecucion}}/status={{true}}" class="btn btn-primary">Stop </a></td>
+                            @else
+                            <td><a href="/changeStop/{{$ejecucion->id_ejecucion}}/status={{false}}" class="btn btn-primary">Stop </a></td>
+                            @endif
                         @endif
                         @else
                         <td></td>

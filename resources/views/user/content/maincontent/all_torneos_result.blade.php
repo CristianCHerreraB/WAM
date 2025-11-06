@@ -4,86 +4,46 @@
 
 @section('content')
 
+
 <div class="content-card mb-4">
   <div class="card-header bg-success d-flex justify-content-between align-items-center">
     <div>
-      Resultados
+      <i class="fas fa-trophy me-2"></i>Mis Aciertos
     </div>
   </div>
   <div class="card-body">
     <div class="row">
+
       <!-- Competencias -->
       <div class="col-md-12">
-        <div class="competition-item">
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="diving1">
-              <label class="form-check-label" for="diving1">Plataforma de 10 metros</label>
-            </div>
-            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#results1">
-              <i class="fas fa-chevron-down"></i> ver
-            </button>
-          </div>
-          <div class="collapse" id="results1">
-            <div class="mt-3">
-              @include('partials.result_clavadista', ['event' => 'Votimen tan Springboard'])
-            </div>
-          </div>
-        </div>
-
-        <div class="competition-item">
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="diving2">
-              <label class="form-check-label" for="diving2">Plataforma de 7.5 metros</label>
-            </div>
-            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#results2">
-              <i class="fas fa-chevron-down"></i> ver
-            </button>
-          </div>
-          <div class="collapse" id="results2">
-            <div class="mt-3">
-              @include('partials.all_clavadistas', ['event' => 'Votimen tan Springboard'])
-            </div>
-          </div>
-        </div>
-
-        <div class="competition-item">
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="diving2">
-              <label class="form-check-label" for="diving2">Plataforma de 5 metros</label>
-            </div>
-            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#results3">
-              <i class="fas fa-chevron-down"></i> ver
-            </button>
-          </div>
-          <div class="collapse" id="results3">
-            <div class="mt-3">
-              @include('partials.all_clavadistas', ['event' => 'Votimen tan Springboard'])
-            </div>
-          </div>
-        </div>
-
-        <div class="competition-item">
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="diving2">
-              <label class="form-check-label" for="diving2">Plataformas de 1 y 3 metros</label>
-            </div>
-            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#results4">
-              <i class="fas fa-chevron-down"></i> ver
-            </button>
-          </div>
-          <div class="collapse" id="results4">
-            <div class="mt-3">
-              @include('partials.all_clavadistas', ['event' => 'Votimen tan Springboard'])
-            </div>
-          </div>
-        </div>
+        @if(!empty($clavados))
+        @foreach ($clavados as $item)
+        <ul class="list-group list-group-flush">
+          <a href="/athlete_list/{{$item->id_clavado}}" class="link_list">
+            <li class="list-group-item list">
+              <div class="d-flex flex-column flex-md-row w-100">
+                <span class="me-2">
+                  <strong>Evento:</strong> {{$item->evento}}
+                </span>
+                <span>
+                  <strong>Total de Rondas:</strong> {{$item->total_rondas}}
+                </span>
+              </div>
+            </li>
+          </a>
+        </ul>
+        @endforeach
+        @endif
       </div>
-
     </div>
+    @if($clavados->isEmpty())
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <h4>No existen rondas pendientes</h4>
+        <h6>Puede crear un nuevo juego en la sección <a href="/view_add_dives">Configurar Rondas y Clavados</a></h6>
+      </div>
+    </div>
+    @endif
   </div>
 </div>
 
@@ -161,6 +121,28 @@
     h2 {
       font-size: 1.3rem;
     }
+  }
+</style>
+<style>
+  .list {
+    display: block;
+    /* Hace que el enlace ocupe toda el área del <li> */
+    color: inherit;
+    /* Mantiene el color del texto del tema */
+    text-decoration: none;
+    /* Quita el subrayado */
+    width: 100%;
+    height: 100%;
+  }
+
+  .link_list {
+    text-decoration: none;
+    color: #2e7ac7ff;
+  }
+
+  .list:hover {
+    background-color: #f0f0f0;
+    /* Efecto visual al pasar el mouse */
   }
 </style>
 @endsection

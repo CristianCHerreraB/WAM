@@ -63,134 +63,96 @@
         padding: 0px;
     }
 </style>
-@php
-$participants = [
-['country' => 'USA', 'athlete' => 'Michael Johnson', 'round' => 1],
-['country' => 'GER', 'athlete' => 'Thomas Müller', 'round' => 1],
-['country' => 'JPN', 'athlete' => 'Yuki Tanaka', 'round' => 3],
-['country' => 'AUS', 'athlete' => 'James Wilson', 'round' => 2],
-['country' => 'BRA', 'athlete' => 'Carlos Silva', 'round' => 1],
-['country' => 'FRA', 'athlete' => 'Pierre Dubois', 'round' => 3],
-['country' => 'CAN', 'athlete' => 'Ryan Cooper', 'round' => 2],
-['country' => 'GBR', 'athlete' => 'David Williams', 'round' => 1],
-];
-@endphp
 
-<div class="results-table-container">
-    <!-- Versión desktop -->
-    <!--<div class="d-none d-md-block">-->
-    <div class="d-none d-md-block">
-        <div class="table-responsive">
-            @foreach($participants as $index => $participant)
-            <div class="accordion accordion-flush" id="accordionFlushExample">
-                <div class="accordion-item">
-                    <div class="list-group">
-                        <h2 class="accordion-header list-group-item list-group-item-action">
-                            <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne-{{ $index }}" aria-expanded="false" aria-controls="flush-collapseOne">
-                                <strong>{{ $participant['country'] }}</strong> - {{ $participant['athlete'] }} - {{ $participant['round'] }}
-                            </button>
-                        </h2>
-                    </div>
-                    <div id="flush-collapseOne-{{ $index }}" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                        <div class="accordion-body">
-                            <div class="card card-body">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Dive</th>
-                                            <th scope="col">Dive No.</th>
-                                            <th scope="col">DD</th>
-                                            <th scope="col">J1</th>
-                                            <th scope="col">J2</th>
-                                            <th scope="col">J3</th>
-                                            <th scope="col">J4</th>
-                                            <th scope="col">J5</th>
-                                            <th scope="col">J6</th>
-                                            <th scope="col">J7</th>
-                                            <th scope="col">Dive Points</th>
-                                            <th scope="col">Total Points</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>203B</td>
-                                            <td><input class="col-md-2" type="text" name="j1"></td>
-                                            <td><input class="col-md-2" type="text" name="j2"></td>
-                                            <td><input class="col-md-2" type="text" name="j3"></td>
-                                            <td><input class="col-md-2" type="text" name="j4"></td>
-                                            <td><input class="col-md-2" type="text" name="j5"></td>
-                                            <td><input class="col-md-2" type="text" name="j6"></td>
-                                            <td><input class="col-md-2" type="text" name="j7"></td>
-                                            <td><input class="col-md-2" type="text" name="j8"></td>
-                                            <td><input class="col-md-2" type="text" name="divePoints"></td>
-                                            <td><input class="col-md-2" type="text" name="totalPoints"></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @endforeach
+
+<div class="table-responsive">
+    @php
+    $index_aux=0;
+    @endphp
+
+    @for($i=1 ;$i <= $clavados->total_rondas;$i++)
+        <div>
+            <h7>Ronda # {{$i}}</h7>
         </div>
-    </div>
-
-    <!-- Versión móvil -->
-    <div class="d-md-none">
-        @foreach($participants as $index => $participant)
-        <div class="list-group accordion accordion-flush" id="accordionFlushExample">
+        @foreach($ejecuciones->sortBy('orden') as $index => $participant)
+        @if( $participant->num_ejecucion == $i)
+        <div class="accordion accordion-flush" id="accordionFlushExample">
             <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne-{{ $index }}" aria-expanded="false" aria-controls="flush-collapseOne">
-                        {{ $participant['country'] }}- {{ $participant['athlete'] }} - {{ $participant['round'] }}
-                    </button>
-                </h2>
-                <div id="flush-collapseOne-{{ $index }}" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="list-group">
+                    <h2 class="accordion-header list-group-item list-group-item-action">
+                        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne-{{ $index_aux }}" aria-expanded="false" aria-controls="flush-collapseOne">
+                            {{ $participant->orden }} | <img class="d-flex justify-content-start" src="/flags/4x3/{{ $participant->pais_region }}.svg" width="32" height="20" alt="MX">
+                            | Nombre: {{ $participant->nombre }} | Clavado: {{ $participant->descripcion }} | Dificultad: {{ $participant->dificultad }}
+                        </button>
+                    </h2>
+                </div>
+                <div id="flush-collapseOne-{{ $index_aux }}" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body">
                         <div class="card card-body">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Dive</th>
-                                            <th scope="col">Dive No.</th>
-                                            <th scope="col">DD</th>
-                                            <th scope="col">J1</th>
-                                            <th scope="col">J2</th>
-                                            <th scope="col">J3</th>
-                                            <th scope="col">J4</th>
-                                            <th scope="col">J5</th>
-                                            <th scope="col">J6</th>
-                                            <th scope="col">J7</th>
-                                            <th scope="col">Dive Points</th>
-                                            <th scope="col">Total Points</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>203B</td>
-                                            <td>23</td>
-                                            <td>6.0</td>
-                                            <td>6.5</td>
-                                            <td>6.5</td>
-                                            <td>70</td>
-                                            <td>75</td>
-                                            <td>6.0</td>
-                                            <td>6.5</td>
-                                            <td>44.85</td>
-                                            <td>44.85</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            @if($participant->id_ejecucion_juez==null)
+                            <form action="/save_check_judge" method="post">
+                                @csrf
+                                <div class="row g-3">
+                                    <input type="text" value="{{$participant->id_ejecucion}}" name="id_ejecucion" hidden>
+                                    <div class="col-md-2">
+                                        <label for="inputZc1" class="form-label">Resultado 1</label>
+                                        <input type="text" class="form-control" name="c1" id="c1" required>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="inputZc2" class="form-label">Resultado 2</label>
+                                        <input type="text" class="form-control" name="c2" id="c2" required>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="inputZc3" class="form-label">Resultado 3</label>
+                                        <input type="text" class="form-control" name="c3" id="c3" required>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="inputZc4" class="form-label">Resultado 4</label>
+                                        <input type="text" class="form-control" name="c4" id="c4" required>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="inputZc5" class="form-label">Resultado 5</label>
+                                        <input type="text" class="form-control" name="c5" id="c5" required>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="inputZc6" class="form-label">Resultado 6</label>
+                                        <input type="text" class="form-control" name="c6" id="c6" required>
+                                    </div>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-md-2">
+                                        <label for="inputZc7" class="form-label">Resultado 7</label>
+                                        <input type="text" class="form-control" name="c7" id="c7" required>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="divePoints" class="form-label">Puntos de clavado</label>
+                                        <input type="text" class="form-control" name="dive_points" id="divePoints">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="totalPoints" class="form-label">Puntos Totales</label>
+                                        <input type="text" class="form-control" name="total_points" id="totalPoints">
+                                    </div>
+                                </div>
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <button class="btn btn-primary" type="submmit">Guardar</button>
+                                </div>
+                            </form>
+                            @else
+                            <div class="row">
+                                <div class="col md-12 text-center">
+                                    <h4>Ya emitió su evaluación</h4>
+                                </div>
                             </div>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        @php
+        $index_aux++;
+        @endphp
+        @endif
         @endforeach
-    </div>
+        @endfor
 </div>

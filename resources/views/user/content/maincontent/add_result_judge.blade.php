@@ -3,22 +3,34 @@
 @section('title', 'Dashboard')
 
 @section('content')
-
+@if(!empty($clavados))
 <div class="content-card mb-4">
   <div class="card-header bg-success d-flex justify-content-between align-items-center">
     <div>
-      Resultados de Plataforma 1m
+    | Evento: {{$clavados->evento}} | N°.Rondas: {{$clavados->total_rondas}} | Fecha: {{$clavados->fecha}} 
     </div>
   </div>
 
-    <div class="row">
-      <!-- Competencias -->
-      <div class="col-md-12">
-        @include('partials.add_result_dive_judge', ['event' => 'Votimen tan Springboard'])
+  <div class="row">
+    <!-- Competencias -->
+    <div class="col-md-12">
+      <div class="results-table-container">
+        <!-- Versión desktop -->
+        <!--<div class="d-none d-md-block">-->
+        <div class="d-none d-md-block">
+          @include('partials.add_result_dive_judge', ['event' => 'ejecuciones','clavados' => $clavados])
+        </div>
       </div>
+      <!-- Versión móvil -->
+      <div class="d-md-none">
+        @include('partials.add_result_dive_judge', ['event' => 'ejecuciones','clavados' => $clavados])
+      </div>
+
     </div>
+  </div>
 
 </div>
+@endif
 
 
 
