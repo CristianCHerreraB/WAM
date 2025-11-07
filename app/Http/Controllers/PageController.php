@@ -56,6 +56,7 @@ class PageController extends Controller
         return view('user.content.dashboard');
     }
 
+
     public function torneosEnCurso()
     {
         return view('user.content.maincontent.all_torneos_en_curso');
@@ -86,3 +87,4 @@ class PageController extends Controller
         return view('user.content.maincontent.all_torneos_result');
     }
 }
+
