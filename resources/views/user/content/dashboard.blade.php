@@ -3,12 +3,6 @@
 @section('title', 'Dashboard')
 
 @section('content')
-<!--
-<div class="welcome-banner">
-  <h1 class="welcome-title">¡Bienvenido de nuevo!</h1>
-  <p class="welcome-text">Explora todas las funcionalidades que tenemos para ti.</p>
-  <button class="btn btn-light">Comenzar ahora</button>
-</div>-->
 
 <div class="content-card mb-4">
   <div class="card-header bg-success d-flex justify-content-between align-items-center">

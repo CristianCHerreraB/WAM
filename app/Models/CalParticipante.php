@@ -11,4 +11,17 @@ class CalParticipante extends Model
     protected $primaryKey = 'id_cal_participante';
     public $incrementing = true;
     protected $keyType = 'int';
+
+       protected $fillable = [
+        'id_usuario',   
+        'calificacion',
+        'id_ejecucion',
+        'created',
+        'created_by',
+        'deleted',
+        'deleted_by',
+        'modified',
+        'modified_by',
+        'active'
+    ];
 }

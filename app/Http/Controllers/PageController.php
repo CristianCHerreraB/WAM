@@ -55,4 +55,36 @@ class PageController extends Controller
     {
         return view('user.content.dashboard');
     }
+
+
+    public function torneosEnCurso()
+    {
+        return view('user.content.maincontent.all_torneos_en_curso');
+    }
+
+    public function qualifyAthlete()
+    {
+        return view('user.content.maincontent.qualify_athlete');
+    }
+
+    public function torneosResult()
+    {
+        return view('user.content.maincontent.all_torneos_result');
+    }
+
+    public function viewDives()
+    {
+        return view('user.content.maincontent.add_dives');
+    }
+
+    public function viewResponceJusge()
+    {
+        return view('user.content.maincontent.add_result_judge');
+    }
+
+    public function viewResult()
+    {
+        return view('user.content.maincontent.all_torneos_result');
+    }
 }
+
