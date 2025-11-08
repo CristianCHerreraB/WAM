@@ -54,7 +54,7 @@ Route::get('/changeStop/{id}/{status}', [ClavadoController::class, 'changeStop']
 Route::post('/save_check', [cal_participante::class, 'save_check'])->name('save_check');
 Route::post('/save_results', [cal_participante::class, 'save_results'])->name('save_results');
 Route::post('/save_check_judge', [CalJuezController::class, 'save_check_judge'])->name('save_check_judge');
-Route::get('/view_result', [CalJuezController::class, 'viewResult'])->name('viewResult');
+Route::get('/view_result', [CalJuezController::class, 'viewResult'])->name('view_result');
 Route::get('/athlete_list/{id_clavado}', [CalJuezController::class, 'athleteList'])->name('athleteList');
 Route::post('/athleteResult/{id_clavadista}/{id_clavado}', [CalJuezController::class, 'athleteResult'])->name('athleteResult');
 

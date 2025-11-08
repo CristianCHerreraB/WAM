@@ -128,10 +128,10 @@
                                         <label for="divePoints" class="form-label">Puntos de clavado</label>
                                         <input type="text" class="form-control" name="dive_points" id="divePoints">
                                     </div>
-                                    <div class="col-md-2">
+                                   <!-- <div class="col-md-2">
                                         <label for="totalPoints" class="form-label">Puntos Totales</label>
                                         <input type="text" class="form-control" name="total_points" id="totalPoints">
-                                    </div>
+                                    </div>-->
                                 </div>
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                     <button class="btn btn-primary" type="submmit">Guardar</button>
@@ -156,3 +156,32 @@
         @endforeach
         @endfor
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+
+    document.querySelectorAll("input[name^='c']").forEach(input => {
+        input.addEventListener("input", function() {
+            calcularPromedio(this.closest("form"));
+        });
+    });
+});
+
+function calcularPromedio(form) {
+    const valores = Array.from(form.querySelectorAll("input[name^='c']"))
+        .map(i => parseFloat(i.value))
+        .filter(v => !isNaN(v)); 
+
+    if (valores.length === 7) {
+        valores.sort((a, b) => a - b);//ordenamos los valores de menor a mayor
+        const midelvalue = valores.slice(2, 5);//quitamos los valores que no se suman 
+        const promedio = midelvalue.reduce((a, b) => a + b, 0) / midelvalue.length;//calculamos promedio
+        form.querySelector("#divePoints").value = promedio.toFixed(2);
+
+        const dificultad = parseFloat(form.querySelector("button.accordion-button").textContent.match(/Dificultad:\s([\d.]+)/)?.[1] || 0);
+        if (dificultad > 0) {
+            form.querySelector("#totalPoints").value = (promedio * dificultad).toFixed(2);
+        }
+    }
+}
+</script>
