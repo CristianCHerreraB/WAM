@@ -4,8 +4,6 @@
     $decrement = $ejecuciones->count();
     @endphp
 
-    <!-- Versión desktop -->
-    <div class="d-none d-md-block">
 
         @foreach($ejecuciones->sortBy('orden') as $ejecucion)
         @if($ejecucion->num_ejecucion == $ronda)
@@ -45,6 +43,7 @@
                                     <th>J6</th>
                                     <th>J7</th>
                                     <th>Puntos</th>
+                                    <th>Mi respuesta</th>
                                 </tr>
                             </thead>
                             <tbody class="result-body"></tbody>
@@ -55,12 +54,7 @@
         </div>
         @endif
         @endforeach
-    </div>
 
-    <!-- Versión móvil -->
-    <div class="d-md-none">
-
-    </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -91,8 +85,8 @@
             padding: 10px;
         }
 
-        .card-body {
+        /*.card-body {
             padding: 0.75rem;
-        }
+        }*/
     }
 </style>

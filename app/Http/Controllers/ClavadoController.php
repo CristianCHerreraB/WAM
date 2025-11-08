@@ -223,8 +223,8 @@ class ClavadoController extends Controller
 
     public function addResult()
     {
-        $clavados = Clavado::where('active', 1)
-            ->orderBy('id_clavado', 'desc')
+        $clavados = //Clavado::where('active', 0)
+            Clavado::orderBy('id_clavado', 'desc')
             ->first();
      
 
