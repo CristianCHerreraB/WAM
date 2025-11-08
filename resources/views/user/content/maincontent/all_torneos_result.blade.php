@@ -39,8 +39,7 @@
     @if($clavados->isEmpty())
     <div class="row">
       <div class="col-md-12 text-center">
-        <h4>No existen rondas pendientes</h4>
-        <h6>Puede crear un nuevo juego en la sección <a href="/view_add_dives">Configurar Rondas y Clavados</a></h6>
+        <h6>No hay resultados disponibles por el momento.</h6>
       </div>
     </div>
     @endif
