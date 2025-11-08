@@ -9,6 +9,7 @@ use App\Models\clavadista;
 use App\Models\ejecucion;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 
@@ -19,6 +20,11 @@ class ClavadoController extends Controller
      */
     public function divesInLive()
     {
+        $userId = Auth::user()->id_usuario;
+        if (!$userId) {
+            return redirect()->route('login');
+        }
+
         $exists = false;
         // $clavados = clavado::query()->where('active', 0)->first();
         $clavados =  DB::table('ejecucion')
@@ -56,6 +62,11 @@ class ClavadoController extends Controller
 
     public function index()
     {
+        $userId = Auth::user()->id_usuario;
+        if (!$userId) {
+            return redirect()->route('login');
+        }
+
         $clavados = Clavado::query()
             ->select('id_clavado', 'evento', 'total_rondas', 'fecha', 'active')
             //->where('active', 0) //Muestra el listado de jusgos activos o inactivos, muestra todos si no se agrega esta linea 
@@ -92,11 +103,15 @@ class ClavadoController extends Controller
 
         // return $clavados;die;
         return view('user.content.maincontent.all_torneos_en_curso', compact('clavados'));
-
     }
 
     public function changeStop($id, $status)
     {
+        $userId = Auth::user()->id_usuario;
+        if (!$userId) {
+            return redirect()->route('login');
+        }
+
         $ejecucion = ejecucion::query()->where('id_ejecucion', $id)->first();
         if ($ejecucion->stop == 0) {
             $ejecucion->stop = 1;
@@ -129,6 +144,10 @@ class ClavadoController extends Controller
 
     public function create(Request $request)
     {
+        $userId = Auth::user()->id_usuario;
+        if (!$userId) {
+            return redirect()->route('login');
+        }
 
         $clavado = clavado::create([
             'evento' => $request->evento,
@@ -223,10 +242,15 @@ class ClavadoController extends Controller
 
     public function addResult()
     {
+        $userId = Auth::user()->id_usuario;
+        if (!$userId) {
+            return redirect()->route('login');
+        }
+
         $clavados = //Clavado::where('active', 0)
             Clavado::orderBy('id_clavado', 'desc')
             ->first();
-     
+
 
         $ejecuciones = DB::table('ejecucion')
             ->leftJoin('clavadista', 'ejecucion.id_clavadista', '=', 'clavadista.id_clavadista')
