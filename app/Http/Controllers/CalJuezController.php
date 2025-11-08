@@ -17,7 +17,7 @@ class CalJuezController extends Controller
     public function save_check_judge(Request $request)
     {
         $userId = Auth::user()->id_usuario;
-        if(!$userId){
+        if (!$userId) {
             return redirect()->route('login');
         }
         $CalParticipante = CalJuez::create([
@@ -48,14 +48,19 @@ class CalJuezController extends Controller
 
     public function viewResult()
     {
+        $userId = Auth::user()->id_usuario;
+        if (!$userId) {
+            return redirect()->route('login');
+        }
+
         /* $clavados = clavado::query()
             ->select('id_clavado', 'evento', 'total_rondas', 'fecha', 'active')
             ->where('active', 1) //Muestra el listado de jusgos activos o inactivos, muestra todos si no se agrega esta linea 
             ->orderBy('id_clavado', 'desc')
             ->get();*/
-             
+
         $userId = Auth::user()->id_usuario;
-        if(!$userId){
+        if (!$userId) {
             return redirect()->route('login');
         }
         $clavados = Clavado::select('id_clavado', 'evento', 'fecha', 'total_rondas')
@@ -76,6 +81,11 @@ class CalJuezController extends Controller
 
     public function athleteList($id_clavado)
     {
+
+        $userId = Auth::user()->id_usuario;
+        if (!$userId) {
+            return redirect()->route('login');
+        }
 
         $ejecuciones = DB::table('ejecucion')
             ->leftJoin('clavadista', 'ejecucion.id_clavadista', '=', 'clavadista.id_clavadista')
@@ -104,24 +114,30 @@ class CalJuezController extends Controller
 
     public function athleteResult($id_clavadista, $id_clavado)
     {
+        $userId = Auth::user()->id_usuario;
+        if (!$userId) {
+            return redirect()->route('login');
+        }
+
         $datos = DB::table('ejecucion')
             ->leftJoin('cal_juez', 'cal_juez.id_ejecucion', '=', 'ejecucion.id_ejecucion')
             ->leftJoin('cal_participante', 'cal_participante.id_ejecucion', '=', 'ejecucion.id_ejecucion')
             ->where('id_clavadista', $id_clavadista)
             ->where('id_clavado', $id_clavado)
             ->select(
-            'ejecucion.num_ejecucion', 
-            'ejecucion.descripcion', 
-            'ejecucion.dificultad',
-            'cal_juez.j1',
-            'cal_juez.j2',
-            'cal_juez.j3',
-            'cal_juez.j4',
-            'cal_juez.j5',
-            'cal_juez.j6',
-            'cal_juez.j7',
-            'cal_juez.divepoints',
-            'cal_participante.calificacion')
+                'ejecucion.num_ejecucion',
+                'ejecucion.descripcion',
+                'ejecucion.dificultad',
+                'cal_juez.j1',
+                'cal_juez.j2',
+                'cal_juez.j3',
+                'cal_juez.j4',
+                'cal_juez.j5',
+                'cal_juez.j6',
+                'cal_juez.j7',
+                'cal_juez.divepoints',
+                'cal_participante.calificacion'
+            )
             ->get();
 
         return response()->json([

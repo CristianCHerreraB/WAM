@@ -381,7 +381,7 @@
         </a>
       </div>
        <div class="nav-item">
-        <a class="nav-link " href="/view_result">
+        <a class="nav-link " href="{{ route('view_result') }}">
           <i class="fas fa-users"></i> Mis Aciertos
         </a>
       </div>
