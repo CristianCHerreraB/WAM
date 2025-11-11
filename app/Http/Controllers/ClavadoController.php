@@ -44,7 +44,7 @@ class ClavadoController extends Controller
             $exists = CalParticipante::query()
                 ->select('id_cal_participante', 'id_usuario', 'id_ejecucion')
                 ->where('id_ejecucion', $clavados->id_ejecucion)
-                //->where('id_usuario', 2)
+                ->where('id_usuario',  $userId)
                 ->first();
         }
         // return !empty($exists);
@@ -260,7 +260,11 @@ class ClavadoController extends Controller
         $clavados = //Clavado::where('active', 0)
             Clavado::orderBy('id_clavado', 'desc')
             ->first();
-
+        if(!$clavados){
+            $clavados = [] ;
+            $ejecuciones = [] ;
+             return view('user.content.maincontent.add_result_judge', compact('clavados', 'ejecuciones'));
+        }
 
         $ejecuciones = DB::table('ejecucion')
             ->leftJoin('clavadista', 'ejecucion.id_clavadista', '=', 'clavadista.id_clavadista')

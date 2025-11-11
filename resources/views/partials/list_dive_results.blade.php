@@ -42,8 +42,9 @@
                                     <th>J5</th>
                                     <th>J6</th>
                                     <th>J7</th>
+                                    <th>Puntos Juez</th>
+                                    <th>Calificación</th>
                                     <th>Puntos</th>
-                                    <th>Mi respuesta</th>
                                 </tr>
                             </thead>
                             <tbody class="result-body"></tbody>

@@ -86,7 +86,9 @@ class CalJuezController extends Controller
 
         $ejecuciones = DB::table('ejecucion')
             ->leftJoin('clavadista', 'ejecucion.id_clavadista', '=', 'clavadista.id_clavadista')
+            ->leftJoin('cal_participante', 'ejecucion.id_ejecucion', '=', 'cal_participante.id_ejecucion')
             ->where('ejecucion.id_clavado', $id_clavado)
+            ->where('cal_participante.id_usuario', $userId)
             ->orderBy('ejecucion.num_ejecucion', 'ASC')
             ->select(
                 'ejecucion.id_ejecucion',
@@ -102,7 +104,8 @@ class CalJuezController extends Controller
                 'clavadista.orden',
                 'clavadista.nombre',
                 'clavadista.pais_region',
-                'clavadista.active as clavadista_active'
+                'clavadista.active as clavadista_active',
+                'cal_participante.id_usuario'
             )
             ->get();
 
@@ -123,6 +126,7 @@ class CalJuezController extends Controller
             ->leftJoin('cal_participante', 'cal_participante.id_ejecucion', '=', 'ejecucion.id_ejecucion')
             ->where('id_clavadista', $id_clavadista)
             ->where('id_clavado', $id_clavado)
+            ->where('cal_participante.id_usuario', $userId)
             ->select(
                 'ejecucion.num_ejecucion',
                 'ejecucion.descripcion',
@@ -135,7 +139,8 @@ class CalJuezController extends Controller
                 'cal_juez.j6',
                 'cal_juez.j7',
                 'cal_juez.divepoints',
-                'cal_participante.calificacion'
+                'cal_participante.calificacion',
+                'cal_participante.id_usuario'
             )
             ->get();
 

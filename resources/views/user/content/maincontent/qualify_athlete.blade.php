@@ -302,7 +302,6 @@
     font-size: 0.875rem;
   }
 
-  /* Responsive adjustments */
   @media (max-width: 768px) {
     .competition-item {
       padding: 12px;
