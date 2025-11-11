@@ -3,48 +3,52 @@
 @section('title', 'Dashboard')
 
 @section('content')
-
-
+@if(!empty($clavados))
 <div class="content-card mb-4">
   <div class="card-header bg-success d-flex justify-content-between align-items-center">
     <div>
-      <i class="fas fa-trophy me-2"></i>Mis Aciertos
+      | Evento: {{$clavados->evento}} | N°.Rondas: {{$clavados->total_rondas}} | Fecha: {{$clavados->fecha}}
     </div>
   </div>
-  <div class="card-body">
-    <div class="row">
 
-      <!-- Competencias -->
-      <div class="col-md-12">
-        @if(!empty($clavados))
-        @foreach ($clavados as $item)
-        <ul class="list-group list-group-flush">
-          <a href="/athlete_list/{{$item->id_clavado}}" class="link_list">
-            <li class="list-group-item list">
-              <div class="d-flex flex-column flex-md-row w-100">
-                <span class="me-2">
-                  <strong>Evento:</strong> {{$item->evento}}
-                </span>
-                <span>
-                  <strong>Total de Rondas:</strong> {{$item->total_rondas}}
-                </span>
-              </div>
-            </li>
-          </a>
-        </ul>
-        @endforeach
-        @endif
+  <div class="row">
+    <!-- Competencias -->
+    <div class="col-md-12">
+      <div class="results-table-container">
+        <!-- Versión desktop -->
+        <!--<div class="d-none d-md-block">-->
+        <div class="d-none d-md-block">
+          @include('partials.add_result_dive_judge', ['event' => 'ejecuciones','clavados' => $clavados])
+        </div>
       </div>
+      <!-- Versión móvil -->
+      <div class="d-md-none">
+        @include('partials.add_result_dive_judge', ['event' => 'ejecuciones','clavados' => $clavados])
+      </div>
+
     </div>
-    @if($clavados->isEmpty())
+  </div>
+
+</div>
+@endif
+@if(empty($clavados))
+<div class="content-card mb-4">
+  <div class="card-header bg-success d-flex justify-content-between align-items-center">
+    <div>
+      | Evento:| N°.Rondas: | Fecha: 
+    </div>
+  </div>
+  <div class="row">
     <div class="row">
       <div class="col-md-12 text-center">
+        <br>
         <h6>No hay resultados disponibles por el momento.</h6>
+      <br>
       </div>
     </div>
-    @endif
   </div>
 </div>
+@endif
 
 
 
@@ -120,28 +124,6 @@
     h2 {
       font-size: 1.3rem;
     }
-  }
-</style>
-<style>
-  .list {
-    display: block;
-    /* Hace que el enlace ocupe toda el área del <li> */
-    color: inherit;
-    /* Mantiene el color del texto del tema */
-    text-decoration: none;
-    /* Quita el subrayado */
-    width: 100%;
-    height: 100%;
-  }
-
-  .link_list {
-    text-decoration: none;
-    color: #2e7ac7ff;
-  }
-
-  .list:hover {
-    background-color: #f0f0f0;
-    /* Efecto visual al pasar el mouse */
   }
 </style>
 @endsection

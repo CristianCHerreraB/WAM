@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\clavado;
 use App\Http\Controllers\Controller;
+use App\Models\CalParticipante;
 use App\Models\clavadista;
 use App\Models\ejecucion;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 
@@ -18,6 +20,14 @@ class ClavadoController extends Controller
      */
     public function divesInLive()
     {
+        $userId = null;
+        if (Auth::user()) {
+            $userId = Auth::user()->id_usuario;
+        } else {
+            return redirect()->route('login');
+        }
+
+        $exists = false;
         // $clavados = clavado::query()->where('active', 0)->first();
         $clavados =  DB::table('ejecucion')
             ->select()
@@ -25,10 +35,25 @@ class ClavadoController extends Controller
             ->leftJoin('clavadista', 'ejecucion.id_clavadista', '=', 'clavadista.id_clavadista')
             //->where('clavado.id_clavado', 4)
             //->where('ejecucion.orden', 1)
-            ->where('clavado.active', 0)
-            ->where('ejecucion.stop',1)
+            ->where('ejecucion.active', 0)
+            ->where('ejecucion.stop', 1)
             ->select('ejecucion.*', 'clavado.*', 'clavadista.*')
             ->first();
+        //return $clavados;die;
+        if ($clavados && $clavados->id_ejecucion != null) {
+            $exists = CalParticipante::query()
+                ->select('id_cal_participante', 'id_usuario', 'id_ejecucion')
+                ->where('id_ejecucion', $clavados->id_ejecucion)
+                ->where('id_usuario',  $userId)
+                ->first();
+        }
+        // return !empty($exists);
+        if ($exists != false) {
+            return response()->json([
+                'status' => 'ok',
+                'resultado' => false
+            ]);
+        }
 
 
         return response()->json([
@@ -39,19 +64,26 @@ class ClavadoController extends Controller
 
     public function index()
     {
+        $userId = null;
+        if (Auth::user()) {
+            $userId = Auth::user()->id_usuario;
+        } else {
+            return redirect()->route('login');
+        }
+
         $clavados = Clavado::query()
             ->select('id_clavado', 'evento', 'total_rondas', 'fecha', 'active')
-            ->where('active', 0)
+            //->where('active', 0) //Muestra el listado de jusgos activos o inactivos, muestra todos si no se agrega esta linea 
+            //->where('created_by',/*id usuario*/)//mostrar torneos por usuario admin
+            ->orderBy('id_clavado', 'desc')
             ->get();
 
         foreach ($clavados as $clavado) {
             $ejecuciones = DB::table('ejecucion')
                 ->leftJoin('clavadista', 'ejecucion.id_clavadista', '=', 'clavadista.id_clavadista')
-                ->where('ejecucion.id_clavado', $clavado->id_clavado) 
-                ->where('ejecucion.active',0)
-                //->where('ejecucion.num_ejecucion',1)
-                //->orderBy('clavadista.orden')
-                ->orderBy('ejecucion.num_ejecucion')
+                ->where('ejecucion.id_clavado', $clavado->id_clavado)
+                ->where('ejecucion.active', 0)
+                ->orderBy('ejecucion.num_ejecucion', 'ASC')
                 ->select(
                     'ejecucion.id_ejecucion',
                     'ejecucion.num_ejecucion',
@@ -70,31 +102,43 @@ class ClavadoController extends Controller
                 )
                 ->get();
 
-            $clavado->ejecuciones = $ejecuciones; 
+            $clavado->ejecuciones = $ejecuciones;
         }
 
-       // return $clavados;die;
+        // return $clavados;die;
         return view('user.content.maincontent.all_torneos_en_curso', compact('clavados'));
-        return response()->json([
-            'status' => 'ok',
-            'resultado' =>  $ejecuciones
-        ]);
     }
 
-    public function changeStop($id)
+    public function changeStop($id, $status)
     {
+        $userId = null;
+        if (Auth::user()) {
+            $userId = Auth::user()->id_usuario;
+        } else {
+            return redirect()->route('login');
+        }
+
         $ejecucion = ejecucion::query()->where('id_ejecucion', $id)->first();
         if ($ejecucion->stop == 0) {
             $ejecucion->stop = 1;
         } else {
-            $ejecucion->stop = 0;
-             $ejecucion->active = 1;
+            $ejecucion->stop = 2;
+            $ejecucion->active = 1;
         }
+        //return $status;die;
+        if ($status == true) {
+            $clavado = Clavado::find($ejecucion->id_clavado);
+            if ($clavado) {
+                $clavado->active = 1;
+                $clavado->save();
+            }
+        }
+
         $ejecucion->save();
 
         return redirect('/all_dives')
-         ->with('success', 'Registro agregado correctamente.');
-       /* return response()->json([
+            ->with('success', 'Registro agregado correctamente.');
+        /* return response()->json([
             'status' => 'ok',
             'resultado' => '{stop:' . $ejecucion->stop . '}',
         ]);*/
@@ -106,6 +150,12 @@ class ClavadoController extends Controller
 
     public function create(Request $request)
     {
+        $userId = null;
+        if (Auth::user()) {
+            $userId = Auth::user()->id_usuario;
+        } else {
+            return redirect()->route('login');
+        }
 
         $clavado = clavado::create([
             'evento' => $request->evento,
@@ -139,7 +189,7 @@ class ClavadoController extends Controller
             }
         }
 
-        return redirect('view_add_dives/')
+        return redirect('/all_dives')
             ->with('success', 'Registro agregado correctamente.');
     }
 
@@ -196,5 +246,53 @@ class ClavadoController extends Controller
     public function destroy(clavado $clavado)
     {
         //
+    }
+
+    public function addResult()
+    {
+        $userId = null;
+        if (Auth::user()) {
+            $userId = Auth::user()->id_usuario;
+        } else {
+            return redirect()->route('login');
+        }
+
+        $clavados = //Clavado::where('active', 0)
+            Clavado::orderBy('id_clavado', 'desc')
+            ->first();
+        if(!$clavados){
+            $clavados = [] ;
+            $ejecuciones = [] ;
+             return view('user.content.maincontent.add_result_judge', compact('clavados', 'ejecuciones'));
+        }
+
+        $ejecuciones = DB::table('ejecucion')
+            ->leftJoin('clavadista', 'ejecucion.id_clavadista', '=', 'clavadista.id_clavadista')
+            ->leftJoin('cal_juez', 'cal_juez.id_ejecucion', '=', 'ejecucion.id_ejecucion')
+            ->where('ejecucion.id_clavado', $clavados->id_clavado)
+            //->where('ejecucion.stop', 1)
+            //->where('ejecucion.active', 1)
+            ->orderBy('ejecucion.num_ejecucion', 'ASC')
+            ->select(
+                'ejecucion.id_ejecucion',
+                'ejecucion.num_ejecucion',
+                'ejecucion.id_clavado',
+                'ejecucion.id_clavadista',
+                'ejecucion.id_cal_participante',
+                'ejecucion.id_cal_juez',
+                'ejecucion.descripcion',
+                'ejecucion.dificultad',
+                'ejecucion.active',
+                'ejecucion.stop',
+                'clavadista.orden',
+                'clavadista.nombre',
+                'clavadista.pais_region',
+                'clavadista.active as clavadista_active',
+                'cal_juez.id_ejecucion as id_ejecucion_juez'
+            )
+            ->get();
+        //return $ejecuciones; die;
+        //return $clavados;die;
+        return view('user.content.maincontent.add_result_judge', compact('clavados', 'ejecuciones'));
     }
 }

@@ -44,7 +44,7 @@
               @else
               <div class="row">
                 <div class="col md-12 text-center">
-                  <h4>No existen rondas pendientes</h4>
+                  <h4>No existen rondas pendientes para {{$item->evento}}</h4>
                   <h6>Puede crear un nuevo juego en la seccion <a href="/view_add_dives">Configurar Rondas y Clavados</a></h6>
                 </div>
               </div>
@@ -56,26 +56,15 @@
         @endif
       </div>
     </div>
-    @if(!$clavados)
+    @if($clavados->isEmpty())
     <div class="row">
-      <div class="col md-12 text-center">
+      <div class="col-md-12 text-center">
         <h4>No existen rondas pendientes</h4>
-        <h6>Puede crear un nuevo juego en la seccion <a href="/view_add_dives">Configurar Rondas y Clavados</a></h6>
+        <h6>Puede crear un nuevo juego en la sección <a href="/view_add_dives">Configurar Rondas y Clavados</a></h6>
       </div>
     </div>
     @endif
   </div>
-</div>
-<div class="text-white p-3 shadow position-fixed bottom-0 end-0 m-4 d-flex align-items-center"
-  style="cursor: pointer; z-index: 1050;
-            border-top-left-radius: 50px;
-            border-bottom-left-radius: 50px;
-            padding: 0px !important;
-            background: linear-gradient(to right, #030760, #0075b5);">
-
-  <img src="images/ranking.png" height="50" width="75" alt="Ranking" class="me-2">
-  <small style="font-size: 4em; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">10</small>
-
 </div>
 
 
