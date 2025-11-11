@@ -19,7 +19,7 @@
         font-size: 0.8rem;
     }
 
-    /* Responsive adjustments */
+  
     @media (max-width: 768px) {
         .results-table-container {
             padding: 10px;
@@ -93,6 +93,7 @@
                             <form action="/save_check_judge" method="post">
                                 @csrf
                                 <div class="row g-3">
+                                    <input type="text" value="{{ $participant->dificultad }}" id="dificultad" hidden>
                                     <input type="text" value="{{$participant->id_ejecucion}}" name="id_ejecucion" hidden>
                                     <div class="col-md-2">
                                         <label for="inputZc1" class="form-label">Resultado 1</label>
@@ -159,29 +160,26 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-
+    let count = 0;
     document.querySelectorAll("input[name^='c']").forEach(input => {
         input.addEventListener("input", function() {
-            calcularPromedio(this.closest("form"));
+            calcularPromedio(this.closest("form"),count);
         });
     });
 });
 
-function calcularPromedio(form) {
+function calcularPromedio(form,count) {
     const valores = Array.from(form.querySelectorAll("input[name^='c']"))
         .map(i => parseFloat(i.value))
         .filter(v => !isNaN(v)); 
 
     if (valores.length === 7) {
+        const dificultad = parseFloat(form.querySelector("#dificultad").value,0);
         valores.sort((a, b) => a - b);//ordenamos los valores de menor a mayor
-        const midelvalue = valores.slice(2, 5);//quitamos los valores que no se suman 
-        const promedio = midelvalue.reduce((a, b) => a + b, 0) / midelvalue.length;//calculamos promedio
+        const midelvalue = valores.slice(2, 5);//quitamos los valores que no se suman
+        const promedio = midelvalue.reduce((a, b) => a + b, 0)*dificultad; // midelvalue.length;//calculamos promedio
         form.querySelector("#divePoints").value = promedio.toFixed(2);
-
-        const dificultad = parseFloat(form.querySelector("button.accordion-button").textContent.match(/Dificultad:\s([\d.]+)/)?.[1] || 0);
-        if (dificultad > 0) {
-            form.querySelector("#totalPoints").value = (promedio * dificultad).toFixed(2);
-        }
+       
     }
 }
 </script>

@@ -16,7 +16,7 @@ class cal_participante extends Controller
         //return $request->id_ejecucion;
 
         $userId = null;
-        if (Auth::user()->id_usuario) {
+        if (Auth::user()) {
             $userId = Auth::user()->id_usuario;
         } else {
             return redirect()->route('login');
