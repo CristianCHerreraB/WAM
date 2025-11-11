@@ -16,10 +16,13 @@ class CalJuezController extends Controller
 {
     public function save_check_judge(Request $request)
     {
-        $userId = Auth::user()->id_usuario;
-        if (!$userId) {
+        $userId = null;
+        if (Auth::user()) {
+            $userId = Auth::user()->id_usuario;
+        } else {
             return redirect()->route('login');
         }
+        
         $CalParticipante = CalJuez::create([
             'id_usuario' => $userId, //se agrega el id del usuario que inicio sesión  
             'calificacion' => (float) $request->check,
@@ -48,21 +51,13 @@ class CalJuezController extends Controller
 
     public function viewResult()
     {
-        $userId = Auth::user()->id_usuario;
-        if (!$userId) {
+        $userId = null;
+        if (Auth::user()) {
+            $userId = Auth::user()->id_usuario;
+        } else {
             return redirect()->route('login');
         }
 
-        /* $clavados = clavado::query()
-            ->select('id_clavado', 'evento', 'total_rondas', 'fecha', 'active')
-            ->where('active', 1) //Muestra el listado de jusgos activos o inactivos, muestra todos si no se agrega esta linea 
-            ->orderBy('id_clavado', 'desc')
-            ->get();*/
-
-        $userId = Auth::user()->id_usuario;
-        if (!$userId) {
-            return redirect()->route('login');
-        }
         $clavados = Clavado::select('id_clavado', 'evento', 'fecha', 'total_rondas')
             ->whereIn('id_clavado', function ($query) use ($userId) {
                 $query->select('ejecucion.id_clavado')
@@ -81,11 +76,13 @@ class CalJuezController extends Controller
 
     public function athleteList($id_clavado)
     {
-
-        $userId = Auth::user()->id_usuario;
-        if (!$userId) {
+        $userId = null;
+        if (Auth::user()) {
+            $userId = Auth::user()->id_usuario;
+        } else {
             return redirect()->route('login');
         }
+
 
         $ejecuciones = DB::table('ejecucion')
             ->leftJoin('clavadista', 'ejecucion.id_clavadista', '=', 'clavadista.id_clavadista')
@@ -114,8 +111,10 @@ class CalJuezController extends Controller
 
     public function athleteResult($id_clavadista, $id_clavado)
     {
-        $userId = Auth::user()->id_usuario;
-        if (!$userId) {
+        $userId = null;
+        if (Auth::user()) {
+            $userId = Auth::user()->id_usuario;
+        } else {
             return redirect()->route('login');
         }
 
