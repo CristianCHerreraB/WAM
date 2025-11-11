@@ -20,8 +20,10 @@ class ClavadoController extends Controller
      */
     public function divesInLive()
     {
-        $userId = Auth::user()->id_usuario;
-        if (!$userId) {
+        $userId = null;
+        if (Auth::user()) {
+            $userId = Auth::user()->id_usuario;
+        } else {
             return redirect()->route('login');
         }
 
@@ -62,8 +64,10 @@ class ClavadoController extends Controller
 
     public function index()
     {
-        $userId = Auth::user()->id_usuario;
-        if (!$userId) {
+        $userId = null;
+        if (Auth::user()) {
+            $userId = Auth::user()->id_usuario;
+        } else {
             return redirect()->route('login');
         }
 
@@ -107,8 +111,10 @@ class ClavadoController extends Controller
 
     public function changeStop($id, $status)
     {
-        $userId = Auth::user()->id_usuario;
-        if (!$userId) {
+        $userId = null;
+        if (Auth::user()) {
+            $userId = Auth::user()->id_usuario;
+        } else {
             return redirect()->route('login');
         }
 
@@ -144,8 +150,10 @@ class ClavadoController extends Controller
 
     public function create(Request $request)
     {
-        $userId = Auth::user()->id_usuario;
-        if (!$userId) {
+        $userId = null;
+        if (Auth::user()) {
+            $userId = Auth::user()->id_usuario;
+        } else {
             return redirect()->route('login');
         }
 
@@ -242,8 +250,10 @@ class ClavadoController extends Controller
 
     public function addResult()
     {
-        $userId = Auth::user()->id_usuario;
-        if (!$userId) {
+        $userId = null;
+        if (Auth::user()) {
+            $userId = Auth::user()->id_usuario;
+        } else {
             return redirect()->route('login');
         }
 
