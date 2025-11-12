@@ -35,6 +35,12 @@ class RegisteredUserController extends Controller
             'apellido_p' => ['required', 'string', 'max:30'],
             'apellido_m' => ['nullable', 'string', 'max:30'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'user_facebook' => ['nullable', 'string', 'max:255'], // Facebook
+            'user_instagram' => ['nullable', 'string', 'max:255'], // Instagram
+            'user_x' => ['nullable', 'string', 'max:255'], // User_X
+            'telefono' => ['required', 'string', 'max:20'], // Número de Telefono
+            'genero' => ['required', 'in:masculino,femenino,otro'], // Género
+            'edad' => ['required', 'integer', 'min:18'], // Edad
         ], [
             // Mensajes personalizados en español
             'usuario.required' => 'El usuario es obligatorio.',
@@ -46,12 +52,17 @@ class RegisteredUserController extends Controller
             'apellido_p.required' => 'El primer apellido es obligatorio.',
             'password.required' => 'La contraseña es obligatoria.',
             'password.confirmed' => 'Las contraseñas no coinciden.',
+            'telefono.required' => 'El número de Telefono es obligatorio.',
+            'genero.required' => 'El género es obligatorio.',
+            'genero.in' => 'El género debe ser uno de los siguientes: masculino, femenino, otro.',
+            'edad.required' => 'La edad es obligatoria.',
+            'edad.min' => 'La edad debe ser al menos 18 años.',
         ]);
 
         // Buscar el id del nivel "Jugador" en la tabla nivel_usuarios
         $nivelJugador = \App\Models\NivelUsuario::where('nombre_rol', 'Jugador')
-                                                 ->where('active', 1)
-                                                 ->first();
+            ->where('active', 1)
+            ->first();
 
         if (!$nivelJugador) {
             // Si no existe, crearlo
@@ -74,6 +85,12 @@ class RegisteredUserController extends Controller
             'id_nivel_usuario' => $nivelJugador->id_nivel_usuario,
             'created' => now(),
             'created_by' => null,
+            'user_facebook' => $request->user_facebook,
+            'user_instagram' => $request->user_instagram,
+            'user_x' => $request->user_x,
+            'telefono' => $request->telefono,
+            'genero' => $request->genero,
+            'edad' => $request->edad,
         ]);
 
         // Disparar evento de registro
@@ -84,6 +101,6 @@ class RegisteredUserController extends Controller
 
         // Redirigir al dashboard o a la página del juego
         return redirect()->route('dashboard')
-                        ->with('success', '¡Bienvenido! Tu cuenta ha sido creada exitosamente.');
+            ->with('success', '¡Bienvenido! Tu cuenta ha sido creada exitosamente.');
     }
 }

@@ -40,6 +40,12 @@ class User extends Authenticatable
         'created',
         'created_by',
         'remember_token',
+        'user_facebook',
+        'user_instagram',
+        'user_x',
+        'telefono',
+        'genero',
+        'edad',
     ];
 
     /**

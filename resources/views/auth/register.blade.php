@@ -338,19 +338,7 @@
                     @enderror
                 </div>
 
-                <!-- Segundo Apellido -->
-                <div class="form-group">
-                    <label for="apellido_m" class="form-label">Segundo Apellido <small></small></label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-id-card"></i></span>
-                        <input type="text" class="form-control @error('apellido_m') is-invalid @enderror"
-                            id="apellido_m" name="apellido_m" value="{{ old('apellido_m') }}"
-                            placeholder="Segundo apellido">
-                    </div>
-                    @error('apellido_m')
-                    <div class="error-message">{{ $message }}</div>
-                    @enderror
-                </div>
+                
 
                 <!-- Segundo Apellido -->
                 <div class="form-group">
@@ -386,40 +374,53 @@
 
                 <!-- Número de Celular -->
                 <div class="form-group">
-                    <label for="celular" class="form-label">Número de Celular <small>(Requerido)</small></label>
+                    <label for="telefono" class="form-label">Número de Celular <small>(Requerido)</small></label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                        <input type="tel" class="form-control @error('celular') is-invalid @enderror"
-                            id="celular" name="celular" value="{{ old('celular') }}"
-                            placeholder="Número de celular">
+                        <input type="tel" class="form-control @error('telefono') is-invalid @enderror"
+                            id="telefono" name="telefono" value="{{ old('telefono') }}"
+                            placeholder="Número de telefono">
                     </div>
-                    @error('celular')
+                    @error('telefono')
                     <div class="error-message">{{ $message }}</div>
                     @enderror
                 </div>
                 <!-- Instagram -->
                 <div class="form-group">
-                    <label for="instagram" class="form-label">Instagram <small></small></label>
+                    <label for="user_instagram" class="form-label">Usuario Instagram</label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="fab fa-instagram"></i></span>
-                        <input type="text" class="form-control @error('instagram') is-invalid @enderror"
-                            id="instagram" name="instagram" value="{{ old('instagram') }}"
-                            placeholder="Enlace a tu perfil de Instagram">
+                        <input type="text" class="form-control @error('user_instagram') is-invalid @enderror"
+                            id="user_instagram" name="user_instagram" value="{{ old('user_instagram') }}"
+                            placeholder="Enlace a tu perfil de user_instagram">
                     </div>
-                    @error('instagram')
+                    @error('user_instagram')
                     <div class="error-message">{{ $message }}</div>
                     @enderror
                 </div>
-                <!-- Facebook -->
+                <!-- user_facebook -->
                 <div class="form-group">
-                    <label for="facebook" class="form-label">Facebook <small></small></label>
+                    <label for="user_facebook" class="form-label">Usuario Facebook <small></small></label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="fab fa-facebook-f"></i></span>
-                        <input type="text" class="form-control @error('facebook') is-invalid @enderror"
-                            id="facebook" name="facebook" value="{{ old('facebook') }}"
-                            placeholder="Enlace a tu perfil de Facebook">
+                        <input type="text" class="form-control @error('user_facebook') is-invalid @enderror"
+                            id="user_facebook" name="user_facebook" value="{{ old('user_facebook') }}"
+                            placeholder="Enlace a tu perfil de user_facebook">
                     </div>
-                    @error('facebook')
+                    @error('user_facebook')
+                    <div class="error-message">{{ $message }}</div>
+                    @enderror
+                </div>
+                <!-- X -->
+                <div class="form-group">
+                    <label for="user_x" class="form-label">Usuario X <small></small></label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fab fa-x"></i></span>
+                        <input type="text" class="form-control @error('user_x') is-invalid @enderror"
+                            id="user_x" name="user_x" value="{{ old('user_x') }}"
+                            placeholder="Enlace a tu perfil de x">
+                    </div>
+                    @error('user_x')
                     <div class="error-message">{{ $message }}</div>
                     @enderror
                 </div>
