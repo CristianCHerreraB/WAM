@@ -40,7 +40,7 @@ class AuthenticatedSessionController extends Controller
 
         // Redirigir según el rol obtenido del modelo NivelUsuario
         if ($user->isAdmin()) {
-            return redirect()->route('dashboard.admin');
+            return redirect()->route('dashboardadmin');
         }
 
         if ($user->isPlayer()) {

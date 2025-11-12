@@ -292,7 +292,8 @@
         display: block;
       }
     }
-        .placeholder {
+
+    .placeholder {
       display: inline-block;
       min-height: 1em;
       vertical-align: middle;
@@ -322,11 +323,11 @@
               <i class="fas fa-home me-1"></i> Inicio
             </a>
           </li>
-          <!--li class="nav-item">
-            <a class="nav-link /*{{ request()->routeIs('admin') ? 'active' : '' }}" href="{{ route('admin') }}">*/
+          <li class="nav-item">
+            <a class="nav-link }}" href="{{ route('userManagment') }}">
               <i class="fas fa-users me-1"></i> Administrar Usuarios
             </a>
-          </!--li-->        
+          </li>
         </ul>
 
         <button class="btn btn-outline-light ms-2 d-none d-lg-block" id="refreshButton">
@@ -347,46 +348,35 @@
 
     <nav class="sidebar-nav">
       <div class="nav-item">
-        <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
+        <a class="nav-link " href="{{ route('dashboard') }}">
           <i class="fas fa-home"></i> Inicio
         </a>
       </div>
       <div class="nav-item">
-        <a class="nav-link {{ request()->routeIs('descubre') ? 'active' : '' }}" href="{{ route('descubre') }}">
-          <i class="fas fa-compass"></i> Descubre
+        <a class="nav-link " href="{{ route('tutorial') }}">
+          <i class="fas fa-book"></i> Tutorial
         </a>
       </div>
       <div class="nav-item">
-        <a class="nav-link {{ request()->routeIs('biblioteca') ? 'active' : '' }}" href="{{ route('biblioteca') }}">
-          <i class="fas fa-book"></i> Biblioteca
+        <a class="nav-link " href="{{ route('competencia') }}">
+          <i class="fas fa-chart-bar"></i> Competencia
         </a>
       </div>
       <div class="nav-item">
-        <a class="nav-link {{ request()->routeIs('informes') ? 'active' : '' }}" href="{{ route('informes') }}">
-          <i class="fas fa-chart-bar"></i> Informes
+        <a class="nav-link " href="{{ route('reglas') }}">
+          <i class="fas fa-book"></i> Reglas
         </a>
       </div>
       <div class="nav-item">
-        <a class="nav-link {{ request()->routeIs('grupos') ? 'active' : '' }}" href="{{ route('grupos') }}">
-          <i class="fas fa-users"></i> Grupos
+        <a class="nav-link " href="{{ route('calendario') }}">
+          <i class="fas fa-users"></i> Calendario
         </a>
       </div>
       <div class="nav-item">
-        <a class="nav-link {{ request()->routeIs('idiomas') ? 'active' : '' }}" href="{{ route('idiomas') }}">
-          <i class="fas fa-language"></i> Aprendizaje de idiomas
+        <a class="nav-link " href="{{ route('patrocinadores') }}">
+          <i class="fas fa-users"></i> Patrocinadores
         </a>
       </div>
-      <div class="nav-item">
-        <a class="nav-link {{ request()->routeIs('marketplace') ? 'active' : '' }}" href="{{ route('marketplace') }}">
-          <i class="fas fa-store"></i> Marketplace
-        </a>
-      </div>
-      <div class="nav-item">
-        <a class="nav-link {{ request()->routeIs('password') ? 'active' : '' }}" href="{{ route('password') }}">
-          <i class="fas fa-key"></i> Password
-        </a>
-      </div>
-    </nav>
 
     <div class="sidebar-section">
       <div class="sidebar-section-title">¿Qué hay de nuevo?</div>
@@ -401,13 +391,21 @@
             <i class="fas fa-question-circle"></i> Ayuda
           </a>
         </div>
+        <div class="nav-item">
+          <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            Cerrar sesión
+          </a>
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+          </form>
+        </div>
       </nav>
     </div>
   </div>
 
   <!-- Main Content -->
   <div class="main-content" id="mainContent">
-    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel" >
+    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
       <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
         <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -468,9 +466,8 @@
         sidebarOverlay.classList.remove('active');
       });
     });
-    
   </script>
-  
+
 </body>
 
 </html>

@@ -65,6 +65,9 @@ Route::get('/qualify', [PageController::class, 'qualifyAthlete'])->name('qualify
 Route::get('/torneos/result', [PageController::class, 'torneosResult'])->name('torneosResult');
 Route::get('/changeStop/{id}', [ClavadoController::class, 'changeStop'])->name('changeStop');
 
+Route::get('/userManagment', [PageController::class, 'userManagment'])->name('userManagment');
+
+
 require __DIR__.'/auth.php';
 require __DIR__ . '/rutas_cristian.php';   
 
