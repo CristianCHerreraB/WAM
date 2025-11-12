@@ -75,7 +75,7 @@ class RegisteredUserController extends Controller
 
         // Crear el usuario
         $user = User::create([
-            'usuario' => $request->usuario,
+            'usuario' => $request->correo,
             'correo' => $request->correo,
             'nombre' => $request->nombre,
             'apellido_p' => $request->apellido_p,

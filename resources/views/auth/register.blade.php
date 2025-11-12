@@ -253,21 +253,7 @@
             <form method="POST" action="{{ route('register') }}" id="registrationForm">
                 @csrf
 
-                <!-- Usuario -->
-                <div class="form-group">
-                    <label for="usuario" class="form-label">Usuario</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-user"></i></span>
-                        <input type="text" class="form-control @error('usuario') is-invalid @enderror"
-                            id="usuario" name="usuario" value="{{ old('usuario') }}"
-                            placeholder="Ingresa tu nombre de usuario" required autofocus>
-                    </div>
-                    @error('usuario')
-                    <div class="error-message">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <!-- Correo Electrónico -->
+                                <!-- Correo Electrónico -->
                 <div class="form-group">
                     <label for="correo" class="form-label">Correo Electrónico</label>
                     <div class="input-group">

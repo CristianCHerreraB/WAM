@@ -38,12 +38,12 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         return view('user\content\maincontent.qualify_athlete');
-    })->name('dashboard');
+    })->middleware(['auth', 'role:jugador'])->name('dashboard');
 
     // Dashboard para administradores
     Route::get('/dashboardadmin', function () {
         return view('administrator.userManagment');
-    })->name('admin.dashboard');
+    })->middleware(['auth', 'role:admin'])->name('dashboardadmin');
 
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');

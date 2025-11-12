@@ -11,3 +11,4 @@ ADD
     [telefono] VARCHAR(20) NOT NULL,
     [genero] VARCHAR(10) NOT NULL,
     [edad] INT NOT NULL;
+/*777 php artisan make:middleware CheckRole*/
