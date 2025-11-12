@@ -3,7 +3,6 @@ ALTER TABLE cal_juez
 ADD COLUMN id_ejecucion INT;
 
 /*login*/
--- 1️⃣ Agregamos las columnas permitiendo NULL 
 ALTER TABLE [dbo].[usuarios]
 ADD
     [user_facebook] VARCHAR(255) NULL,
@@ -13,7 +12,6 @@ ADD
     [genero] VARCHAR(10) NULL,
     [edad] INT NULL;
 
--- 2️⃣ Actualizamos los registros existentes con valores por defecto
 UPDATE [dbo].[usuarios]
 SET
     [user_facebook] = 'no aplica',
