@@ -380,7 +380,10 @@
           <i class="fas fa-users"></i> Patrocinadores
         </a>
       </div>
-       <div class="nav-item">         
+       <div class="nav-item">
+        <a class="nav-link " href="{{ route('view_result') }}">
+          <i class="fas fa-users"></i> Mis Aciertos
+        <a>         
       </div>
       <!--
       <div class="nav-item">

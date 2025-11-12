@@ -6,6 +6,8 @@ use App\Http\Controllers\ClavadoController;
 use App\Http\Controllers\PageTWOController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\CalJuezController;
+
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -41,6 +43,14 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+//recuperadas
+Route::get('/add_responce_judge', [ClavadoController::class, 'addResult'])->name('viewResponceJusge');
+Route::get('/changeStop/{id}/{status}', [ClavadoController::class, 'changeStop'])->name('changeStop');
+Route::post('/save_results', [cal_participante::class, 'save_results'])->name('save_results');
+Route::post('/save_check_judge', [CalJuezController::class, 'save_check_judge'])->name('save_check_judge');
+Route::get('/view_result', [CalJuezController::class, 'viewResult'])->name('view_result');
+Route::get('/athlete_list/{id_clavado}', [CalJuezController::class, 'athleteList'])->name('athleteList');
+Route::post('/athleteResult/{id_clavadista}/{id_clavado}', [CalJuezController::class, 'athleteResult'])->name('athleteResult');
 
 
 Route::get('/view_add_dives', [PageController::class, 'viewDives'])->name('addDives');
