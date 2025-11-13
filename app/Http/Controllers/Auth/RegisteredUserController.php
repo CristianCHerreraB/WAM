@@ -29,7 +29,7 @@ class RegisteredUserController extends Controller
     {
         // Validación de campos
         $request->validate([
-            'usuario' => ['required', 'string', 'max:100', 'unique:usuarios,usuario'],
+            
             'correo' => ['required', 'string', 'email', 'max:100', 'unique:usuarios,correo'],
             'nombre' => ['required', 'string', 'max:40'],
             'apellido_p' => ['required', 'string', 'max:30'],
@@ -44,7 +44,7 @@ class RegisteredUserController extends Controller
         ], [
             // Mensajes personalizados en español
             'usuario.required' => 'El usuario es obligatorio.',
-            'usuario.unique' => 'Este usuario ya está registrado.',
+            'correo.unique' => 'Este usuario ya está registrado.',
             'correo.required' => 'El correo electrónico es obligatorio.',
             'correo.email' => 'Debe ser un correo electrónico válido.',
             'correo.unique' => 'Este correo ya está registrado.',
