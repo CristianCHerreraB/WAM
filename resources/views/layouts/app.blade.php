@@ -34,7 +34,7 @@
     /* Top Navigation */
     .top-navbar {
       background: linear-gradient(90deg, var(--primary-dark) 0%, var(--primary) 100%);
-      height: 60px;
+      height: 80px;
       position: fixed;
       top: 0;
       left: 0;
@@ -50,6 +50,7 @@
       color: white !important;
       display: flex;
       align-items: center;
+      flex-wrap: nowrap;
     }
 
     .navbar-brand img {
@@ -149,13 +150,6 @@
       z-index: 1015;
       display: none;
     }
-    /*
-    #carouselExampleDark img {
-      max-height: 200px;
-      /* ajusta el valor según necesites (por defecto suelen ser ~600px) 
-      object-fit: cover;
-      /* mantiene la proporción y centra la imagen 
-    }*/
 
     .sidebar-overlay.active {
       display: block;
@@ -251,6 +245,13 @@
       color: white;
     }
 
+    /* Logo Container */
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
     /* Mobile Search */
     .mobile-search-container {
       display: none;
@@ -298,6 +299,15 @@
       .mobile-search-container {
         display: block;
       }
+
+      .logo-container {
+        flex-direction: column;
+        gap: 5px;
+      }
+      
+      .navbar-brand img {
+        height: 50px;
+      }
     }
 
     .placeholder {
@@ -320,17 +330,21 @@
       </button>
 
       <a class="navbar-brand" href="{{ route('dashboard') }}">
-        <img src="{{ asset('images/LogoWorldAquatics.jpeg') }}" alt="Logo" height="30" class="d-inline-block align-top">
+        <div class="logo-container">
+          <img src="{{ asset('images/logo_word_aquatics_black.jpeg') }}"
+            alt="Logo 1" height="70" class="d-inline-block align-top">
+          <img src="{{ asset('images/AQUATICS_MEX.jpeg') }}"
+            alt="Logo 2" height="70" class="d-inline-block align-top">
+        </div>
       </a>
 
       <div class="collapse navbar-collapse">
-        <ul class="navbar-nav me-auto ms-auto ">
+        <ul class="navbar-nav me-auto ms-auto">
           <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
               <i class="fas fa-home me-1"></i> Inicio
             </a>
           </li>
-
         </ul>
 
         <button class="btn btn-outline-light ms-2 d-none d-lg-block" id="refreshButton">
@@ -357,51 +371,34 @@
       </div>
       <div class="nav-item">
         <a class="nav-link " href="{{ route('tutorial') }}">
-          <i class="fas fa-book"></i> Tutorial
+          <i class="fas fa-graduation-cap"></i> Tutorial
         </a>
       </div>
       <div class="nav-item">
         <a class="nav-link " href="{{ route('competencia') }}">
-          <i class="fas fa-chart-bar"></i> Competencia
+          <i class="fas fa-trophy"></i> Competencia
         </a>
       </div>
       <div class="nav-item">
         <a class="nav-link " href="{{ route('reglas') }}">
-          <i class="fas fa-book"></i> Reglas
+          <i class="fas fa-gavel"></i> Reglas
         </a>
       </div>
       <div class="nav-item">
         <a class="nav-link " href="{{ route('calendario') }}">
-          <i class="fas fa-users"></i> Calendario
+          <i class="fas fa-calendar-alt"></i> Calendario
         </a>
       </div>
       <div class="nav-item">
         <a class="nav-link " href="{{ route('patrocinadores') }}">
-          <i class="fas fa-users"></i> Patrocinadores
+          <i class="fas fa-handshake"></i> Patrocinadores
         </a>
       </div>
-       <div class="nav-item">
+      <div class="nav-item">
         <a class="nav-link " href="{{ route('view_result') }}">
-          <i class="fas fa-users"></i> Mis Aciertos
-        <a>         
-      </div>
-      <!--
-      <div class="nav-item">
-        <a class="nav-link {{ request()->routeIs('idiomas') ? 'active' : '' }}" href="{{ route('idiomas') }}">
-          <i class="fas fa-language"></i> Aprendizaje de idiomas
+          <i class="fas fa-chart-line"></i> Mis Aciertos
         </a>
       </div>
-      <div class="nav-item">
-        <a class="nav-link {{ request()->routeIs('marketplace') ? 'active' : '' }}" href="{{ route('marketplace') }}">
-          <i class="fas fa-store"></i> Marketplace
-        </a>
-      </div>
-      <div class="nav-item">
-        <a class="nav-link {{ request()->routeIs('password') ? 'active' : '' }}" href="{{ route('password') }}">
-          <i class="fas fa-key"></i> Password
-        </a>
-      </div>
-  -->
     </nav>
 
     <div class="sidebar-section">
@@ -418,8 +415,8 @@
           </a>
         </div>
         <div class="nav-item">
-          <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-            Cerrar sesión
+          <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <i class="fas fa-sign-out-alt"></i> Cerrar sesión
           </a>
           <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
             @csrf

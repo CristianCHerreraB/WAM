@@ -40,10 +40,12 @@ class AuthenticatedSessionController extends Controller
 
         // Redirigir según el rol obtenido del modelo NivelUsuario
         if ($user->isAdmin()) {
+            //config(['session.lifetime' => 240]);
             return redirect()->route('dashboardadmin');
         }
 
         if ($user->isPlayer()) {
+            //config(['session.lifetime' => 120]); 
             return redirect()->route('dashboard');
         }
 
