@@ -62,5 +62,7 @@ Route::get('/torneos', [PageController::class, 'torneosEnCurso'])->name('torneos
 Route::get('/qualify', [PageController::class, 'qualifyAthlete'])->name('qualifyAthlete');
 Route::get('/torneos/result', [PageController::class, 'torneosResult'])->name('torneosResult');
 
+Route::get('/ranking', [cal_participante::class, 'Ranking'])->name('Ranking');
+
 require __DIR__.'/auth.php';
 

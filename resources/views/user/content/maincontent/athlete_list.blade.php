@@ -7,7 +7,7 @@
 <div class="content-card mb-4">
   <div class="card-header bg-success d-flex justify-content-between align-items-center">
     <div>
-      Resultados
+      Resultados de  {{$clavado->evento}}
     </div>
   </div>
 
@@ -18,14 +18,15 @@
         <!-- Versión desktop -->
         <!--<div class="d-none d-md-block">-->
         <div class="d-none d-md-block">
-          @include('partials.list_dive_results', ['event' => 'ejecuciones'])
+         @include('partials.list_dive_results', compact('athlete', 'ejecuciones'))
+
         </div>
       </div>
       <!-- Versión móvil -->
       <div class="d-md-none">
-        @include('partials.list_dive_results', ['event' => 'ejecuciones'])
-      </div>
+        @include('partials.list_dive_results', compact('athlete', 'ejecuciones'))
 
+      </div>
     </div>
   </div>
 
@@ -43,27 +44,27 @@
     });
 
 
-    $('.btn-getResult').on('click', function(e) {
-      e.preventDefault();
+    // $('.btn-getResult').on('click', function(e) {
+    e.preventDefault();
 
-      const id_clavadista = $(this).data('id_clavadista');
-      const id_clavado = $(this).data('id_clavado');
-      const target = $(this).attr('data-bs-target');
-      const tbody = $(target).find('.result-body');
+    const id_clavadista = $(this).data('id_clavadista');
+    const id_clavado = $(this).data('id_clavado');
+    const target = $(this).attr('data-bs-target');
+    const tbody = $(target).find('.result-body');
 
-      tbody.empty();
+    tbody.empty();
 
-      $.post(`/athleteResult/${id_clavadista}/${id_clavado}`, {
-          _token: '{{ csrf_token() }}'
-        })
-        .done(data => {
-          console.log('Resultado:', data.resultado);
+    $.post(`/athleteResult/${id_clavadista}/${id_clavado}`, {
+        _token: '{{ csrf_token() }}'
+      })
+      .done(data => {
+        console.log('Resultado:', data.resultado);
 
-          if (data.resultado && data.resultado.length > 0) {
-            data.resultado.forEach(item => {
-              let divepoints = Math.round(item.divepoints * 10) / 10;
-              let calificacion = Math.round(item.calificacion * 10) / 10;
-              tbody.append(`
+        if (data.resultado && data.resultado.length > 0) {
+          data.resultado.forEach(item => {
+            let divepoints = Math.round(item.divepoints * 10) / 10;
+            let calificacion = Math.round(item.calificacion * 10) / 10;
+            tbody.append(`
                         <tr>
                             <td>${item.num_ejecucion ?? ''}</td>
                             <td>${item.descripcion ?? ''}</td>
@@ -81,13 +82,13 @@
                             </td>
                         </tr>
                     `);
-            });
-          } else {
-            tbody.append('<tr><td colspan="11" class="text-center">No hay resultados</td></tr>');
-          }
-        })
-        .fail(xhr => console.error('Error en la petición:', xhr.responseText));
-    });
+          });
+        } else {
+          tbody.append('<tr><td colspan="11" class="text-center">No hay resultados</td></tr>');
+        }
+      })
+      .fail(xhr => console.error('Error en la petición:', xhr.responseText));
+    //  });
   });
 </script>
 

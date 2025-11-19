@@ -8,7 +8,7 @@
 <div class="content-card mb-4">
   <div class="card-header bg-success d-flex justify-content-between align-items-center">
     <div>
-      <i class="fas fa-trophy me-2"></i>Mis Aciertos
+      <i class="fas fa-trophy me-2"></i>Mis aciertos: {{$total_points}}
     </div>
   </div>
   <div class="card-body">
@@ -25,8 +25,11 @@
                 <span class="me-2">
                   <strong>Evento:</strong> {{$item->evento}}
                 </span>
-                <span>
-                  <strong>Total de Rondas:</strong> {{$item->total_rondas}}
+                <span class="me-2">
+                  <strong> Total de rondas:</strong> {{$item->total_rondas}}
+                </span>
+                <span class="me-2">
+                  <strong>  Aciertos de ronda:</strong> {{$item->point}}
                 </span>
               </div>
             </li>

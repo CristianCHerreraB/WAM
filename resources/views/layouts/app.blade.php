@@ -149,6 +149,7 @@
       z-index: 1015;
       display: none;
     }
+
     /*
     #carouselExampleDark img {
       max-height: 200px;
@@ -327,7 +328,7 @@
         <ul class="navbar-nav me-auto ms-auto ">
           <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
-              <i class="fas fa-home me-1"></i> Inicio
+              <i class="fas fa-trophy me-2"></i> <span id="text-ranking">Ranking (0)</span>
             </a>
           </li>
 
@@ -380,7 +381,7 @@
           <i class="fas fa-users"></i> Patrocinadores
         </a>
       </div>
-       <div class="nav-item">
+      <div class="nav-item">
         <a class="nav-link " href="{{ route('view_result') }}">
           <i class="fas fa-users"></i> Mis Aciertos
         </a>
@@ -475,6 +476,7 @@
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     // Configurar menú móvil
     document.addEventListener('DOMContentLoaded', function() {
@@ -492,6 +494,22 @@
         sidebarOverlay.classList.remove('active');
       });
     });
+
+    
+    $(document).ready(function() {
+            $.ajax({
+              url: '/ranking',
+              type: 'GET',
+              success: function(data) {
+                let num = parseInt(data.resultado.ranking, 10);
+                $('#text-ranking').text('Ranking('+ parseInt(num,10)+')');
+              },
+              error: function(xhr, status, error) {
+                console.error('Error:', error);
+              }
+            });
+          });
+  
   </script>
 
 </body>

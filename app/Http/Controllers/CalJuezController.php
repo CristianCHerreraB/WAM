@@ -22,7 +22,7 @@ class CalJuezController extends Controller
         } else {
             return redirect()->route('login');
         }
-        
+
         $CalParticipante = CalJuez::create([
             'id_usuario' => $userId, //se agrega el id del usuario que inicio sesión  
             'calificacion' => (float) $request->check,
@@ -58,7 +58,7 @@ class CalJuezController extends Controller
             return redirect()->route('login');
         }
 
-        $clavados = Clavado::select('id_clavado', 'evento', 'fecha', 'total_rondas')
+        $clavados = Clavado::select('id_clavado', 'evento', 'fecha', 'total_rondas', DB::raw('0 as point'))
             ->whereIn('id_clavado', function ($query) use ($userId) {
                 $query->select('ejecucion.id_clavado')
                     ->from('cal_participante')
@@ -67,11 +67,30 @@ class CalJuezController extends Controller
             })
             ->get();
 
+        $points = DB::table('ejecucion')
+            ->leftJoin('cal_participante', 'cal_participante.id_ejecucion', '=', 'ejecucion.id_ejecucion')
+            ->leftJoin('cal_juez', 'cal_juez.id_ejecucion', '=', 'ejecucion.id_ejecucion')
+            ->where('cal_participante.id_usuario', $userId)
+            ->whereRaw('CAST([cal_participante].[calificacion ] AS DECIMAL(10,2)) = CAST([cal_juez].[divepoints] AS DECIMAL(10,2))')
+            ->groupBy('ejecucion.id_clavado')
+            ->select('ejecucion.id_clavado', DB::raw('COUNT(*) AS total_matches'))
+            ->pluck('total_matches', 'ejecucion.id_clavado');
+ 
+        foreach ($clavados as $clavado) {
+            $clavado->point = $points[$clavado->id_clavado] ?? 0;
+        }
+
+        $total_points = DB::table('ejecucion')
+            ->leftJoin('cal_participante', 'cal_participante.id_ejecucion', '=', 'ejecucion.id_ejecucion')
+            ->leftJoin('cal_juez', 'cal_juez.id_ejecucion', '=', 'ejecucion.id_ejecucion')
+            ->where('cal_participante.id_usuario', $userId)
+            ->whereRaw('CAST(cal_participante.calificacion AS DECIMAL(10,2)) = CAST(cal_juez.divepoints AS DECIMAL(10,2))')
+            ->count();
 
 
         //return $clavados;die;
 
-        return view('user.content.maincontent.all_torneos_result', compact('clavados'));
+        return view('user.content.maincontent.all_torneos_result', compact('clavados', 'total_points'));
     }
 
     public function athleteList($id_clavado)
@@ -83,10 +102,18 @@ class CalJuezController extends Controller
             return redirect()->route('login');
         }
 
+        $clavado = Clavado::select('id_clavado', 'evento', 'fecha', 'total_rondas')
+            ->where('id_clavado',$id_clavado)
+            ->first();
 
-        $ejecuciones = DB::table('ejecucion')
+        $athlete = DB::table('ejecucion')
             ->leftJoin('clavadista', 'ejecucion.id_clavadista', '=', 'clavadista.id_clavadista')
             ->where('ejecucion.id_clavado', $id_clavado)
+            ->whereIn('ejecucion.id_ejecucion', function ($query) use ($userId) {
+                $query->select('id_ejecucion')
+                    ->from('cal_participante')
+                    ->where('id_usuario', $userId);
+            })
             ->orderBy('ejecucion.num_ejecucion', 'ASC')
             ->select(
                 'ejecucion.id_ejecucion',
@@ -106,7 +133,38 @@ class CalJuezController extends Controller
             )
             ->get();
 
-        return view('user.content.maincontent.athlete_list', compact('ejecuciones'));
+        $ejecuciones = DB::table('ejecucion')
+            ->leftJoin('clavadista', 'ejecucion.id_clavadista', '=', 'clavadista.id_clavadista')
+            ->leftJoin('cal_juez', 'cal_juez.id_ejecucion', '=', 'ejecucion.id_ejecucion')
+            ->leftJoin('cal_participante', 'cal_participante.id_ejecucion', '=', 'ejecucion.id_ejecucion')
+            ->where('ejecucion.id_clavado', $id_clavado)
+            ->where('cal_participante.id_usuario', $userId)
+            ->where('cal_participante.calificacion', '!=', null)
+            ->orderBy('ejecucion.num_ejecucion', 'ASC')
+            ->select(
+                'ejecucion.id_ejecucion',
+                'ejecucion.num_ejecucion',
+                'ejecucion.id_clavado',
+                'ejecucion.id_clavadista',
+                'ejecucion.descripcion',
+                'ejecucion.dificultad',
+                'clavadista.orden',
+                'clavadista.nombre',
+                'cal_juez.j1',
+                'cal_juez.j2',
+                'cal_juez.j3',
+                'cal_juez.j4',
+                'cal_juez.j5',
+                'cal_juez.j6',
+                'cal_juez.j7',
+                'cal_juez.divepoints',
+                'cal_participante.calificacion'
+            )
+            ->get();
+
+        //return $ejecuciones;die;
+
+        return view('user.content.maincontent.athlete_list', compact('athlete', 'ejecuciones','clavado'));
     }
 
     public function athleteResult($id_clavadista, $id_clavado)

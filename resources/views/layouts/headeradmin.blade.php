@@ -150,6 +150,14 @@
       display: none;
     }
 
+    /*
+    #carouselExampleDark img {
+      max-height: 200px;
+      /* ajusta el valor según necesites (por defecto suelen ser ~600px) 
+      object-fit: cover;
+      /* mantiene la proporción y centra la imagen 
+    }*/
+
     .sidebar-overlay.active {
       display: block;
     }
@@ -292,7 +300,8 @@
         display: block;
       }
     }
-        .placeholder {
+
+    .placeholder {
       display: inline-block;
       min-height: 1em;
       vertical-align: middle;
@@ -316,22 +325,7 @@
       </a>
 
       <div class="collapse navbar-collapse">
-        <ul class="navbar-nav me-auto ms-auto ">
-          <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
-              <i class="fas fa-home me-1"></i> Inicio
-            </a>
-          </li>
-          <!--li class="nav-item">
-            <a class="nav-link /*{{ request()->routeIs('admin') ? 'active' : '' }}" href="{{ route('admin') }}">*/
-              <i class="fas fa-users me-1"></i> Administrar Usuarios
-            </a>
-          </!--li-->        
-        </ul>
-
-        <button class="btn btn-outline-light ms-2 d-none d-lg-block" id="refreshButton">
-          <i class="fas fa-sync-alt"></i> Actualizar
-        </button>
+    
       </div>
     </div>
   </nav>
@@ -347,30 +341,41 @@
 
     <nav class="sidebar-nav">
       <div class="nav-item">
-        <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
+        <a class="nav-link " href="{{ route('dashboard') }}">
           <i class="fas fa-home"></i> Inicio
         </a>
       </div>
       <div class="nav-item">
-        <a class="nav-link {{ request()->routeIs('descubre') ? 'active' : '' }}" href="{{ route('descubre') }}">
-          <i class="fas fa-compass"></i> Descubre
+        <a class="nav-link " href="{{ route('tutorial') }}">
+          <i class="fas fa-book"></i> Tutorial
         </a>
       </div>
       <div class="nav-item">
-        <a class="nav-link {{ request()->routeIs('biblioteca') ? 'active' : '' }}" href="{{ route('biblioteca') }}">
-          <i class="fas fa-book"></i> Biblioteca
+        <a class="nav-link " href="{{ route('competencia') }}">
+          <i class="fas fa-chart-bar"></i> Competencia
         </a>
       </div>
       <div class="nav-item">
-        <a class="nav-link {{ request()->routeIs('informes') ? 'active' : '' }}" href="{{ route('informes') }}">
-          <i class="fas fa-chart-bar"></i> Informes
+        <a class="nav-link " href="{{ route('reglas') }}">
+          <i class="fas fa-book"></i> Reglas
         </a>
       </div>
       <div class="nav-item">
-        <a class="nav-link {{ request()->routeIs('grupos') ? 'active' : '' }}" href="{{ route('grupos') }}">
-          <i class="fas fa-users"></i> Grupos
+        <a class="nav-link " href="{{ route('calendario') }}">
+          <i class="fas fa-users"></i> Calendario
         </a>
       </div>
+      <div class="nav-item">
+        <a class="nav-link " href="{{ route('patrocinadores') }}">
+          <i class="fas fa-users"></i> Patrocinadores
+        </a>
+      </div>
+      <div class="nav-item">
+        <a class="nav-link " href="{{ route('view_result') }}">
+          <i class="fas fa-users"></i> Mis Aciertos
+        </a>
+      </div>
+      <!--
       <div class="nav-item">
         <a class="nav-link {{ request()->routeIs('idiomas') ? 'active' : '' }}" href="{{ route('idiomas') }}">
           <i class="fas fa-language"></i> Aprendizaje de idiomas
@@ -386,6 +391,7 @@
           <i class="fas fa-key"></i> Password
         </a>
       </div>
+  -->
     </nav>
 
     <div class="sidebar-section">
@@ -401,56 +407,27 @@
             <i class="fas fa-question-circle"></i> Ayuda
           </a>
         </div>
+        <div class="nav-item">
+          <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            Cerrar sesión
+          </a>
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+          </form>
+        </div>
       </nav>
     </div>
   </div>
 
   <!-- Main Content -->
   <div class="main-content" id="mainContent">
-    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel" >
-      <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
-      </div>
-      <div class="carousel-inner">
-        <div class="carousel-item active" data-bs-interval="9000">
-          <img src="../images/banner_sale.png" class="d-block w-100" alt="...">
-          <div class="carousel-caption d-none d-md-block">
-            <h5>First slide label</h5>
-            <p>Some representative placeholder content for the first slide.</p>
-          </div>
-        </div>
-        <div class="carousel-item" data-bs-interval="2000">
-          <img src="../images/banner_sale.png" class="d-block w-100" alt="...">
-          <div class="carousel-caption d-none d-md-block">
-            <h5>Second slide label</h5>
-            <p>Some representative placeholder content for the second slide.</p>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <img src="../images/banner_sale.png" class="d-block w-100" alt="...">
-          <div class="carousel-caption d-none d-md-block">
-            <h5>Third slide label</h5>
-            <p>Some representative placeholder content for the third slide.</p>
-          </div>
-        </div>
-      </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
-    <br><br>
+   
     @yield('content')
   </div>
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     // Configurar menú móvil
     document.addEventListener('DOMContentLoaded', function() {
@@ -468,9 +445,9 @@
         sidebarOverlay.classList.remove('active');
       });
     });
-    
-  </script>
   
+  </script>
+
 </body>
 
 </html>
