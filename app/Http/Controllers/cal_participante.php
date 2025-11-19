@@ -47,25 +47,35 @@ class cal_participante extends Controller
             return redirect()->route('login');
         }
 
-        $resultados = DB::select("
-    SELECT 
-        cp.id_usuario,
-        SUM(CAST(cp.calificacion AS DECIMAL(10,2))) AS total_calificacion,
-        DENSE_RANK() OVER (ORDER BY SUM(CAST(cp.calificacion AS DECIMAL(10,2))) DESC) AS ranking
-    FROM cal_participante cp
-    LEFT JOIN cal_juez cj ON cp.id_ejecucion = cj.id_ejecucion
-    WHERE 
-        CAST(cp.calificacion AS DECIMAL(10,2)) = CAST(cj.divepoints AS DECIMAL(10,2))
-        AND id_usuario = ?
-    GROUP BY cp.id_usuario
-    ORDER BY ranking;
-", [$userId]);
+        $ranking = DB::table('ejecucion')
+            ->leftJoin('cal_juez', 'cal_juez.id_ejecucion', '=', 'ejecucion.id_ejecucion')
+            ->leftJoin('cal_participante', 'cal_participante.id_ejecucion', '=', 'ejecucion.id_ejecucion')
+            ->whereRaw('ROUND(CAST(cal_participante.calificacion AS DECIMAL(10,2)) * 3 * ejecucion.dificultad, 2) = cal_juez.divepoints')
+            ->groupBy('cal_participante.id_usuario')
+            ->selectRaw('
+        cal_participante.id_usuario,
+        SUM(CAST(cal_participante.calificacion AS DECIMAL(10,2))) AS total_calificacion,
+        DENSE_RANK() OVER (
+            ORDER BY SUM(CAST(cal_participante.calificacion AS DECIMAL(10,2))) DESC
+        ) AS ranking
+    ')
+            ->orderByDesc('total_calificacion')
+            ->get();
 
-        //return $resultados;
+        $rank_request = 0;
+        $data = [];
+        foreach ($ranking as $key => $value) {
+            if ($value->id_usuario == $userId) {
+                $rank_request = $value->ranking;
+                $data = ['ranking' => $rank_request];
+            }
+        }
 
-         return response()->json([
+        //return $rank_request;
+
+        return response()->json([
             'status' => 'ok',
-            'resultado' =>  $resultados[0]
+            'resultado' =>  $data
         ]);
     }
 }

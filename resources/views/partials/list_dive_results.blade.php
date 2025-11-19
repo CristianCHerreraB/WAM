@@ -49,8 +49,9 @@
                             <td>{{$item->j6}}</td>
                             <td>{{$item->j7}}</td>
                             <td>{{number_format($item->divepoints,2)}}</td>
-                            <td style='{{ number_format($item->calificacion,2) == number_format($item->divepoints,2) ? "background: #27F54D;" : "" }}'>{{number_format($item->calificacion,2)}}</td>
-                            <td>{{number_format(($item->calificacion*3*$item->dificultad))}}</td>
+                            <td style='{{ number_format(($item->calificacion * 3 * $item->dificultad),1) == number_format($item->divepoints,1) ? "background: #27F54D;" : "" }}'>{{number_format($item->calificacion,1)}}</td>
+                            <td>{{ floor(($item->calificacion * 3 * $item->dificultad) * 100) / 100 }}</td>
+
                         </tr>
                         @endif
                         @endforeach

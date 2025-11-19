@@ -71,11 +71,15 @@ class CalJuezController extends Controller
             ->leftJoin('cal_participante', 'cal_participante.id_ejecucion', '=', 'ejecucion.id_ejecucion')
             ->leftJoin('cal_juez', 'cal_juez.id_ejecucion', '=', 'ejecucion.id_ejecucion')
             ->where('cal_participante.id_usuario', $userId)
-            ->whereRaw('CAST([cal_participante].[calificacion ] AS DECIMAL(10,2)) = CAST([cal_juez].[divepoints] AS DECIMAL(10,2))')
+            ->whereRaw('
+        (CAST(cal_participante.calificacion AS DECIMAL(10,1)) * 3 * ejecucion.dificultad)
+            = CAST(cal_juez.divepoints AS DECIMAL(10,1))
+    ')
             ->groupBy('ejecucion.id_clavado')
             ->select('ejecucion.id_clavado', DB::raw('COUNT(*) AS total_matches'))
             ->pluck('total_matches', 'ejecucion.id_clavado');
- 
+
+
         foreach ($clavados as $clavado) {
             $clavado->point = $points[$clavado->id_clavado] ?? 0;
         }
@@ -84,8 +88,12 @@ class CalJuezController extends Controller
             ->leftJoin('cal_participante', 'cal_participante.id_ejecucion', '=', 'ejecucion.id_ejecucion')
             ->leftJoin('cal_juez', 'cal_juez.id_ejecucion', '=', 'ejecucion.id_ejecucion')
             ->where('cal_participante.id_usuario', $userId)
-            ->whereRaw('CAST(cal_participante.calificacion AS DECIMAL(10,2)) = CAST(cal_juez.divepoints AS DECIMAL(10,2))')
+            ->whereRaw('
+        (CAST(cal_participante.calificacion AS DECIMAL(10,1)) * 3 * ejecucion.dificultad)
+            = CAST(cal_juez.divepoints AS DECIMAL(10,1))
+    ')
             ->count();
+
 
 
         //return $clavados;die;
@@ -103,10 +111,10 @@ class CalJuezController extends Controller
         }
 
         $clavado = Clavado::select('id_clavado', 'evento', 'fecha', 'total_rondas')
-            ->where('id_clavado',$id_clavado)
+            ->where('id_clavado', $id_clavado)
             ->first();
 
-  $athlete = DB::table('ejecucion')
+        $athlete = DB::table('ejecucion')
             ->leftJoin('clavadista', 'ejecucion.id_clavadista', '=', 'clavadista.id_clavadista')
             ->where('ejecucion.id_clavado', $id_clavado)
             ->whereIn('ejecucion.id_ejecucion', function ($query) use ($userId) {
@@ -164,7 +172,7 @@ class CalJuezController extends Controller
 
         //return $ejecuciones;die;
 
-        return view('user.content.maincontent.athlete_list', compact('athlete', 'ejecuciones','clavado'));
+        return view('user.content.maincontent.athlete_list', compact('athlete', 'ejecuciones', 'clavado'));
     }
 
     public function athleteResult($id_clavadista, $id_clavado)
