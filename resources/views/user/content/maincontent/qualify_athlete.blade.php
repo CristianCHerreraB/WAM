@@ -23,8 +23,9 @@
   <div class="card-body">
     <div id="loadnextgame">
       <div class="row justify-content-center">
-        <div class="spinner-border" role="status" style="height: 100px; width: 100px;">
-          <span class="visually-hidden">Loading...</span>
+        <div  role="status" style="height: 100px; width: 100px; padding:0px;">
+          <!--<span class="visually-hidden">Loading...</span>-->
+          <img  src="{{ asset('images/loading2.gif') }}" width="100%" height="100%" >
         </div>
         <div class="row justify-content-center">
           <H4 style="text-align: center;" id="textload">El juego está por comenzar, por favor espera.</H4>
@@ -144,7 +145,6 @@
     </div>
   </div>
 </div>
-
 
 <script>
   let id_ejecucion_load = null;

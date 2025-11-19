@@ -68,6 +68,8 @@ Route::get('/changeStop/{id}', [ClavadoController::class, 'changeStop'])->name('
 Route::get('/userManagment', [PageController::class, 'userManagment'])->name('userManagment');
 
 
+Route::get('/ranking', [cal_participante::class, 'Ranking'])->name('Ranking');
+
 require __DIR__.'/auth.php';
 require __DIR__ . '/rutas_cristian.php';   
 

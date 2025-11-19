@@ -18,7 +18,7 @@ class ClavadoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function divesInLive()
+     public function divesInLive()
     {
         $userId = null;
         if (Auth::user()) {
@@ -61,6 +61,7 @@ class ClavadoController extends Controller
             'resultado' => $clavados
         ]);
     }
+
 
     public function index()
     {
