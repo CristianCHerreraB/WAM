@@ -577,7 +577,7 @@
                 <!-- Columna derecha: Logo y derechos de autor -->
                 <div class="col-md-6 text-md-end text-center">
                     <div class="footer-logo mb-3">
-                        <img src="{{ asset('images/logo_word_aquatics_black.jpeg') }}" alt="Logo World Aquatics" class="footer-logo-img">
+                        <img src="{{ asset('images/servilogx.jpeg') }}" alt="Logo World Aquatics" class="footer-logo-img">
                     </div>
                     <div class="copyright">
                         Copyright 2018 - 2025 World Aquatics. All rights reserved.
