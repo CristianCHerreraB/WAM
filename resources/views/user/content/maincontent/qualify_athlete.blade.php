@@ -9,7 +9,7 @@
 <div class="content-card mb-4">
   <div class="card-header bg-success d-flex justify-content-between align-items-center">
     <div class="row">
-      <div class="col col-md-12 d-flex justify-content-start"><img id="bandera" src="" width="32" height="20" alt="MX">
+      <div class="col col-md-2"><img id="bandera" src="" width="32" height="20" alt="MX"> </div>
         <h5 id="hInfo"></h5>
       </div>
 
@@ -291,7 +291,6 @@
     font-size: 0.875rem;
   }
 
-  /* Responsive adjustments */
   @media (max-width: 768px) {
     .competition-item {
       padding: 12px;

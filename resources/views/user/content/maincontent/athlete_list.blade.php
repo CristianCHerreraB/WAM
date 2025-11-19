@@ -3,14 +3,14 @@
 @section('title', 'Dashboard')
 
 @section('content')
-@if(!empty($ejecuciones))
+
 <div class="content-card mb-4">
   <div class="card-header bg-success d-flex justify-content-between align-items-center">
     <div>
       Resultados de  {{$clavado->evento}}
     </div>
   </div>
-
+  @if($ejecuciones)
   <div class="row">
     <!-- Competencias -->
     <div class="col-md-12">
@@ -29,9 +29,18 @@
       </div>
     </div>
   </div>
-
+  @endif
+  @if($ejecuciones->isEmpty())
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <br>
+      <h6>No hay resultados disponibles por el momento.</h6>
+      <br>
+    </div>
+  </div>
+  @endif
 </div>
-@endif
+
 
 
 
@@ -80,6 +89,7 @@
                             <td style="background-color: ${parseFloat(item.calificacion) == parseFloat(item.divepoints) ? 'green' : 'white'}; color: ${parseFloat(item.calificacion) == parseFloat(item.divepoints) ? 'white' : 'Dark'};">
                               ${item.calificacion != null ? parseFloat(item.calificacion).toFixed(1) : '0.0'}
                             </td>
+                            <td>${puntos ?? '0.0'}</td>
                         </tr>
                     `);
           });

@@ -70,48 +70,53 @@
         .content-wrapper {
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
             max-width: 1200px;
             width: 100%;
-            gap: 60px;
+            gap: 40px;
         }
 
         /* -------- Logo -------- */
         .logo-section {
             flex: 1;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .logo-img {
-            max-width: 70%;
+            max-width: 100%;
             height: auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-height: 250px;
         }
 
         .logo-title {
             color: var(--secondary-color);
-            font-size: 2.5rem;
+            font-size: 1.8rem;
             font-weight: bold;
-            margin-top: 20px;
+            margin-top: 15px;
         }
 
         .logo-subtitle {
             color: var(--text-color);
-            font-size: 1.2rem;
+            font-size: 1rem;
             line-height: 1.5;
             margin-top: 10px;
+            text-align: center;
         }
 
         /* -------- Formulario de Login -------- */
         .login-section {
             flex: 1;
-            max-width: 450px;
+            max-width: 400px;
+            min-width: 350px;
         }
 
         .login-box {
             background: var(--white);
-            padding: 40px;
+            padding: 30px;
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             border-top: 5px solid var(--primary-color);
@@ -120,14 +125,15 @@
         .login-title {
             color: var(--secondary-color);
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             font-weight: 600;
+            font-size: 1.5rem;
         }
 
         /* -------- Inputs -------- */
         .input-group {
             position: relative;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .input-group-text {
@@ -202,7 +208,7 @@
         .divider {
             height: 1px;
             background: #ddd;
-            margin: 25px 0;
+            margin: 20px 0;
             position: relative;
         }
 
@@ -232,7 +238,7 @@
         .footer {
             background-color: #000;
             color: #fff;
-            padding: 30px 0;
+            padding: 25px 0;
             margin-top: auto;
         }
 
@@ -248,8 +254,9 @@
         }
 
         .footer-logo-img {
-            max-width: 120px;
-            height: auto;
+            max-width: 200px;
+            align-items: center;
+            text-align: center;
         }
 
         .footer a {
@@ -275,21 +282,21 @@
             background-color: #00bcd4;
             color: white;
             border: none;
-            border-radius: 12px;
-            /* Bordes redondeados */
+            border-radius: 8px;
             padding: 0.6rem 1rem;
-            /* Tamaño cómodo */
             font-size: 1rem;
             transition: background-color 0.3s ease;
             display: inline-block;
             text-align: center;
             cursor: pointer;
             width: 100%;
-            /* Ancho completo */
             box-sizing: border-box;
-            /* Para que padding no aumente ancho */
             height: 45px;
-            /* Altura fija para uniformidad */
+            font-weight: 500;
+        }
+
+        .btn-natacion-primario:hover {
+            background-color: #0097a7;
         }
 
         /* -------- Mensajes de error -------- */
@@ -310,11 +317,30 @@
             margin-right: 8px;
         }
 
+        /* -------- Nuevos estilos para logos -------- */
+        .logos-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .logo-top {
+            flex: 1;
+            text-align: center;
+        }
+
+        .logo-bottom {
+            flex: 1;
+            text-align: center;
+        }
+
         /* -------- Responsive -------- */
         @media (max-width: 992px) {
             .content-wrapper {
                 flex-direction: column;
-                gap: 40px;
+                gap: 30px;
             }
 
             .logo-section {
@@ -324,16 +350,22 @@
             .login-section {
                 order: 2;
                 max-width: 100%;
+                min-width: auto;
             }
 
             .logo-title {
-                font-size: 2rem;
+                font-size: 1.5rem;
+            }
+
+            .logos-container {
+                flex-direction: column;
+                gap: 20px;
             }
         }
 
         @media (max-width: 576px) {
             .login-box {
-                padding: 30px 20px;
+                padding: 20px 15px;
             }
 
             .carousel-container {
@@ -343,6 +375,34 @@
             .carousel-img {
                 height: 150px;
             }
+
+            .logo-img {
+                max-width: 120px;
+            }
+
+            .footer {
+                padding: 20px 0;
+            }
+
+            .footer-logo-img {
+                max-width: 150px;
+            }
+        }
+
+        /* Estilos para la distribución de logos en PC */
+        .logo-left,
+        .logo-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-center {
+            flex: 1;
+            display: flex;
+            justify-content: center;
         }
     </style>
 </head>
@@ -393,81 +453,76 @@
     <!-- Contenido Principal -->
     <div class="main-content">
         <div class="content-wrapper">
-            <!-- Logo y descripción -->
-            <div class="logo-section">
-                <!-- Logo de la plataforma -->
-                <div class="mb-4">
-                    <img src="{{ asset('images/LogoWorldAquatics.jpeg') }}" alt="Logo World Aquatics" class="logo-img">
+            <!-- Logo superior -->
+            <div class="logo-top">
+                <div class="logo-section">
+                    <img src="{{ asset('images/AQUATICS_MEX.png') }}" alt="Logo AQUATICS MEX" class="logo-img">
                 </div>
             </div>
 
-            <!-- Formulario de Login -->
-            <div class="login-section">
-                <div class="login-box">
-                    <h2 class="login-title">Iniciar Sesión</h2>
+            <!-- Formulario de Login (centro) -->
+            <div class="login-center">
+                <div class="login-section">
+                    <div class="login-box">
+                        <h2 class="login-title">Iniciar Sesión</h2>
 
-                    <!-- Formulario de Laravel Breeze adaptado -->
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
+                        <!-- Formulario de Laravel Breeze adaptado -->
+                        <form method="POST" action="{{ route('login') }}">
+                            @csrf
 
-                        
-                        <div class="input-group mb-3">
-                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                            <input id="correo" type="email" class="form-control" name="correo" :value="old('correo')" required autofocus autocomplete="email" placeholder="Correo electrónico">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                <input id="correo" type="email" class="form-control" name="correo" :value="old('correo')" required autofocus autocomplete="email" placeholder="Correo electrónico">
+                            </div>
 
-                        </div>
-                        
-                        @if ($errors->has('correo'))
-                        <div class="input-error">
-                            {{ $errors->first('correo') }}
-                        </div>
-                        @endif
+                            @if ($errors->has('correo'))
+                            <div class="input-error">
+                                {{ $errors->first('correo') }}
+                            </div>
+                            @endif
 
-                        <!-- Password -->
-                        <div class="input-group mb-3">
-                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                            <input id="password" class="form-control" type="password" name="password" required autocomplete="current-password" placeholder="Contraseña">
-                        </div>
-                        @if ($errors->has('password'))
-                        <div class="input-error">
-                            {{ $errors->first('password') }}
-                        </div>
-                        @endif
+                            <!-- Password -->
+                            <div class="input-group mb-3">
+                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                <input id="password" class="form-control" type="password" name="password" required autocomplete="current-password" placeholder="Contraseña">
+                            </div>
+                            @if ($errors->has('password'))
+                            <div class="input-error">
+                                {{ $errors->first('password') }}
+                            </div>
+                            @endif
 
-                        <!-- Remember Me 
-                        <div class="remember-me">
-                            <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                            <label for="remember_me" class="ms-2 text-sm text-gray-600">{{ __('Recordarme') }}</label>
-                        </div>-->
+                            <!-- Botón de inicio de sesión -->
+                            <div class="d-grid mb-3">
+                                <button type="submit" class="btn-natacion-primario">
+                                    {{ __('Ingresar') }}
+                                </button>
+                            </div>
 
-                        <!-- Botón de inicio de sesión -->
-                        <div class="d-grid mb-3">
-                            <button type="submit" class="btn-natacion-primario">
-                                {{ __('Ingresar') }}
-                            </button>
-                        </div>
+                            <!-- Enlace "Olvidaste tu contraseña" -->
+                            <div class="forgot-password">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">¿Olvidaste tu contraseña?</a>
+                            </div>
 
-                        <!-- Enlace "Olvidaste tu contraseña" -->
-                        <div class="forgot-password">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">¿Olvidaste tu contraseña?</a>
+                            <!-- Divisor -->
+                            <div class="divider"></div>
 
-                            <!--@if (Route::has('password.request'))
-                            <a href="{{ route('password.request') }}">
-                                {{ __('¿Olvidaste tu contraseña?') }}
-                            </!--a>
-                            @endif-->
-                        </div>
+                            <!-- Botón de registro -->
+                            <a href="{{ route('register') }}" class="btn btn-secondary-custom" id="createAccount">Crear una cuenta</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
-                        <!-- Divisor -->
-                        <div class="divider"></div>
-
-                        <!-- Botón de registro -->
-                        <a href="{{ route('register') }}" class="btn btn-secondary-custom" id="createAccount">Crear una cuenta</a>
-                    </form>
+            <!-- Logo inferior -->
+            <div class="logo-bottom">
+                <div class="logo-section">
+                    <img src="{{ asset('images/PlayJudge.png') }}" alt="Logo Play Judge" class="logo-img">
                 </div>
             </div>
         </div>
     </div>
+
     <!-- Modal para recuperar contraseña -->
     <div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-labelledby="resetPasswordModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -505,30 +560,24 @@
             </div>
         </div>
     </div>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="row align-items-center">
                 <!-- Columna izquierda: Información de contacto -->
                 <div class="col-md-6">
-                    <h5>Mexico</h5>
+                    <h5>México</h5>
                     <p>
-                        Olimpo de deportistas<br>
-                        Olimpo de deportistas<br>
-                        Olimpo de deportistas
-                    </p>
-                    <p>
-                        Tel: +52 21 310 47 10<br>
-                        Fax: +52 21 312 66 10<br>
-                        Linea de soporte: +52 21 310 47 10<br>
-                        Correo de soporte: +52 21 310 47 10 <br>
+                        Tel: +52 56 3353 4370<br>
+                        Correo: emmanuel@servilogx.mx
                     </p>
                 </div>
 
                 <!-- Columna derecha: Logo y derechos de autor -->
                 <div class="col-md-6 text-md-end text-center">
                     <div class="footer-logo mb-3">
-                        <img src="{{ asset('images/LogoWorldAquatics.jpeg') }}" alt="Logo World Aquatics" class="footer-logo-img">
+                        <img src="{{ asset('images/servilogx.jpeg') }}" alt="Logo World Aquatics" class="footer-logo-img">
                     </div>
                     <div class="copyright">
                         Copyright 2018 - 2025 World Aquatics. All rights reserved.

@@ -34,7 +34,7 @@
     /* Top Navigation */
     .top-navbar {
       background: linear-gradient(90deg, var(--primary-dark) 0%, var(--primary) 100%);
-      height: 80px;
+      height: 60px;
       position: fixed;
       top: 0;
       left: 0;
@@ -50,7 +50,6 @@
       color: white !important;
       display: flex;
       align-items: center;
-      flex-wrap: nowrap;
     }
 
     .navbar-brand img {
@@ -151,15 +150,6 @@
       display: none;
     }
 
-    /*
-    #carouselExampleDark img {
-      max-height: 200px;
-      /* ajusta el valor según necesites (por defecto suelen ser ~600px) 
-      object-fit: cover;
-      /* mantiene la proporción y centra la imagen 
-    }*/
-
-
     .sidebar-overlay.active {
       display: block;
     }
@@ -254,13 +244,6 @@
       color: white;
     }
 
-    /* Logo Container */
-    .logo-container {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
     /* Mobile Search */
     .mobile-search-container {
       display: none;
@@ -308,15 +291,6 @@
       .mobile-search-container {
         display: block;
       }
-
-      .logo-container {
-        flex-direction: column;
-        gap: 5px;
-      }
-
-      .navbar-brand img {
-        height: 50px;
-      }
     }
 
     .placeholder {
@@ -326,14 +300,6 @@
       cursor: wait;
       background-color: #000810 !important;
       opacity: .5;
-    }
-
-    .navbar-toggler {
-      border-color: rgba(255, 255, 255, 0.7) !important;
-    }
-
-    .navbar-toggler-icon {
-      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255,255,255,1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
     }
   </style>
 </head>
@@ -347,19 +313,19 @@
       </button>
 
       <a class="navbar-brand" href="{{ route('dashboard') }}">
-        <div class="logo-container">
-          <img src="{{ asset('images/logo_word_aquatics_black.jpeg') }}"
-            alt="Logo 1" height="70" class="d-inline-block align-top">
-          <img src="{{ asset('images/AQUATICS_MEX.jpeg') }}"
-            alt="Logo 2" height="70" class="d-inline-block align-top">
-        </div>
+        <img src="{{ asset('images/LogoWorldAquatics.jpeg') }}" alt="Logo" height="30" class="d-inline-block align-top">
       </a>
 
       <div class="collapse navbar-collapse">
-        <ul class="navbar-nav me-auto ms-auto">
+        <ul class="navbar-nav me-auto ms-auto ">
           <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
-              <i class="fas fa-trophy me-2"></i> <span id="text-ranking">Ranking (0)</span>
+              <i class="fas fa-home me-1"></i> Inicio
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link }}" href="{{ route('userManagment') }}">
+              <i class="fas fa-users me-1"></i> Administrar Usuarios
             </a>
           </li>
         </ul>
@@ -388,22 +354,22 @@
       </div>
       <div class="nav-item">
         <a class="nav-link " href="{{ route('tutorial') }}">
-          <i class="fas fa-graduation-cap"></i> Tutorial
+          <i class="fas fa-book"></i> Tutorial
         </a>
       </div>
       <div class="nav-item">
         <a class="nav-link " href="{{ route('competencia') }}">
-          <i class="fas fa-trophy"></i> Competencia
+          <i class="fas fa-chart-bar"></i> Competencia
         </a>
       </div>
       <div class="nav-item">
         <a class="nav-link " href="{{ route('reglas') }}">
-          <i class="fas fa-gavel"></i> Reglas
+          <i class="fas fa-book"></i> Reglas
         </a>
       </div>
       <div class="nav-item">
         <a class="nav-link " href="{{ route('calendario') }}">
-          <i class="fas fa-calendar-alt"></i> Calendario
+          <i class="fas fa-users"></i> Calendario
         </a>
       </div>
       <div class="nav-item">
@@ -411,28 +377,6 @@
           <i class="fas fa-users"></i> Patrocinadores
         </a>
       </div>
-      <div class="nav-item">
-        <a class="nav-link " href="{{ route('view_result') }}">
-          <i class="fas fa-users"></i> Mis Aciertos
-        </a>
-      </div>
-      <!--
-      <div class="nav-item">
-        <a class="nav-link {{ request()->routeIs('idiomas') ? 'active' : '' }}" href="{{ route('idiomas') }}">
-          <i class="fas fa-language"></i> Aprendizaje de idiomas
-        </a>
-      </div>
-      <div class="nav-item">
-        <a class="nav-link {{ request()->routeIs('marketplace') ? 'active' : '' }}" href="{{ route('marketplace') }}">
-          <i class="fas fa-store"></i> Marketplace
-        </a>
-      </div>
-      <div class="nav-item">
-        <a class="nav-link " href="{{ route('view_result') }}">
-          <i class="fas fa-chart-line"></i> Mis Aciertos
-        </a>
-      </div>
-    </nav>
 
     <div class="sidebar-section">
       <div class="sidebar-section-title">¿Qué hay de nuevo?</div>
@@ -448,8 +392,8 @@
           </a>
         </div>
         <div class="nav-item">
-          <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-            <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+          <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            Cerrar sesión
           </a>
           <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
             @csrf
@@ -505,7 +449,6 @@
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     // Configurar menú móvil
     document.addEventListener('DOMContentLoaded', function() {
@@ -523,22 +466,6 @@
         sidebarOverlay.classList.remove('active');
       });
     });
-
-    
-    $(document).ready(function() {
-            $.ajax({
-              url: '/ranking',
-              type: 'GET',
-              success: function(data) {
-                let num = parseInt(data.resultado.ranking, 10);
-                $('#text-ranking').text('Ranking('+ parseInt(num,10)+')');
-              },
-              error: function(xhr, status, error) {
-                console.error('Error:', error);
-              }
-            });
-          });
-  
   </script>
 
 </body>

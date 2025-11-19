@@ -261,7 +261,11 @@ class ClavadoController extends Controller
         $clavados = //Clavado::where('active', 0)
             Clavado::orderBy('id_clavado', 'desc')
             ->first();
-
+        if(!$clavados){
+            $clavados = [] ;
+            $ejecuciones = [] ;
+             return view('user.content.maincontent.add_result_judge', compact('clavados', 'ejecuciones'));
+        }
 
         $ejecuciones = DB::table('ejecucion')
             ->leftJoin('clavadista', 'ejecucion.id_clavadista', '=', 'clavadista.id_clavadista')

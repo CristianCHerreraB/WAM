@@ -11,6 +11,10 @@ class PageController extends Controller
     {
          return view('user.content.maincontent.qualify_athlete');
     }
+    public function userManagment()
+    {
+         return view('administrator.userManagment');
+    }
 
     public function descubre()
     {

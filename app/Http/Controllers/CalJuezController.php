@@ -106,7 +106,7 @@ class CalJuezController extends Controller
             ->where('id_clavado',$id_clavado)
             ->first();
 
-        $athlete = DB::table('ejecucion')
+  $athlete = DB::table('ejecucion')
             ->leftJoin('clavadista', 'ejecucion.id_clavadista', '=', 'clavadista.id_clavadista')
             ->where('ejecucion.id_clavado', $id_clavado)
             ->whereIn('ejecucion.id_ejecucion', function ($query) use ($userId) {
@@ -181,6 +181,7 @@ class CalJuezController extends Controller
             ->leftJoin('cal_participante', 'cal_participante.id_ejecucion', '=', 'ejecucion.id_ejecucion')
             ->where('id_clavadista', $id_clavadista)
             ->where('id_clavado', $id_clavado)
+            ->where('cal_participante.id_usuario', $userId)
             ->select(
                 'ejecucion.num_ejecucion',
                 'ejecucion.descripcion',
@@ -193,7 +194,8 @@ class CalJuezController extends Controller
                 'cal_juez.j6',
                 'cal_juez.j7',
                 'cal_juez.divepoints',
-                'cal_participante.calificacion'
+                'cal_participante.calificacion',
+                'cal_participante.id_usuario'
             )
             ->get();
 

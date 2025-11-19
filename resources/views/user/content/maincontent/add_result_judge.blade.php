@@ -7,7 +7,7 @@
 <div class="content-card mb-4">
   <div class="card-header bg-success d-flex justify-content-between align-items-center">
     <div>
-    | Evento: {{$clavados->evento}} | N°.Rondas: {{$clavados->total_rondas}} | Fecha: {{$clavados->fecha}} 
+      | Evento: {{$clavados->evento}} | N°.Rondas: {{$clavados->total_rondas}} | Fecha: {{$clavados->fecha}}
     </div>
   </div>
 
@@ -29,6 +29,24 @@
     </div>
   </div>
 
+</div>
+@endif
+@if(empty($clavados))
+<div class="content-card mb-4">
+  <div class="card-header bg-success d-flex justify-content-between align-items-center">
+    <div>
+      | Evento:| N°.Rondas: | Fecha: 
+    </div>
+  </div>
+  <div class="row">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <br>
+        <h6>No hay resultados disponibles por el momento.</h6>
+      <br>
+      </div>
+    </div>
+  </div>
 </div>
 @endif
 
