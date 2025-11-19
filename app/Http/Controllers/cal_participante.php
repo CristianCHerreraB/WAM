@@ -63,7 +63,7 @@ class cal_participante extends Controller
             ->get();
 
         $rank_request = 0;
-        $data = [];
+        $data = ['ranking' => 0];
         foreach ($ranking as $key => $value) {
             if ($value->id_usuario == $userId) {
                 $rank_request = $value->ranking;
