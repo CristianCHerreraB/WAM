@@ -456,7 +456,7 @@
             <!-- Logo superior -->
             <div class="logo-top">
                 <div class="logo-section">
-                    <img src="{{ asset('images/AQUATICS_MEX.jpeg') }}" alt="Logo AQUATICS MEX" class="logo-img">
+                    <img src="{{ asset('images/AQUATICS_MEX.png') }}" alt="Logo AQUATICS MEX" class="logo-img">
                 </div>
             </div>
 
@@ -517,7 +517,7 @@
             <!-- Logo inferior -->
             <div class="logo-bottom">
                 <div class="logo-section">
-                    <img src="{{ asset('images/PlayJudge.jpeg') }}" alt="Logo Play Judge" class="logo-img">
+                    <img src="{{ asset('images/PlayJudge.png') }}" alt="Logo Play Judge" class="logo-img">
                 </div>
             </div>
         </div>
