@@ -5,10 +5,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MiApp - @yield('title', 'Dashboard')</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+
   <style>
     :root {
       --primary: #0077B6;
@@ -149,9 +151,11 @@
       background-color: rgba(0, 0, 0, 0.5);
       z-index: 1015;
       display: none;
+      pointer-events: none;
     }
 
     .sidebar-overlay.active {
+      pointer-events: auto;
       display: block;
     }
 
@@ -288,9 +292,6 @@
         transform: translateX(0);
       }
 
-      .navbar-toggler {
-        display: block !important;
-      }
 
       .top-navbar .navbar-collapse {
         display: none !important;
@@ -320,11 +321,13 @@
     }
 
     .navbar-toggler {
+      z-index: 5000 !important;
+      position: relative;
       border-color: rgba(255, 255, 255, 0.7) !important;
     }
 
     .navbar-toggler-icon {
-      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255,255,255,1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
     }
   </style>
 </head>
@@ -339,8 +342,6 @@
 
       <a class="navbar-brand" href="{{ route('dashboard') }}">
         <div class="logo-container">
-          <img src="{{ asset('images/logo_word_aquatics_black.jpeg') }}"
-            alt="Logo 1" height="70" class="d-inline-block align-top">
           <img src="{{ asset('images/AQUATICS_MEX.jpeg') }}"
             alt="Logo 2" height="70" class="d-inline-block align-top">
         </div>
@@ -478,14 +479,19 @@
     @yield('content')
   </div>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
   <script>
     // Configurar menú móvil
     document.addEventListener('DOMContentLoaded', function() {
       const sidebar = document.getElementById('sidebar');
       const sidebarToggle = document.getElementById('sidebarToggle');
       const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+      // Asegurarse de que el sidebar esté oculto al cargar en móviles
+      if (window.innerWidth < 992) {
+        sidebar.classList.remove('show');
+        sidebarOverlay.classList.remove('active');
+      }
 
       sidebarToggle.addEventListener('click', function() {
         sidebar.classList.toggle('show');
@@ -495,30 +501,27 @@
       sidebarOverlay.addEventListener('click', function() {
         sidebar.classList.remove('show');
         sidebarOverlay.classList.remove('active');
+      });
+
+      // Cerrar sidebar al hacer clic en un enlace (en móviles)
+      const sidebarLinks = document.querySelectorAll('.sidebar-nav .nav-link');
+      sidebarLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          if (window.innerWidth < 992) {
+            sidebar.classList.remove('show');
+            sidebarOverlay.classList.remove('active');
+          }
+        });
       });
     });
   </script>
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  
   <script>
     // Configurar menú móvil
-    document.addEventListener('DOMContentLoaded', function() {
-      const sidebar = document.getElementById('sidebar');
-      const sidebarToggle = document.getElementById('sidebarToggle');
-      const sidebarOverlay = document.getElementById('sidebarOverlay');
-
-      sidebarToggle.addEventListener('click', function() {
-        sidebar.classList.toggle('show');
-        sidebarOverlay.classList.toggle('active');
-      });
-
-      sidebarOverlay.addEventListener('click', function() {
-        sidebar.classList.remove('show');
-        sidebarOverlay.classList.remove('active');
-      });
-    });
-
+   
 
     $(document).ready(function() {
       $.ajax({
