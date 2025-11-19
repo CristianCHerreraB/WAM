@@ -151,15 +151,6 @@
       display: none;
     }
 
-    /*
-    #carouselExampleDark img {
-      max-height: 200px;
-      /* ajusta el valor según necesites (por defecto suelen ser ~600px) 
-      object-fit: cover;
-      /* mantiene la proporción y centra la imagen 
-    }*/
-
-
     .sidebar-overlay.active {
       display: block;
     }
@@ -408,23 +399,7 @@
       </div>
       <div class="nav-item">
         <a class="nav-link " href="{{ route('patrocinadores') }}">
-          <i class="fas fa-users"></i> Patrocinadores
-        </a>
-      </div>
-      <div class="nav-item">
-        <a class="nav-link " href="{{ route('view_result') }}">
-          <i class="fas fa-users"></i> Mis Aciertos
-        </a>
-      </div>
-      <!--
-      <div class="nav-item">
-        <a class="nav-link {{ request()->routeIs('idiomas') ? 'active' : '' }}" href="{{ route('idiomas') }}">
-          <i class="fas fa-language"></i> Aprendizaje de idiomas
-        </a>
-      </div>
-      <div class="nav-item">
-        <a class="nav-link {{ request()->routeIs('marketplace') ? 'active' : '' }}" href="{{ route('marketplace') }}">
-          <i class="fas fa-store"></i> Marketplace
+          <i class="fas fa-handshake"></i> Patrocinadores
         </a>
       </div>
       <div class="nav-item">
@@ -505,6 +480,26 @@
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Configurar menú móvil
+    document.addEventListener('DOMContentLoaded', function() {
+      const sidebar = document.getElementById('sidebar');
+      const sidebarToggle = document.getElementById('sidebarToggle');
+      const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+      sidebarToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('show');
+        sidebarOverlay.classList.toggle('active');
+      });
+
+      sidebarOverlay.addEventListener('click', function() {
+        sidebar.classList.remove('show');
+        sidebarOverlay.classList.remove('active');
+      });
+    });
+  </script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     // Configurar menú móvil
@@ -524,21 +519,20 @@
       });
     });
 
-    
+
     $(document).ready(function() {
-            $.ajax({
-              url: '/ranking',
-              type: 'GET',
-              success: function(data) {
-                let num = parseInt(data.resultado.ranking, 10);
-                $('#text-ranking').text('Ranking('+ parseInt(num,10)+')');
-              },
-              error: function(xhr, status, error) {
-                console.error('Error:', error);
-              }
-            });
-          });
-  
+      $.ajax({
+        url: '/ranking',
+        type: 'GET',
+        success: function(data) {
+          let num = parseInt(data.resultado.ranking, 10);
+          $('#text-ranking').text('Ranking(' + parseInt(num, 10) + ')');
+        },
+        error: function(xhr, status, error) {
+          console.error('Error:', error);
+        }
+      });
+    });
   </script>
 
 </body>
