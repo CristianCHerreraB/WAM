@@ -85,7 +85,7 @@
               </tbody>
             </table>
             <div class="d-flex justify-content-end">
-              <button type="submit" class="btn btn-primary">Calificar</button>
+              <button type="submit" id="btn-calificar" class="btn btn-primary">Calificar</button>
             </div>
           </form>
         </div>
@@ -137,7 +137,7 @@
               </tbody>
             </table>
             <div class="d-flex justify-content-end">
-              <button type="submit" class="btn btn-primary">Calificar</button>
+              <button type="submit" id="btn-calificar" class="btn btn-primary">Calificar</button>
             </div>
           </form>
         </div>
@@ -215,6 +215,7 @@
   $(document).ready(function() {
     $('#form-ejecucion').on('submit', function(e) {
       e.preventDefault();
+      $('#btn-calificar').prop('disabled', true).text('Guardando...');
       $.ajax({
         url: '/save_check',
         method: 'POST',
@@ -233,10 +234,12 @@
         },
         error: function(xhr, status, error) {
           console.log('sendForm:', error);
+           $('#btn-calificar').prop('disabled', false).text('Calificar');
         }
       });
     });
   });
+
 </script>
 <style>
   .competition-item {
