@@ -11,6 +11,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   
 
+
   <style>
     :root {
       --primary: #0077B6;
@@ -329,38 +330,55 @@
     .navbar-toggler-icon {
       background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
     }
+
+    /* a.nav-link.d-lg-block {
+      margin-left: -5%;
+    }*/
+    span#text-ranking {
+      font-size: calc(var(--bs-gutter-x) * .5);
+    }
   </style>
 </head>
 
 <body>
   <!-- Top Navigation -->
   <nav class="navbar navbar-expand-lg top-navbar">
-    <div class="container-fluid">
-      <button class="navbar-toggler" type="button" id="sidebarToggle">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <a class="navbar-brand" href="{{ route('dashboard') }}">
-        <div class="logo-container">
-          <img src="{{ asset('images/AQUATICS_MEX.jpeg') }}"
-            alt="Logo 2" height="70" class="d-inline-block align-top">
-        </div>
-      </a>
-
-      <div class="collapse navbar-collapse">
-        <ul class="navbar-nav me-auto ms-auto">
-          <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
-              <i class="fas fa-trophy me-2"></i> <span id="text-ranking">Ranking (0)</span>
-            </a>
-          </li>
-        </ul>
-
-        <button class="btn btn-outline-light ms-2 d-none d-lg-block" id="refreshButton">
-          <i class="fas fa-sync-alt"></i> Actualizar
+    <div class=" container center d-lg-none d-flex align-items-center justify-content-between">
+      <div class="col-md-4">
+        <button class="navbar-toggler" type="button" id="sidebarToggle">
+          <span class="navbar-toggler-icon"></span>
         </button>
       </div>
+      <div class="col-md-4">
+        <a class="nav-link  d-lg-block" href="{{ route('dashboard') }}">
+          <i class="fas fa-trophy me-2"></i>
+          <span id="text-ranking">Ranking (0)</span>
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a class="navbar-brand" href="{{ route('dashboard') }}">
+          <div class="logo-container">
+            <img src="{{ asset('images/AQUATICS_MEX.jpeg') }}"
+              alt="Logo 2" height="70" class="d-inline-block align-top">
+          </div>
+        </a>
+      </div>
     </div>
+
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav me-auto ms-auto">
+        <li class="nav-item">
+          <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
+            <i class="fas fa-trophy me-2"></i> <span id="text-ranking">Ranking (0)</span>
+          </a>
+        </li>
+      </ul>
+
+      <button class="btn btn-outline-light ms-2 d-none d-lg-block" id="refreshButton">
+        <i class="fas fa-sync-alt"></i> Actualizar
+      </button>
+    </div>
+
   </nav>
 
   <!-- Sidebar Overlay -->
@@ -516,12 +534,15 @@
     });
   </script>
   
+
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   
+
   <script>
     // Configurar menú móvil
    
+
 
     $(document).ready(function() {
       $.ajax({
