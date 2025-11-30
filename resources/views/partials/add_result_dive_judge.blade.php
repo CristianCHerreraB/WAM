@@ -19,7 +19,7 @@
         font-size: 0.8rem;
     }
 
-  
+
     @media (max-width: 768px) {
         .results-table-container {
             padding: 10px;
@@ -68,6 +68,7 @@
 <div class="table-responsive">
     @php
     $index_aux=0;
+    $sinc = $clavados->sincronizacion;
     @endphp
 
     @for($i=1 ;$i <= $clavados->total_rondas;$i++)
@@ -95,48 +96,48 @@
                                 <div class="row g-3">
                                     <input type="text" value="{{ $participant->dificultad }}" id="dificultad" hidden>
                                     <input type="text" value="{{$participant->id_ejecucion}}" name="id_ejecucion" hidden>
-                                    <div class="col-md-2">
-                                        <label for="inputZc1" class="form-label">Resultado 1</label>
+                                    <div class="col-md-3">
+                                        <label for="inputZc1" class="form-label">@if($sinc==1) Cal. sincronizada @else Resultado @endif 1</label>
                                         <input type="text" class="form-control" name="c1" id="c1" required>
                                     </div>
-                                    <div class="col-md-2">
-                                        <label for="inputZc2" class="form-label">Resultado 2</label>
+                                    <div class="col-md-3">
+                                        <label for="inputZc2" class="form-label">@if($sinc==1) Cal. sincronizada @else Resultado @endif 2</label>
                                         <input type="text" class="form-control" name="c2" id="c2" required>
                                     </div>
-                                    <div class="col-md-2">
-                                        <label for="inputZc3" class="form-label">Resultado 3</label>
+                                    <div class="col-md-3">
+                                        <label for="inputZc3" class="form-label">@if($sinc==1) Cal. sincronizada @else Resultado @endif 3</label>
                                         <input type="text" class="form-control" name="c3" id="c3" required>
                                     </div>
-                                    <div class="col-md-2">
-                                        <label for="inputZc4" class="form-label">Resultado 4</label>
+                                    <div class="col-md-3">
+                                        <label for="inputZc4" class="form-label">@if($sinc==1) Cal. sincronizada @else Resultado @endif 4</label>
                                         <input type="text" class="form-control" name="c4" id="c4" required>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label for="inputZc5" class="form-label">Resultado 5</label>
-                                        <input type="text" class="form-control" name="c5" id="c5" required>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label for="inputZc6" class="form-label">Resultado 6</label>
-                                        <input type="text" class="form-control" name="c6" id="c6" required>
                                     </div>
                                 </div>
                                 <div class="row g-3">
-                                    <div class="col-md-2">
-                                        <label for="inputZc7" class="form-label">Resultado 7</label>
+                                    <div class="col-md-3">
+                                        <label for="inputZc5" class="form-label">@if($sinc==1) Cal. sincronizada @else Resultado @endif 5</label>
+                                        <input type="text" class="form-control" name="c5" id="c5" required>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="inputZc6" class="form-label">@if($sinc==1) Cal. sincronizada @else Resultado @endif 6</label>
+                                        <input type="text" class="form-control" name="c6" id="c6" required>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="inputZc7" class="form-label">@if($sinc==1) Cal. sincronizada @else Resultado @endif 7</label>
                                         <input type="text" class="form-control" name="c7" id="c7" required>
                                     </div>
-                                    <div class="col-md-2">
-                                        <label for="divePoints" class="form-label">Puntos de clavado</label>
-                                        <label for="divePoints" id="divePoints_2" class="form-label">0.0</label>
+                                    <div class="col-md-3 d-flex justify-content-center">
+                                        <label for="divePoints" class="form-label" style="padding-top: 15%;">Puntos de clavado </label>
+                                        <label for="divePoints" id="divePoints_2" class="form-label" style="padding-top: 15%; margin-left: 5px;">0.0</label>
                                         <input type="text" class="form-control" name="dive_points" id="divePoints" hidden>
                                     </div>
-                                   <!-- <div class="col-md-2">
+                                    <!-- <div class="col-md-2">
                                         <label for="totalPoints" class="form-label">Puntos Totales</label>
                                         <input type="text" class="form-control" name="total_points" id="totalPoints">
                                     </div>-->
                                 </div>
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <button class="btn btn-primary" type="submmit">Guardar</button>
+                                    <button class="btn btn-primary" type="submit">Guardar</button>
                                 </div>
                             </form>
                             @else
@@ -160,29 +161,29 @@
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    let count = 0;
-    document.querySelectorAll("input[name^='c']").forEach(input => {
-        input.addEventListener("input", function() {
-            calcularPromedio(this.closest("form"),count);
+    document.addEventListener("DOMContentLoaded", function() {
+        let count = 0;
+        document.querySelectorAll("input[name^='c']").forEach(input => {
+            input.addEventListener("input", function() {
+                calcularPromedio(this.closest("form"), count);
+            });
         });
     });
-});
 
-function calcularPromedio(form,count) {
-    const valores = Array.from(form.querySelectorAll("input[name^='c']"))
-        .map(i => parseFloat(i.value))
-        .filter(v => !isNaN(v)); 
+    function calcularPromedio(form, count) {
+        const valores = Array.from(form.querySelectorAll("input[name^='c']"))
+            .map(i => parseFloat(i.value))
+            .filter(v => !isNaN(v));
 
-    if (valores.length === 7) {
-        const dificultad = parseFloat(form.querySelector("#dificultad").value,0);
-        valores.sort((a, b) => a - b);//ordenamos los valores de menor a mayor
-        const midelvalue = valores.slice(2, 5);//quitamos los valores que no se suman
-        const promedio = midelvalue.reduce((a, b) => a + b, 0)*dificultad; // midelvalue.length;//calculamos promedio
-        form.querySelector("#divePoints").value = promedio.toFixed(2);
-       form.querySelector("#divePoints_2").textContent = promedio.toFixed(2);
+        if (valores.length === 7) {
+            const dificultad = parseFloat(form.querySelector("#dificultad").value, 0);
+            valores.sort((a, b) => a - b); //ordenamos los valores de menor a mayor
+            const midelvalue = valores.slice(2, 5); //quitamos los valores que no se suman
+            const promedio = midelvalue.reduce((a, b) => a + b, 0) * dificultad; // midelvalue.length;//calculamos promedio
+            form.querySelector("#divePoints").value = promedio.toFixed(2);
+            form.querySelector("#divePoints_2").textContent = promedio.toFixed(2);
 
-       
+
+        }
     }
-}
 </script>

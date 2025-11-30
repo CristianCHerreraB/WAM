@@ -10,140 +10,90 @@
   <div class="card-header bg-success d-flex justify-content-between align-items-center">
     <div class="row">
       <div class="col col-md-2"><img id="bandera" src="" width="32" height="20" alt="MX"> </div>
-        <h5 id="hInfo"></h5>
-      </div>
+      <h5 id="hInfo"></h5>
+    </div>
 
-      <div class="col col-md-12 card-text placeholder-glow" id="loadnextgame_2">
-        <span class="placeholder col-4"></span>
-        <span class="placeholder col-4"></span>
-        <span class="placeholder col-4"></span>
-      </div>
+    <div class="col col-md-12 card-text placeholder-glow" id="loadnextgame_2">
+      <span class="placeholder col-4"></span>
+      <span class="placeholder col-4"></span>
+      <span class="placeholder col-4"></span>
     </div>
   </div>
-  <div class="card-body">
-    <div id="loadnextgame">
+</div>
+<div class="card-body">
+  <div id="loadnextgame">
+    <div class="row justify-content-center">
+      <div role="status" style="height: 100px; width: 100px; padding:0px;">
+        <!--<span class="visually-hidden">Loading...</span>-->
+        <img src="{{ asset('images/loading2.gif') }}" width="100%" height="100%">
+      </div>
       <div class="row justify-content-center">
-        <div  role="status" style="height: 100px; width: 100px; padding:0px;">
-          <!--<span class="visually-hidden">Loading...</span>-->
-          <img  src="{{ asset('images/loading2.gif') }}" width="100%" height="100%" >
-        </div>
-        <div class="row justify-content-center">
-          <H4 style="text-align: center;" id="textload">El juego está por comenzar, por favor espera.</H4>
-        </div>
-      </div>
-    </div>
-    <div id="form_responce">
-      <div class="row">
-        <!-- Competencias -->
-        <div class="col-md-12">
-          <form action="/save_check" method="post" id="form-ejecucion">
-            @csrf
-            <input type="text" name="id_ejecucion" id="id_ejecucion">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th colspan="6">
-                    Seleccione un puntaje de ejecución
-                    <!-- <strong class="float-end">Total seleccionado: <span id="total">0</span></strong>-->
-                  </th>
-                </tr>
-              </thead>
-              <tbody class="table-group-divider">
-                <tr>
-                  <td><input type="radio" name="check" value="1"> 0</td>
-                  <td><input type="radio" name="check" value="1.5"> 0.5</td>
-                  <td><input type="radio" name="check" value="1"> 1</td>
-                  <td><input type="radio" name="check" value="1.5"> 1.5</td>
-                </tr>
-                <tr>
-                  <td><input type="radio" name="check" value="2"> 2</td>
-                  <td><input type="radio" name="check" value="2.5"> 2.5</td>
-                  <td><input type="radio" name="check" value="3"> 3</td>
-                  <td><input type="radio" name="check" value="3.5"> 3.5</td>
-                </tr>
-                <tr>
-                  <td><input type="radio" name="check" value="4"> 4</td>
-                  <td><input type="radio" name="check" value="4.5"> 4.5</td>
-                  <td><input type="radio" name="check" value="5"> 5</td>
-                  <td><input type="radio" name="check" value="5.5"> 5.5</td>
-                </tr>
-                <tr>
-                  <td><input type="radio" name="check" value="6"> 6</td>
-                  <td><input type="radio" name="check" value="6.5"> 6.5</td>
-                  <td><input type="radio" name="check" value="7"> 7</td>
-                  <td><input type="radio" name="check" value="7.5"> 7.5</td>
-                </tr>
-                <tr>
-                  <td><input type="radio" name="check" value="8"> 8</td>
-                  <td><input type="radio" name="check" value="8.5"> 8.5</td>
-                  <td><input type="radio" name="check" value="9"> 9</td>
-                  <td><input type="radio" name="check" value="9.5"> 9.5</td>
-                </tr>
-                <tr>
-                  <td><input type="radio" name="check" value="10"> 10</td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="d-flex justify-content-end">
-              <button type="submit" id="btn-calificar" class="btn btn-primary">Calificar</button>
-            </div>
-          </form>
-        </div>
-      </div>
-      <br>
-      <div class="row">
-        <!-- Competencias -->
-        <div class="col-md-12">
-          <form action="/submit" method="post" id="form-sinc">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th colspan="6">
-                    Seleccione un puntaje de sincronización
-                    <!-- <strong class="float-end">Total seleccionado: <span id="total_sinc">0</span></strong>-->
-                  </th>
-                </tr>
-              </thead>
-              <tbody class="table-group-divider">
-                <tr>
-                  <td><input type="radio" name="sinc" value="1"> 1</td>
-                  <td><input type="radio" name="sinc" value="1.5"> 1.5</td>
-                  <td><input type="radio" name="sinc" value="2"> 2</td>
-                  <td><input type="radio" name="sinc" value="2.5"> 2.5</td>
-                </tr>
-                <tr>
-                  <td><input type="radio" name="sinc" value="3"> 3</td>
-                  <td><input type="radio" name="sinc" value="3.5"> 3.5</td>
-                  <td><input type="radio" name="sinc" value="4"> 4</td>
-                  <td><input type="radio" name="sinc" value="4.5"> 4.5</td>
-                </tr>
-                <tr>
-                  <td><input type="radio" name="sinc" value="5"> 5</td>
-                  <td><input type="radio" name="sinc" value="5.5"> 5.5</td>
-                  <td><input type="radio" name="sinc" value="6"> 6</td>
-                  <td><input type="radio" name="sinc" value="6.5"> 6.5</td>
-                </tr>
-                <tr>
-                  <td><input type="radio" name="sinc" value="7"> 7</td>
-                  <td><input type="radio" name="sinc" value="7.5"> 7.5</td>
-                  <td><input type="radio" name="sinc" value="8"> 8</td>
-                  <td><input type="radio" name="sinc" value="8.5"> 8.5</td>
-                </tr>
-                <tr>
-                  <td><input type="radio" name="sinc" value="9"> 9</td>
-                  <td><input type="radio" name="sinc" value="9.5"> 9.5</td>
-                  <td><input type="radio" name="sinc" value="10"> 10</td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="d-flex justify-content-end">
-              <button type="submit" id="btn-calificar" class="btn btn-primary">Calificar</button>
-            </div>
-          </form>
-        </div>
+        <H4 style="text-align: center;" id="textload"></H4>
       </div>
     </div>
   </div>
+  <div id="form_responce">
+    <div class="row">
+      <!-- Competencias -->
+      <div class="col-md-12">
+        <form action="/save_check" method="post" id="form-ejecucion">
+          @csrf
+          <input type="text" name="id_ejecucion" id="id_ejecucion">
+          <table class="table">
+            <thead>
+              <tr>
+                <th colspan="6" class="sincronizado">
+                  Seleccione un puntaje de ejecución
+                  <!-- <strong class="float-end">Total seleccionado: <span id="total">0</span></strong>-->
+                </th>
+              </tr>
+            </thead>
+            <tbody class="table-group-divider">
+              <tr>
+                <td><input type="radio" name="check" value="1"> 0</td>
+                <td><input type="radio" name="check" value="1.5"> 0.5</td>
+                <td><input type="radio" name="check" value="1"> 1</td>
+                <td><input type="radio" name="check" value="1.5"> 1.5</td>
+              </tr>
+              <tr>
+                <td><input type="radio" name="check" value="2"> 2</td>
+                <td><input type="radio" name="check" value="2.5"> 2.5</td>
+                <td><input type="radio" name="check" value="3"> 3</td>
+                <td><input type="radio" name="check" value="3.5"> 3.5</td>
+              </tr>
+              <tr>
+                <td><input type="radio" name="check" value="4"> 4</td>
+                <td><input type="radio" name="check" value="4.5"> 4.5</td>
+                <td><input type="radio" name="check" value="5"> 5</td>
+                <td><input type="radio" name="check" value="5.5"> 5.5</td>
+              </tr>
+              <tr>
+                <td><input type="radio" name="check" value="6"> 6</td>
+                <td><input type="radio" name="check" value="6.5"> 6.5</td>
+                <td><input type="radio" name="check" value="7"> 7</td>
+                <td><input type="radio" name="check" value="7.5"> 7.5</td>
+              </tr>
+              <tr>
+                <td><input type="radio" name="check" value="8"> 8</td>
+                <td><input type="radio" name="check" value="8.5"> 8.5</td>
+                <td><input type="radio" name="check" value="9"> 9</td>
+                <td><input type="radio" name="check" value="9.5"> 9.5</td>
+              </tr>
+              <tr>
+                <td><input type="radio" name="check" value="10"> 10</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary" id="btn-calificar">Calificar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <br>
+
+  </div>
+</div>
 </div>
 
 <script>
@@ -160,7 +110,12 @@
         url: '/dive_in_live',
         method: 'GET',
         success: function(data) {
-          console.log('Respuesta:', data.resultado);
+          //console.log('Respuesta:', data.resultado);
+          if(data.c_active==1 || data.resultado == null ){
+            $('#textload').text('El juego está por comenzar, por favor espera.');
+          }else{
+            $('#textload').text('En unos momentos continuaremos con el siguiente clavado.');
+          }
           if (data.resultado) {
             const uri = `/flags/4x3/${data.resultado.pais_region}.svg`;
             const h_text = " " +
@@ -172,6 +127,10 @@
             const id_clavado = data.resultado.id_clavado;
             id_ejecucion_load = data.resultado.id_ejecucion;
             $('#id_ejecucion').val(id_ejecucion_load);
+            if (data.resultado.sincronizacion == 1) {
+             $('.sincronizado').text('Seleccione un puntaje sincronizado');
+            }
+
             if (data.resultado.stop == 0) {
               $('#bandera').hide();
               $('#hInfo').hide();
@@ -234,12 +193,10 @@
         },
         error: function(xhr, status, error) {
           console.log('sendForm:', error);
-           $('#btn-calificar').prop('disabled', false).text('Calificar');
         }
       });
     });
   });
-
 </script>
 <style>
   .competition-item {

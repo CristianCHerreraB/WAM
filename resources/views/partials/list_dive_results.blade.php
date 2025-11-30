@@ -4,7 +4,7 @@
     $decrement = $athlete->count();
     @endphp
 
-
+{{$clavado->sincronizacion}}
     @foreach($athlete->sortBy('orden') as $ejecucion)
     @if($ejecucion->num_ejecucion == $ronda)
     <div class="competition-item">
@@ -22,6 +22,7 @@
                             <th>Ronda</th>
                             <th>Descripcion</th>
                             <th>Dificultad</th>
+                            @if($clavado->sincronizacion==0)
                             <th>J1</th>
                             <th>J2</th>
                             <th>J3</th>
@@ -29,6 +30,15 @@
                             <th>J5</th>
                             <th>J6</th>
                             <th>J7</th>
+                            @else
+                            <th>S1</th>
+                            <th>S2</th>
+                            <th>S3</th>
+                            <th>S4</th>
+                            <th>S5</th>
+                            <th>S6</th>
+                            <th>S7</th>
+                            @endif
                             <th>Puntos Juez</th>
                             <th>Calificación</th>
                             <th>Puntos</th>
