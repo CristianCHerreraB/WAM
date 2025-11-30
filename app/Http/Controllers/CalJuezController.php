@@ -58,7 +58,7 @@ class CalJuezController extends Controller
             return redirect()->route('login');
         }
 
-        $clavados = Clavado::select('id_clavado', 'evento', 'fecha', 'total_rondas', DB::raw('0 as point'))
+        $clavados = Clavado::select('id_clavado', 'evento', 'fecha', 'total_rondas', DB::raw('0 as point'),'sincronizacion')
             ->whereIn('id_clavado', function ($query) use ($userId) {
                 $query->select('ejecucion.id_clavado')
                     ->from('cal_participante')
@@ -110,7 +110,7 @@ class CalJuezController extends Controller
             return redirect()->route('login');
         }
 
-        $clavado = Clavado::select('id_clavado', 'evento', 'fecha', 'total_rondas')
+        $clavado = Clavado::select('id_clavado', 'evento', 'fecha', 'total_rondas', 'sincronizacion')
             ->where('id_clavado', $id_clavado)
             ->first();
 

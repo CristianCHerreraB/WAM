@@ -22,6 +22,7 @@ class CalParticipante extends Model
         'deleted_by',
         'modified',
         'modified_by',
-        'active'
+        'active',
+        'calificacion_sinc'
     ];
 }

@@ -37,7 +37,7 @@ class ClavadoController extends Controller
             //->where('ejecucion.orden', 1)
             ->where('ejecucion.active', 0)
             ->where('ejecucion.stop', 1)
-            ->select('ejecucion.*', 'clavado.*', 'clavadista.*')
+            ->select('ejecucion.*', 'clavado.*', 'clavadista.*','clavado.active as c_active')
             ->first();
         //return $clavados;die;
         if ($clavados && $clavados->id_ejecucion != null) {
@@ -151,6 +151,8 @@ class ClavadoController extends Controller
 
     public function create(Request $request)
     {
+        
+        //return $request->sincronizacion;die;
         $userId = null;
         if (Auth::user()) {
             $userId = Auth::user()->id_usuario;
@@ -162,8 +164,8 @@ class ClavadoController extends Controller
             'evento' => $request->evento,
             'total_rondas' => $request->total_rondas,
             'fecha' => $this->normalizeDate($request->fecha),
-            'sincronizacion' => $request->sincronizacion,
-            'created' => Carbon::now()->format('Y-m-d'),
+            'sincronizacion' => $request->has('sincronizacion') ? 1 : 0,
+            'created' => Carbon::now()->format('Y-m-d'), 
             //'created_by'=> agregar usuarioid
         ]);
 

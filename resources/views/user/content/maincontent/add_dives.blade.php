@@ -34,10 +34,14 @@
                       </div>
                       <div class="col-md-2">
                           <br>
-                          <div class="mb-3 form-check" style="padding-top: 18%;">
-                              <input type="checkbox" class="form-check-input" id="exampleCheck1" name="sincronizacion">
-                              <label class="form-check-label" for="exampleCheck1">¿Es sincronizado?</label>
-                          </div>
+                          <input
+                              type="checkbox"
+                              value="1"
+                              class="form-check-input"
+                              id="exampleCheck1"
+                              name="sincronizacion"
+                              {{ isset($registro) && $registro?->sincronizacion ? 'checked' : '' }}>
+                          <label class="form-check-label" for="exampleCheck1">¿Es sincronizado?</label>
                       </div>
                       <div class="col-md-2">
                           <br><br>
@@ -86,7 +90,7 @@
               </form>
           </div>
           <div class="d-md-none">
-            <!--VISTA MOVIL-->
+              <!--VISTA MOVIL-->
           </div>
       </div>
   </div>

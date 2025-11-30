@@ -23,7 +23,8 @@ class clavado extends Model
         'modified_by',
         'deleted',
         'deleted_by',
-        'active'
+        'active',
+        'sincronizacion'
     ];
     
     public function clavadista()

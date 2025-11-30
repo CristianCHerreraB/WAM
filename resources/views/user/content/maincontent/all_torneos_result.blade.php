@@ -13,7 +13,6 @@
   </div>
   <div class="card-body">
     <div class="row">
-
       <!-- Competencias -->
       <div class="col-md-12">
         @if(!empty($clavados))
@@ -23,7 +22,7 @@
             <li class="list-group-item list">
               <div class="d-flex flex-column flex-md-row w-100">
                 <span class="me-2">
-                  <strong>Evento:</strong> {{$item->evento}}
+                  <strong>Evento @if($item->sincronizacion==1) Sinc. @endif:</strong> {{$item->evento}} 
                 </span>
                 <span class="me-2">
                   <strong> Total de rondas:</strong> {{$item->total_rondas}}

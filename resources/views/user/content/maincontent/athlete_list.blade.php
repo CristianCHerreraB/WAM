@@ -18,13 +18,13 @@
         <!-- Versión desktop -->
         <!--<div class="d-none d-md-block">-->
         <div class="d-none d-md-block">
-         @include('partials.list_dive_results', compact('athlete', 'ejecuciones'))
+         @include('partials.list_dive_results', compact('athlete', 'ejecuciones','clavado'))
 
         </div>
       </div>
       <!-- Versión móvil -->
       <div class="d-md-none">
-        @include('partials.list_dive_results', compact('athlete', 'ejecuciones'))
+        @include('partials.list_dive_results', compact('athlete', 'ejecuciones','clavado'))
 
       </div>
     </div>
