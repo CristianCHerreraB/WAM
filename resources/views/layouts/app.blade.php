@@ -352,7 +352,7 @@
       <div class="col-md-4">
         <a class="nav-link  d-lg-block" href="{{ route('dashboard') }}">
           <i class="fas fa-trophy me-2"></i>
-          <span id="text-ranking">Ranking (0)</span>
+          <span class="text-ranking" id="text-ranking3">Ranking (0)</span>
         </a>
       </div>
       <div class="col-md-4">
@@ -369,7 +369,7 @@
       <ul class="navbar-nav me-auto ms-auto">
         <li class="nav-item">
           <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
-            <i class="fas fa-trophy me-2"></i> <span id="text-ranking">Ranking (0)</span>
+            <i class="fas fa-trophy me-2"></i> <span class="text-ranking" id="text-ranking1">Ranking (0)</span>
           </a>
         </li>
       </ul>
@@ -391,6 +391,11 @@
     </div>
 
     <nav class="sidebar-nav">
+      <div class="nav-item">
+        <a class="nav-link " href="{{ route('dashboard') }}">
+          <i class="fas fa-trophy me-2"></i> <span class="text-ranking" id="text-ranking2">Ranking (0)</span>
+        </a>
+      </div>
       <div class="nav-item">
         <a class="nav-link " href="{{ route('dashboard') }}">
           <i class="fas fa-home"></i> Inicio
@@ -550,7 +555,7 @@
         type: 'GET',
         success: function(data) {
           let num = parseInt(data.resultado.ranking, 10);
-          $('#text-ranking').text('Ranking(' + parseInt(num, 10) + ')');
+          $('.text-ranking').text('Ranking(' + parseInt(num, 10) + ')');
         },
         error: function(xhr, status, error) {
           console.error('Error:', error);
