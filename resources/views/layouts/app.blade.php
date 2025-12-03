@@ -368,25 +368,25 @@
         <!-- Logo 1 -->
         <div class="col-4 col-md-5 d-flex justify-content-center">
           <a class="navbar-brand m-0" href="{{ route('dashboard') }}">
-            <img src="{{ asset('images/AquaticsMex_white.png') }}" alt="Logo 1" height="60" class="img-fluid d-inline-block align-top">
+            <img src="{{ asset('images/Acuatics-MX.png') }}" alt="Logo 1" height="60" class="img-fluid d-inline-block align-top">
           </a>
         </div>
 
         <!-- Logo 2 -->
         <div class="col-4 col-md-5 d-flex justify-content-center">
           <a class="navbar-brand m-0" href="{{ route('dashboard') }}">
-            <img src="{{ asset('images/World_AquaticsSF.png') }}" alt="Logo 2" height="70" class="img-fluid d-inline-block align-top">
+            <img src="{{ asset('images/WA-Blanco.png') }}" alt="Logo 2" height="70" class="img-fluid d-inline-block align-top">
           </a>
         </div>
       </div>
     </div>
 
-    <!-- Versión escritorio (modificada) -->
+    <!-- Versión escritorio -->
     <div class="container-fluid d-none d-lg-flex align-items-center justify-content-between">
       <!-- Logo izquierdo -->
       <div class="d-flex align-items-center">
         <a class="navbar-brand m-0" href="{{ route('dashboard') }}">
-          <img src="{{ asset('images/AquaticsMex_white.png') }}" alt="Logo 1" height="60" class="d-inline-block align-top">
+          <img src="{{ asset('images/Acuatics-MX.png') }}" alt="Logo 1" height="60" class="d-inline-block align-top">
         </a>
       </div>
 
@@ -405,7 +405,7 @@
       <!-- Logo derecho -->
       <div class="d-flex align-items-center">
         <a class="navbar-brand m-0" href="{{ route('dashboard') }}">
-          <img src="{{ asset('images/World_AquaticsSF.png') }}" alt="Logo 2" height="70" class="d-inline-block align-top">
+          <img src="{{ asset('images/WA-Blanco.png') }}" alt="Logo 2" height="70" class="d-inline-block align-top">
         </a>        
       </div>
     </div>
