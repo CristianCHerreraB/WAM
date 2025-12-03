@@ -9,7 +9,7 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  
+
 
 
   <style>
@@ -254,7 +254,7 @@
     .logo-container {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
     /* Mobile Search */
@@ -304,7 +304,7 @@
 
       .logo-container {
         flex-direction: column;
-        gap: 5px;
+        gap: 10px;
       }
 
       .navbar-brand img {
@@ -337,48 +337,78 @@
     span#text-ranking {
       font-size: calc(var(--bs-gutter-x) * .5);
     }
+
+    /* Agrega esto al final de tu sección CSS */
+    @media (min-width: 992px) {
+      .top-navbar .container-fluid.d-none.d-lg-flex {
+        padding: 0 1rem;
+        width: 100%;
+      }
+
+      .top-navbar .flex-grow-1 {
+        flex-grow: 1;
+      }
+    }
   </style>
 </head>
 
 <body>
   <!-- Top Navigation -->
-  <nav class="navbar navbar-expand-lg top-navbar">
-    <div class=" container center d-lg-none d-flex align-items-center justify-content-between">
-      <div class="col-md-4">
-        <button class="navbar-toggler" type="button" id="sidebarToggle">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      </div>
-      <div class="col-md-4">
-        <a class="nav-link  d-lg-block" href="{{ route('dashboard') }}">
-          <i class="fas fa-trophy me-2"></i>
-          <span class="text-ranking" id="text-ranking3">Ranking (0)</span>
-        </a>
-      </div>
-      <div class="col-md-4">
-        <a class="navbar-brand" href="{{ route('dashboard') }}">
-          <div class="logo-container">
-            <img src="{{ asset('images/AQUATICS_MEX.jpeg') }}"
-              alt="Logo 2" height="70" class="d-inline-block align-top">
-          </div>
-        </a>
-      </div>
-    </div>
+  <nav class="navbar navbar-expand-lg top-navbar w-100">
+    <!-- Versión móvil (se mantiene igual) -->
+    <div class="container-fluid center d-lg-none d-flex align-items-center justify-content-between ">
+      <div class="row align-items-center py-2 w-100">
+        <!-- Botón hamburguesa -->
+        <div class="col-4 col-md-2 d-flex justify-content-start">
+          <button class="navbar-toggler" type="button" id="sidebarToggle">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
 
-    <div class="collapse navbar-collapse">
-      <ul class="navbar-nav me-auto ms-auto">
-        <li class="nav-item">
-          <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
-            <i class="fas fa-trophy me-2"></i> <span class="text-ranking" id="text-ranking1">Ranking (0)</span>
+        <!-- Logo 1 -->
+        <div class="col-4 col-md-5 d-flex justify-content-center">
+          <a class="navbar-brand m-0" href="{{ route('dashboard') }}">
+            <img src="{{ asset('images/AquaticsMex_white.png') }}" alt="Logo 1" height="60" class="img-fluid d-inline-block align-top">
           </a>
-        </li>
-      </ul>
+        </div>
 
-      <button class="btn btn-outline-light ms-2 d-none d-lg-block" id="refreshButton">
-        <i class="fas fa-sync-alt"></i> Actualizar
-      </button>
+        <!-- Logo 2 -->
+        <div class="col-4 col-md-5 d-flex justify-content-center">
+          <a class="navbar-brand m-0" href="{{ route('dashboard') }}">
+            <img src="{{ asset('images/World_AquaticsSF.png') }}" alt="Logo 2" height="70" class="img-fluid d-inline-block align-top">
+          </a>
+        </div>
+      </div>
     </div>
 
+    <!-- Versión escritorio (modificada) -->
+    <div class="container-fluid d-none d-lg-flex align-items-center justify-content-between">
+      <!-- Logo izquierdo -->
+      <div class="d-flex align-items-center">
+        <a class="navbar-brand m-0" href="{{ route('dashboard') }}">
+          <img src="{{ asset('images/AquaticsMex_white.png') }}" alt="Logo 1" height="60" class="d-inline-block align-top">
+        </a>
+      </div>
+
+      <!-- Centro: Ranking y otros elementos -->
+      <div class="d-flex align-items-center justify-content-center flex-grow-1">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
+              <i class="fas fa-trophy me-2"></i> <span class="text-ranking" id="text-ranking1">Ranking (0)</span>
+            </a>
+          </li>
+          <!-- Aquí puedes agregar más elementos centrados si lo deseas -->
+        </ul>
+      </div>
+
+      <!-- Logo derecho -->
+      <div class="d-flex align-items-center">
+        <a class="navbar-brand m-0" href="{{ route('dashboard') }}">
+          <img src="{{ asset('images/World_AquaticsSF.png') }}" alt="Logo 2" height="70" class="d-inline-block align-top">
+        </a>        
+      </div>
+    </div>
   </nav>
 
   <!-- Sidebar Overlay -->
@@ -386,9 +416,7 @@
 
   <!-- Sidebar Navigation -->
   <div class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-      <h5>Navegación principal</h5>
-    </div>
+
 
     <nav class="sidebar-nav">
       <div class="nav-item">
@@ -502,6 +530,7 @@
     @yield('content')
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
     // Configurar menú móvil
@@ -538,15 +567,15 @@
       });
     });
   </script>
-  
+
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  
+
 
   <script>
     // Configurar menú móvil
-   
+
 
 
     $(document).ready(function() {
