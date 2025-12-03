@@ -587,7 +587,7 @@
                         </div>
                         <div class="logo-bottom-right">
                             <div class="logo-section">
-                                <img src="{{ asset('images/World_Aquatics.jpeg') }}" alt="Logo Play Judge" class="logo-img">
+                                <img src="{{ asset('images/World_AquaticsSF.png') }}" alt="Logo Play Judge" class="logo-img">
                             </div>
                         </div>
                     </div>
