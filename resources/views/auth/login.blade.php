@@ -71,14 +71,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            max-width: 1200px;
             width: 100%;
-            gap: 40px;
+            max-width: 1200px;
         }
 
         /* -------- Logo -------- */
         .logo-section {
-            flex: 1;
             text-align: center;
             display: flex;
             flex-direction: column;
@@ -89,29 +87,12 @@
         .logo-img {
             max-width: 100%;
             height: auto;
-            max-height: 250px;
-        }
-
-        .logo-title {
-            color: var(--secondary-color);
-            font-size: 1.8rem;
-            font-weight: bold;
-            margin-top: 15px;
-        }
-
-        .logo-subtitle {
-            color: var(--text-color);
-            font-size: 1rem;
-            line-height: 1.5;
-            margin-top: 10px;
-            text-align: center;
+            object-fit: contain;
         }
 
         /* -------- Formulario de Login -------- */
         .login-section {
-            flex: 1;
             max-width: 400px;
-            min-width: 350px;
         }
 
         .login-box {
@@ -306,66 +287,151 @@
             margin-top: 0.25rem;
         }
 
-        /* -------- Recordarme -------- */
-        .remember-me {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
+        /* -------- DISEÑO PARA WEB -------- */
+        /* En web: Logo izquierda, formulario centro, logos derecha (arriba y abajo) */
+        @media (min-width: 993px) {
+            .content-wrapper {
+                display: grid;
+                grid-template-columns: 1fr auto 1fr;
+                align-items: center;
+                gap: 40px;
+                width: 100%;
+            }
+
+            /* Columna izquierda: Logo Play Judge */
+            .logo-left {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+            }
+
+            /* Columna centro: Formulario */
+            .login-center {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            /* Columna derecha: Dos logos verticales */
+            .logo-right {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 40px;
+                height: 100%;
+            }
+
+            .logo-right-top {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+            }
+
+            .logo-right-bottom {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+            }
+
+            .logo-img {
+                max-height: 150px;
+                /* Estilo predeterminado para otros logos en web */
+                width: auto;
+            }
+
+            .logo-left-large .logo-img {
+                max-height: 300px;
+                /* Tamaño más grande para el logo 'PlayJudge.png' de la izquierda */
+            }
+
+            /* Ocultar elementos que no se usan en web */
+            .logo-top-mobile,
+            .logo-bottom-mobile {
+                display: none;
+            }
         }
 
-        .remember-me input {
-            margin-right: 8px;
-        }
-
-        /* -------- Nuevos estilos para logos -------- */
-        .logos-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            margin-bottom: 20px;
-        }
-
-        .logo-top {
-            flex: 1;
-            text-align: center;
-        }
-
-        .logo-bottom {
-            flex: 1;
-            text-align: center;
-        }
-
-        /* -------- Responsive -------- */
+        /* -------- DISEÑO PARA CELULAR -------- */
         @media (max-width: 992px) {
             .content-wrapper {
                 flex-direction: column;
                 gap: 30px;
+                max-width: 400px;
+                margin: 0 auto;
             }
 
-            .logo-section {
-                order: 1;
+            /* Ocultar elementos de web */
+            .logo-left,
+            .logo-right {
+                display: none;
             }
 
-            .login-section {
-                order: 2;
-                max-width: 100%;
-                min-width: auto;
+            /* Mostrar elementos de mobile */
+            .logo-top-mobile,
+            .logo-bottom-mobile {
+                display: flex;
+                width: 100%;
             }
 
-            .logo-title {
-                font-size: 1.5rem;
+            /* Logo arriba del formulario */
+            .logo-top-mobile {
+                justify-content: center;
+                margin-bottom: 20px;
             }
 
-            .logos-container {
-                flex-direction: column;
+            /* Logo abajo del formulario - dos logos horizontal */
+            .logo-bottom-mobile {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                margin-top: 30px;
                 gap: 20px;
+            }
+
+            .logo-bottom-left,
+            .logo-bottom-right {
+                flex: 1;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .logo-img {
+                max-height: 120px;
+                width: auto;
+            }
+
+            .login-box {
+                padding: 20px;
             }
         }
 
+        /* Estilos específicos para pantallas muy pequeñas */
         @media (max-width: 576px) {
-            .login-box {
+            .main-content {
                 padding: 20px 15px;
+            }
+
+            .logo-img {
+                max-height: 120px;
+            }
+
+            .logo-bottom-mobile {
+                gap: 15px;
+                margin-top: 20px;
+            }
+
+            .login-box {
+                padding: 15px;
+            }
+
+            .login-title {
+                font-size: 1.3rem;
+                margin-bottom: 20px;
             }
 
             .carousel-container {
@@ -375,34 +441,25 @@
             .carousel-img {
                 height: 150px;
             }
+        }
 
-            .logo-img {
-                max-width: 120px;
-            }
-
+        /* Ajustes del footer en responsive */
+        @media (max-width: 576px) {
             .footer {
-                padding: 20px 0;
+                padding: 15px 0;
             }
 
             .footer-logo-img {
                 max-width: 150px;
             }
-        }
 
-        /* Estilos para la distribución de logos en PC */
-        .logo-left,
-        .logo-right {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
+            .footer h5 {
+                font-size: 16px;
+            }
 
-        .login-center {
-            flex: 1;
-            display: flex;
-            justify-content: center;
+            .footer p {
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
@@ -453,16 +510,25 @@
     <!-- Contenido Principal -->
     <div class="main-content">
         <div class="content-wrapper">
-            <!-- Logo superior -->
-            <div class="logo-top">
-                <div class="logo-section">
-                    <img src="{{ asset('images/AQUATICS_MEX.png') }}" alt="Logo AQUATICS MEX" class="logo-img">
+            <!-- DISEÑO WEB: Logo izquierda (solo en web) -->
+            <div class="logo-left">
+                <div class="logo-left-large">
+                    <img src="{{ asset('images/PlayJudgeSF.png') }}" alt="Logo Play Judge" class="logo-img">
                 </div>
             </div>
 
-            <!-- Formulario de Login (centro) -->
+            <!-- DISEÑO WEB & MOBILE: Formulario centro -->
             <div class="login-center">
                 <div class="login-section">
+
+                    <!-- DISEÑO MOBILE: Logo arriba (solo en mobile) -->
+                    <div class="logo-top-mobile">
+                        <div class="logo-section">
+                            <img src="{{ asset('images/PlayJudgeSF.png') }}" alt="Logo Play Judge" class="logo-img">
+                        </div>
+                    </div>
+
+                    <!-- Formulario (compartido) -->
                     <div class="login-box">
                         <h2 class="login-title">Iniciar Sesión</h2>
 
@@ -495,7 +561,7 @@
                             <!-- Botón de inicio de sesión -->
                             <div class="d-grid mb-3">
                                 <button type="submit" class="btn-natacion-primario">
-                                    {{ __('Ingresar') }}
+                                    Ingresar
                                 </button>
                             </div>
 
@@ -511,13 +577,34 @@
                             <a href="{{ route('register') }}" class="btn btn-secondary-custom" id="createAccount">Crear una cuenta</a>
                         </form>
                     </div>
+
+                    <!-- DISEÑO MOBILE: Logos abajo (solo en mobile) -->
+                    <div class="logo-bottom-mobile">
+                        <div class="logo-bottom-left">
+                            <div class="logo-section">
+                                <img src="{{ asset('images/AQUATICS_MEX.png') }}" alt="Logo AQUATICS MEX" class="logo-img">
+                            </div>
+                        </div>
+                        <div class="logo-bottom-right">
+                            <div class="logo-section">
+                                <img src="{{ asset('images/World_Aquatics.jpeg') }}" alt="Logo Play Judge" class="logo-img">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Logo inferior -->
-            <div class="logo-bottom">
-                <div class="logo-section">
-                    <img src="{{ asset('images/PlayJudge.png') }}" alt="Logo Play Judge" class="logo-img">
+            <!-- DISEÑO WEB: Logos derecha (arriba y abajo, solo en web) -->
+            <div class="logo-right">
+                <div class="logo-right-top">
+                    <div class="logo-section">
+                        <img src="{{ asset('images/AQUATICS_MEX.png') }}" alt="Logo AQUATICS MEX" class="logo-img">
+                    </div>
+                </div>
+                <div class="logo-right-bottom">
+                    <div class="logo-section">
+                        <img src="{{ asset('images/World_Aquatics.jpeg') }}" alt="Logo Play Judge" class="logo-img">
+                    </div>
                 </div>
             </div>
         </div>
@@ -525,7 +612,7 @@
 
     <!-- Modal para recuperar contraseña -->
     <div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-labelledby="resetPasswordModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="resetPasswordModalLabel">Recuperar Contraseña</h5>
