@@ -470,16 +470,16 @@
         <div class="carousel-inner">
             <!-- Imagen 1: Entrenamiento de natación -->
             <div class="carousel-item active">
-                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="d-block w-100 carousel-img" alt="Entrenamiento de natación">
+                <img src="../images/banner.jpg" class="d-block w-100 carousel-img" alt="Entrenamiento de natación">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Mejora tu técnica</h5>
                     <p>Programas de entrenamiento personalizados para todos los niveles</p>
-                </div>
+                </div> 
             </div>
 
             <!-- Imagen 2: Competición -->
             <div class="carousel-item">
-                <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="d-block w-100 carousel-img" alt="Competición de natación">
+                <img src="../images/banner.jpg" class="d-block w-100 carousel-img" alt="Competición de natación">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Próximos eventos</h5>
                     <p>Participa en nuestras competiciones internacionales</p>
@@ -488,7 +488,7 @@
 
             <!-- Imagen 3: Equipamiento -->
             <div class="carousel-item">
-                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="d-block w-100 carousel-img" alt="Equipamiento de natación">
+                <img src="../images/banner.jpg" class="d-block w-100 carousel-img" alt="Equipamiento de natación">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Tienda oficial</h5>
                     <p>Encuentra el mejor equipamiento para tu práctica</p>

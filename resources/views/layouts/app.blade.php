@@ -348,6 +348,11 @@
       .top-navbar .flex-grow-1 {
         flex-grow: 1;
       }
+
+      .carousel-item img {
+        object-fit: cover;
+        height: 400px;
+      }
     }
   </style>
 </head>
@@ -406,7 +411,7 @@
       <div class="d-flex align-items-center">
         <a class="navbar-brand m-0" href="{{ route('dashboard') }}">
           <img src="{{ asset('images/WA-Blanco.png') }}" alt="Logo 2" height="70" class="d-inline-block align-top">
-        </a>        
+        </a>
       </div>
     </div>
   </nav>
@@ -488,32 +493,32 @@
 
   <!-- Main Content -->
   <div class="main-content" id="mainContent">
-    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel" style="max-height: 300px; overflow: hidden;">
       <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
         <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
         <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
       </div>
       <div class="carousel-inner">
-        <div class="carousel-item active" data-bs-interval="9000">
-          <img src="../images/banner_sale.png" class="d-block w-100" alt="...">
+        <div class="carousel-item active" data-bs-interval="2000">
+          <img src="../images/banner.jpg" class="d-block w-100" alt="...">
           <div class="carousel-caption d-none d-md-block">
-            <h5>First slide label</h5>
-            <p>Some representative placeholder content for the first slide.</p>
+            <h5></h5>
+            <p> </p>
           </div>
         </div>
         <div class="carousel-item" data-bs-interval="2000">
-          <img src="../images/banner_sale.png" class="d-block w-100" alt="...">
+          <img src="../images/banner.jpg" class="d-block w-100" alt="...">
           <div class="carousel-caption d-none d-md-block">
-            <h5>Second slide label</h5>
-            <p>Some representative placeholder content for the second slide.</p>
+            <h5></h5>
+            <p> </p>
           </div>
         </div>
         <div class="carousel-item">
-          <img src="../images/banner_sale.png" class="d-block w-100" alt="...">
+          <img src="../images/banner.jpg" class="d-block w-100" alt="...">
           <div class="carousel-caption d-none d-md-block">
-            <h5>Third slide label</h5>
-            <p>Some representative placeholder content for the third slide.</p>
+            <h5></h5>
+            <p> </p>
           </div>
         </div>
       </div>
