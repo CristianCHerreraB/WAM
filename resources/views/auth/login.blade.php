@@ -474,7 +474,7 @@
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Mejora tu técnica</h5>
                     <p>Programas de entrenamiento personalizados para todos los niveles</p>
-                </div> 
+                </div>
             </div>
 
             <!-- Imagen 2: Competición -->
@@ -656,8 +656,8 @@
                 <div class="col-md-6">
                     <h5>México</h5>
                     <p>
-                        Tel: +52 56 3353 4370<br>
-                        Correo: emmanuel@servilogx.mx
+                        Tel: <a href="tel:+525633534370">+52 56 3353 4370</a><br>
+                        Correo: <a href="mailto:emmanuel@servilogx.mx">emmanuel@servilogx.mx</a>
                     </p>
                 </div>
 
