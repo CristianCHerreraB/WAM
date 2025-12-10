@@ -350,7 +350,7 @@
       }
 
       .carousel-item img {
-        object-fit: cover;
+        object-fit:fill;
         height: 400px;
       }
     }
@@ -508,14 +508,14 @@
           </div>
         </div>
         <div class="carousel-item" data-bs-interval="2000">
-          <img src="../images/banner.jpg" class="d-block w-100" alt="...">
+          <img src="../images/banner2.jpg" class="d-block w-100" alt="...">
           <div class="carousel-caption d-none d-md-block">
             <h5></h5>
             <p> </p>
           </div>
         </div>
         <div class="carousel-item">
-          <img src="../images/banner.jpg" class="d-block w-100" alt="...">
+          <img src="../images/banner3.jpg" class="d-block w-100" alt="...">
           <div class="carousel-caption d-none d-md-block">
             <h5></h5>
             <p> </p>
