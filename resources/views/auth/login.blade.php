@@ -479,7 +479,7 @@
 
             <!-- Imagen 2: Competición -->
             <div class="carousel-item">
-                <img src="../images/banner.jpg" class="d-block w-100 carousel-img" alt="Competición de natación">
+                <img src="../images/banner2.jpg" class="d-block w-100 carousel-img" alt="Competición de natación">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Próximos eventos</h5>
                     <p>Participa en nuestras competiciones internacionales</p>
@@ -488,7 +488,7 @@
 
             <!-- Imagen 3: Equipamiento -->
             <div class="carousel-item">
-                <img src="../images/banner.jpg" class="d-block w-100 carousel-img" alt="Equipamiento de natación">
+                <img src="../images/banner3.jpg" class="d-block w-100 carousel-img" alt="Equipamiento de natación">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Tienda oficial</h5>
                     <p>Encuentra el mejor equipamiento para tu práctica</p>
