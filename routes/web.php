@@ -69,6 +69,7 @@ Route::get('/userManagment', [PageController::class, 'userManagment'])->name('us
 
 
 Route::get('/ranking', [cal_participante::class, 'Ranking'])->name('Ranking');
+Route::get('/rankingReport', [cal_participante::class, 'RankingReport'])->name('RankingReport');
 
 require __DIR__.'/auth.php';
 require __DIR__ . '/rutas_cristian.php';   
