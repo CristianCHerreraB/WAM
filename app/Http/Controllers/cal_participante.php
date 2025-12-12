@@ -78,4 +78,34 @@ class cal_participante extends Controller
             'resultado' =>  $data
         ]);
     }
+
+    public function RankingReport()
+    {
+        $userId = null;
+        if (Auth::user()) {
+            $userId = Auth::user()->id_usuario;
+        } else {
+            return redirect()->route('login');
+        }
+
+        $RankingReport = $ranking = DB::table('ejecucion')
+            ->leftJoin('cal_juez', 'cal_juez.id_ejecucion', '=', 'ejecucion.id_ejecucion')
+            ->leftJoin('cal_participante', 'cal_participante.id_ejecucion', '=', 'ejecucion.id_ejecucion')
+            ->leftJoin('usuarios', 'usuarios.id_usuario', '=', 'cal_participante.id_usuario')
+            ->whereRaw('ROUND(CAST(cal_participante.calificacion AS DECIMAL(10,2)) * 3 * ejecucion.dificultad, 2) = cal_juez.divepoints')
+            ->groupBy('cal_participante.id_usuario', 'usuarios.nombre','usuarios.apellido_p','usuarios.apellido_m')
+            ->selectRaw('
+        cal_participante.id_usuario,
+        usuarios.nombre,usuarios.apellido_p,usuarios.apellido_m,
+        SUM(CAST(cal_participante.calificacion AS DECIMAL(10,2))) AS total_calificacion,
+        DENSE_RANK() OVER (
+            ORDER BY SUM(CAST(cal_participante.calificacion AS DECIMAL(10,2))) DESC
+        ) AS ranking
+    ')
+            ->orderByDesc('total_calificacion')
+            ->get();
+
+        //return $RankingReport;
+        return view('user.content.maincontent.report_ranking', compact('RankingReport'));
+    }
 }
