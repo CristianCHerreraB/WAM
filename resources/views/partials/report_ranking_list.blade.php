@@ -66,17 +66,22 @@
 
 
 <div class="table-responsive">
-    <div>
-        <h7></h7>
+    <div class="row">
+        <div class="col col-md-2">#</div>
+        <div class="col col-md-3">Nombre</div>
+        <div class="col col-md-3">Total</div>
+        <div class="col col-md-4"></div>
     </div>
     @foreach($RankingReport as $item)
     <div class="accordion" id="accordionList">
         <div class="accordion-item">
-            <h2 class="accordion-header">
-                <span  class="accordion-button">
-                   {{$item->ranking}}  {{$item->nombre}}  {{$item->apellido_p}}  
-                </span>
-            </h2>
+            <div class="row accordion-button">
+                <div class="col col-md-2">{{$item->ranking}}</div>
+                <div class="col col-md-3">{{$item->nombre}} {{$item->apellido_p}}</div>
+                <div class="col col-md-3">{{$item->total_calificacion}}</div>
+                <div class="col col-md-4"></div>
+            </div>
+
         </div>
     </div>
 
